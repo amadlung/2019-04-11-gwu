@@ -9,7 +9,7 @@ We are very excited to have you here and hope that we can get through a lot of m
 
 This workshop runs under a [Code of Conduct](code_of_conduct.html). Please respect it and be excellent to each other!
 
-Twitter hash tag: #DCUNR 
+Twitter hash tag: #DCGWU2019
 
 Notes from the course: 
 
