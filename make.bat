@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=.
 set BUILDDIR=_build
-set SPHINXPROJ=snakemake2019
+set SPHINXPROJ=2019-04-11-gwu
 
 if "%1" == "" goto help
 

@@ -23,7 +23,7 @@ import guzzle_sphinx_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'snakemake2019'
+project = '2019-04-11-gwu'
 copyright = '2019, Sateesh Peri'
 author = 'Sateesh Peri'
 
@@ -107,7 +107,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'snakemake2019'
+htmlhelp_basename = '2019-04-11-gwu'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -134,7 +134,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'snakemake2019.tex', 'snakemake2019 Documentation',
+    (master_doc, '2019-04-11-gwu.tex', '2019-04-11-gwu Documentation',
      'Sateesh Peri', 'manual'),
 ]
 
@@ -144,7 +144,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'snakemake2019', 'snakemake2019 Documentation',
+    (master_doc, '2019-04-11-gwu', '2019-04-11-gwu Documentation',
      [author], 1)
 ]
 
@@ -155,8 +155,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'snakemake2019', 'snakemake2019 Documentation',
-     author, 'snakemake2019', 'One line description of project.',
+    (master_doc, '2019-04-11-gwu', '2019-04-11-gwu Documentation',
+     author, '2019-04-11-gwu', 'One line description of project.',
      'Miscellaneous'),
 ]
 

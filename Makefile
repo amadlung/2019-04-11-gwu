@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = snakemake2019
+SPHINXPROJ    = 2019-04-11-gwu
 SOURCEDIR     = .
 BUILDDIR      = _build
 
