@@ -14,14 +14,3 @@ Twitter hash tag: #DCGWU2019
 Notes from the course: 
 
 [Hackmd.io]
-
-## Instructors
-
-
-## Schedule in brief
-
-**Day-1**
-
-
-
-**Day-2**
