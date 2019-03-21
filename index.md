@@ -1,8 +1,6 @@
 Data Carpentry Genomics Workshop at George Washington University
 ===
 
-### 2019-04-11-gwu
-
 This website contains materials for the [Data Carpentry Genomics Workshop at George Washington University](https://sateeshperi.github.io/2019-04-11-gwu/) two-day course (9:00 am-5:00pm), to be held held 11-12th April, 2019.
 
 We are very excited to have you here and hope that we can get through a lot of material by the end of the workshop.
@@ -11,17 +9,16 @@ This workshop runs under a [Code of Conduct](code_of_conduct.html). Please respe
 
 Twitter hash tag: #DCGWU2019
 
-Notes from the course: 
+Notepad for the workshop : Click [here](https://hackmd.io/nPo6cXDOSye5I0tOqeF3Jg#)
 
-[Hackmd.io]
+# Instructors
 
-## Instructors
+* [Niel Infante]()
 
+* [Sateesh Peri](https://sateeshperi.github.io/)
 
 ## Schedule in brief
 
 **Day-1**
-
-
 
 **Day-2**
