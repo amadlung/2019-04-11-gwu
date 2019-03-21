@@ -55,9 +55,9 @@
 3. Introduction to BASH command line
 4. Bioconda & Environment Management
 5. Data wrangling & Processing (variant workflow)
- - Assessing Read Quality
- - Trimming and Filtering
- - Variant Calling Workflow
+  - Assessing Read Quality
+  - Trimming and Filtering
+  - Variant Calling Workflow
 6.  Building Reproducible Workflows
 
 > Notepad for the workshop : Click [here](https://hackmd.io/nPo6cXDOSye5I0tOqeF3Jg#)
