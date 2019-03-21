@@ -9,11 +9,10 @@
 
 **WHEN:** April 11-12, 2019 (9:00 AM - 5:00 PM)
 
-**WHERE:** .Get directions with [OpenStreetMap]() or [Google Maps]().
+**WHERE:** Gelman Library, 2130 H St NW, Room 301/302, Washington, DC 20052 . Get directions with [OpenStreetMap](https://osm.org/go/ZZcbJto48?way=66409261) or [Google Maps](https://goo.gl/maps/vZdYWxLsZwQ2).
 
 **TARGET AUDIENCE:** The target audience is students (both undergraduate and graduate), who have little to no prior computational experience. Post-docs and Faculty are welcome to apply too.
-
- > The instructors will prioritize creating a friendly environment that will empower researchers and enable data-driven discovery. Even those with some experience will benefit, as the goal is to teach not only how to do analyses, but how to manage the process to make it as automated and reproducible as possible.
+> The instructors will prioritize creating a friendly environment that will empower researchers and enable data-driven discovery. Even those with some experience will benefit, as the goal is to teach not only how to do analyses, but how to manage the process to make it as automated and reproducible as possible.
 
 **Learning objectives for this workshop:**
 + Accessing Cloud Computing Resources
@@ -21,12 +20,11 @@
 + Environment management using Conda & bioconda
 + Building Reproducible Workflows
 
-**HOW TO APPLY:** eventbrite link
+**HOW TO APPLY:** Click on this [**link**](https://www.eventbrite.com/e/george-washington-university-data-carpentry-workshop-tickets-58597869806) to register for the workshop.
 
 **REQUIREMENTS:**
-- Laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) that they have administrative privileges on.
+- Laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) and administrative privileges.
   > No prior-software installation required. Windows users can install mobaxterm for a UNIX terminal.
-
 - For this workshop we will be using CyVerse Atmosphere cloud. Click **Here** to create a free account prior to the workshop.
 
 **CODE OF CONDUCT:**
@@ -35,7 +33,7 @@
 
 **ACCESSIBILITY:** We are committed to making this workshop accessible to everybody. The workshop organizers have checked that:
   + The room is wheelchair / scooter accessible.
-  +  Accessible restrooms are available.
+  +  Accessible & Gender-Neutral restrooms are available.
 
 > Materials will be provided in advance of the workshop and large-print handouts are available if needed by notifying the organizers in advance. If we can help making learning easier for you (e.g. sign-language interpreters, lactation facilities) please get in touch (using contact details below) and we will attempt to provide them.
 
