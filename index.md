@@ -38,11 +38,11 @@
 **CONTACT:** Please email .edu for more information.
 
 **INSTRUCTORS**
-* [Niel Infante]()
-* [Sateesh Peri](https://sateeshperi.github.io/)
+* [Niel Infante](https://twitter.com/Niel_Infante)
+* [Sateesh Peri](https://twitter.com/perisateesh)
 
   **HELPERS**
-  * [Adam Wong]()
+  * Adam Wong
 
 
 **SCHEDULE**
