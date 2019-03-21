@@ -20,6 +20,7 @@
 + Environment management using Conda & bioconda
 + Building Reproducible Workflows
 
+
 **HOW TO APPLY:** Click on this [**link**](https://www.eventbrite.com/e/george-washington-university-data-carpentry-workshop-tickets-58597869806) to register for the workshop.
 
 **REQUIREMENTS:**
@@ -69,5 +70,7 @@ Please be sure to complete these surveys before and after the workshop.
 - Pre-workshop Survey:
 
 - Post-workshop Survey:
+
+---
 
 ![](/img/carpentries_logo.png)
