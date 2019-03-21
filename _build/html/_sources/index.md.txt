@@ -1,7 +1,7 @@
-Data Carpentry Genomics Workshop at George Washington University
+**Data Carpentry Genomics Workshop at George Washington University**
 ===
 
-![](/img/DC_logo_vision.png)
+![](/img/DC_logo.png)
 
 [**Data Carpentry**](https://datacarpentry.org/) (part of [The Carpentries](https://carpentries.org/)) develops and teaches workshops on the fundamental data skills needed to conduct research. Its target audience is researchers who have little to no prior computational experience, and its lessons are domain specific, building on learners' existing knowledge to enable them to quickly apply skills learned to their own research. Participants will be encouraged to help one another and to apply what they have learned to their own research problems. For more information on what we teach and why, please see our paper "[Good Enough Practices for Scientific Computing](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)".
 
@@ -25,6 +25,10 @@ Data Carpentry Genomics Workshop at George Washington University
 
 - For this workshop we will be using CyVerse Atmosphere cloud. Click **Here** to create a free account prior to the workshop.
 
+**CODE OF CONDUCT:**
+- The workshop follows a code of conduct, which can be found [here]().
+> *tl;dr:* Be Nice and Respect each other !
+
 **ACCESSIBILITY:** We are committed to making this workshop accessible to everybody. The workshop organizers have checked that:
   + The room is wheelchair / scooter accessible.
   +  Accessible restrooms are available.
@@ -33,15 +37,15 @@ Data Carpentry Genomics Workshop at George Washington University
 
 **CONTACT:** Please email .edu for more information.
 
-**Instructors**
+**INSTRUCTORS**
 * [Niel Infante]()
 * [Sateesh Peri](https://sateeshperi.github.io/)
 
-**TA/Helpers**
-* [Adam Wong]()
+  **HELPERS**
+  * [Adam Wong]()
 
 
-# Schedule
+**SCHEDULE**
 
 **Day-1** / **Day-2**
 1. Introductions & Workshop Overview
@@ -56,9 +60,12 @@ Data Carpentry Genomics Workshop at George Washington University
 
 > Notepad for the workshop : Click [here](https://hackmd.io/nPo6cXDOSye5I0tOqeF3Jg#)
 
-# Surveys
+**SURVEYS**
+
 Please be sure to complete these surveys before and after the workshop.
 
-Pre-workshop Survey:
+- Pre-workshop Survey:
 
-Post-workshop Survey:
+- Post-workshop Survey:
+
+![](/img/carpentries_logo.png)
