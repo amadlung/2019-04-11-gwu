@@ -1,24 +1,64 @@
 Data Carpentry Genomics Workshop at George Washington University
 ===
 
-This website contains materials for the [Data Carpentry Genomics Workshop at George Washington University](https://sateeshperi.github.io/2019-04-11-gwu/) two-day course (9:00 am-5:00pm), to be held held 11-12th April, 2019.
+![](/img/DC_logo_vision.png)
 
-We are very excited to have you here and hope that we can get through a lot of material by the end of the workshop.
+[**Data Carpentry**](https://datacarpentry.org/) (part of [The Carpentries](https://carpentries.org/)) develops and teaches workshops on the fundamental data skills needed to conduct research. Its target audience is researchers who have little to no prior computational experience, and its lessons are domain specific, building on learners' existing knowledge to enable them to quickly apply skills learned to their own research. Participants will be encouraged to help one another and to apply what they have learned to their own research problems. For more information on what we teach and why, please see our paper "[Good Enough Practices for Scientific Computing](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005510)".
 
-This workshop runs under a [Code of Conduct](code_of_conduct.html). Please respect it and be excellent to each other!
+**WHEN:** April 11-12, 2019 (9:00 AM - 5:00 PM)
 
-Twitter hash tag: #DCGWU2019
+**WHERE:** .Get directions with [OpenStreetMap]() or [Google Maps]().
 
-Notepad for the workshop : Click [here](https://hackmd.io/nPo6cXDOSye5I0tOqeF3Jg#)
+**TARGET AUDIENCE:** The target audience is students (both undergraduate and graduate) who have little to no prior computational experience. The instructors will prioritize creating a friendly environment that will empower researchers and enable data-driven discovery. Even those with some experience will benefit, as the goal is to teach not only how to do analyses, but how to manage the process to make it as automated and reproducible as possible.
 
-# Instructors
+**Learning objectives for this workshop:**
++ Accessing Cloud Computing Resources
++ UNIX command line
++ Environment management using Conda & bioconda
++ Building Reproducible Workflows
 
+**HOW TO APPLY:** eventbrite link
+
+**REQUIREMENTS:**
+- Laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) that they have administrative privileges on.
+  > No prior-software installation required. Windows users can install mobaxterm for a UNIX terminal.
+
+- For this workshop we will be using CyVerse Atmosphere cloud. Click **Here** to create a free account prior to the workshop.
+
+**ACCESSIBILITY:** We are committed to making this workshop accessible to everybody. The workshop organizers have checked that:
+  + The room is wheelchair / scooter accessible.
+  +  Accessible restrooms are available.
+
+> Materials will be provided in advance of the workshop and large-print handouts are available if needed by notifying the organizers in advance. If we can help making learning easier for you (e.g. sign-language interpreters, lactation facilities) please get in touch (using contact details below) and we will attempt to provide them.
+
+**CONTACT:** Please email .edu for more information.
+
+**Instructors**
 * [Niel Infante]()
-
 * [Sateesh Peri](https://sateeshperi.github.io/)
 
-## Schedule in brief
+**TA/Helpers**
+* [Adam Wong]()
 
-**Day-1**
 
-**Day-2**
+# Schedule
+
+**Day-1** / **Day-2**
+1. Introductions & Workshop Overview
+2. Atmosphere Cloud Tutorial
+3. Introduction to BASH command line
+4. Bioconda & Environment Management
+5. Data wrangling & Processing (variant workflow)
+ - Assessing Read Quality
+ - Trimming and Filtering
+ - Variant Calling Workflow
+6.  Building Reproducible Workflows
+
+> Notepad for the workshop : Click [here](https://hackmd.io/nPo6cXDOSye5I0tOqeF3Jg#)
+
+# Surveys
+Please be sure to complete these surveys before and after the workshop.
+
+Pre-workshop Survey:
+
+Post-workshop Survey:
