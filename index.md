@@ -26,7 +26,7 @@
 **REQUIREMENTS:**
 - Laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) and administrative privileges.
   > No prior-software installation required. Windows users can install mobaxterm for a UNIX terminal.
-- For this workshop we will be using CyVerse Atmosphere cloud. Click **Here** to create a free account prior to the workshop.
+- For this workshop we will be using CyVerse Atmosphere cloud. Click [**Here**](https://user.cyverse.org/register) to create a free account prior to the workshop.
 
 **CODE OF CONDUCT:**
 - The workshop follows a code of conduct, which can be found [here]().
