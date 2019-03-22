@@ -3,5 +3,3 @@
    :numbered:
 
    index.md
-
-   README.md
