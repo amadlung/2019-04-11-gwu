@@ -26,7 +26,7 @@
 
 - Register for a free account on CyVerse [**Here**](https://user.cyverse.org/register)
 
-- Complete [Pre-Workshop survey]. *We use this to calibrate the pace of the workshop and, together with a post-workshop survey, to assess how it went.*
+- Complete [Pre-Workshop survey](https://www.surveymonkey.com/r/dcpreworkshopassessment?workshop_id=2019-04-11-gwu). *We use this to calibrate the pace of the workshop and, together with a post-workshop survey, to assess how it went.*
 
 **CODE OF CONDUCT:**
 - The workshop follows a code of conduct, which can be found [here](). (*tl;dr:* Be Nice and Respect each other.)
@@ -65,9 +65,9 @@
 
 Please click on the links below to complete the surveys before and after the workshop.
 
-- Click [here] to answer the Pre-Workshop survey.
+- Click [here](https://www.surveymonkey.com/r/dcpreworkshopassessment?workshop_id=2019-04-11-gwu) to answer the Pre-Workshop survey.
 
-- Click [here] to answer the Post-Workshop survey.
+- Click [here](https://www.surveymonkey.com/r/dcpostworkshopassessment?workshop_id=2019-04-11-gwu) to answer the Post-Workshop survey.
 
 ---
 
