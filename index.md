@@ -49,15 +49,26 @@
 
 **SCHEDULE**
 
-1. Introductions & Workshop Overview
-2. Atmosphere Cloud Tutorial
-3. Introduction to BASH command line
-4. Bioconda & Environment Management
-5. Data wrangling & Processing (variant workflow)
-  - Assessing Read Quality
-  - Trimming and Filtering
-  - Variant Calling Workflow
-6.  Building Reproducible Workflows
+**Day-1**
+- 09:00-09:45am : Introduction and Genomics Workshop Overview
+- 09:45-10:30am : Introduction to CyVerse Atmosphere Cloud
+- 10:30-10:45am : Coffee/Tea break
+- 10:45-12:00pm : BASH - Command Line for Genomics
+- 12:00-1:00pm  : Lunch Break
+- 01:00-2:30pm  : BASH - continued & Bioconda
+- 02:30-3:00pm  : Coffee/Tea Break
+- 03:00-4:00pm  : Overview of Genomics Analysis Pipelines & Project Organization
+- 04:00-5:00pm  : Assessing Read Quality
+
+**Day-2**
+- 09:00-09:45am : Trimming and Filtering
+- 09:45-10:30am : Variant Calling Workflow
+- 10:30-10:45am : Coffee/Tea break
+- 10:45-12:00pm : Building Reproducible Workflows
+- 12:00-01:00pm : Lunch Break
+- 01:00-04:00pm : Workflows-continued
+- 02:30-03:00pm : Coffee/Tea Break
+- 04:00-05:00pm : Discussion & End of workshop
 
 > Notepad for the workshop : Click [here](https://hackmd.io/nPo6cXDOSye5I0tOqeF3Jg#)
 
