@@ -53,15 +53,15 @@
 
 09:00-09:45am : Introduction and Genomics Workshop Overview
 
-09:45-10:30am : Introduction to CyVerse Atmosphere Cloud
+09:45-10:30am : [Introduction to CyVerse Atmosphere Cloud](https://gwu-omics2019.readthedocs.io/en/latest/atmosphere_cloud.html)
 
 10:30-10:45am : Coffee/Tea break
 
-10:45-12:00pm : BASH - Command Line for Genomics
+10:45-12:00pm : [BASH - Command Line for Genomics](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson.html)
 
 12:00-1:00pm  : Lunch Break
 
-01:00-2:30pm  : BASH - continued & Bioconda
+01:00-2:30pm  : BASH - continued & [Bioconda](https://gwu-omics2019.readthedocs.io/en/latest/bioconda_lesson.html)
 
 02:30-3:00pm  : Coffee/Tea Break
 
