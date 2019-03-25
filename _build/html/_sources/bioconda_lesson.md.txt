@@ -1,9 +1,10 @@
-# Working with Bioconda.
+Working with Bioconda.
+===
 
-Learning objectives:
+**Learning objectives:**
 * learn what bioconda is
 * understand basic `conda` commands
-* learn how to list installed software packages 
+* learn how to list installed software packages
 * learn how to manage multiple installation environments
 
 ## What is bioconda?
@@ -92,8 +93,7 @@ will install those packages in your local environment.
 
 ### Constructing and using multiple environments
 
-A feature that we do not use much here, but that can be very
-handy in some circumstances, is different environments.
+A feature that we do not use much here, but that can be very handy in some circumstances, is different environments.
 
 "Environments" are multiple different collections of installed software. There are two reasons you might want to do this:
 
@@ -135,13 +135,12 @@ and you'll be back in the original environment.
 
 ### Meditations on reproducibility and provenance
 
-If you want to impress reviewers and also keep track of
-what your software versions are, you can:
+If you want to impress reviewers and also keep track of what your software versions are, you can:
 
 * manage all your software inside of conda
 * use `conda list --export software.txt` to create a list of all your software and put it in your supplementary material.
 
-This is also something that you can record for yourself, so that if you are trying to exactly reproduce 
+This is also something that you can record for yourself, so that if you are trying to exactly reproduce
 
 ### Using it on your own compute system (laptop or HPC)
 
@@ -149,8 +148,7 @@ conda works on Windows, Mac, and Linux.
 
 bioconda works on Mac and Linux.
 
-It does not require admin privileges to install, so you can
-install it on your own local cluster quite easily.
+It does not require admin privileges to install, so you can install it on your own local cluster quite easily.
 
 ## Rstudio - Getting started
 

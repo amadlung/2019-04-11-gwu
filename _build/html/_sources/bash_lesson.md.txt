@@ -1,4 +1,4 @@
-Using the command line
+Using the Command Line
 ===
 
 ## Goals
@@ -151,7 +151,7 @@ Try using it to go into the Desktop folder.
 campus-009-192:~ eoziolor$ cd Desktop/
 campus-009-192:Desktop eoziolor$ pwd
 /Users/eoziolor/Desktop
-campus-009-192:Desktop eoziolor$ 
+campus-009-192:Desktop eoziolor$
 ```
 
 Now in order to get out of a directory you can type __cd__ followed by two periods. That will put you back in the directory behind yours.
@@ -160,7 +160,7 @@ Now in order to get out of a directory you can type __cd__ followed by two perio
 campus-009-192:Desktop eoziolor$ cd ..
 campus-009-192:~ eoziolor$ pwd
 /Users/eoziolor
-campus-009-192:~ eoziolor$ 
+campus-009-192:~ eoziolor$
 ```
 
 Let's say you wanted to move between further away directories, you could just append the same commands following each other.
@@ -172,7 +172,7 @@ campus-009-192:UCD eoziolor$ pwd
 campus-009-192:UCD eoziolor$ cd ../../
 campus-009-192:~ eoziolor$ pwd
 /Users/eoziolor
-campus-009-192:~ eoziolor$ 
+campus-009-192:~ eoziolor$
 ```
 
 ### Viewing hidden files
@@ -192,7 +192,7 @@ campus-009-192:~ eoziolor$ ls -a
 .bash_profile			.ssh				Movies				power
 .bash_sessions			.subversion			Music				training
 .conda				.swp				Pictures
-.cups				.viminfo	
+.cups				.viminfo
 ```
 
 ### Absolute vs. Relative paths
@@ -268,7 +268,7 @@ Desktop				Music				document.txt			popgen_class
 Documents			Pictures			fgfh_post			power
 Downloads			Public				jobs				setac_private_key
 GIGAIII_bioinformatics_workshop	angus_private_key		learn_python			training
-campus-030-034:~ eoziolor$ 
+campus-030-034:~ eoziolor$
 ```
 
 #### Choose a text editor
@@ -315,7 +315,7 @@ Disadvantages of __cat__:
 Let's start by using __cat__ here:
 
 ```
-cat document.txt 
+cat document.txt
 
 hello
 everyone
@@ -402,7 +402,7 @@ AAATATGTCAAAATCAACTGGGATAACATACAAGAATATTATTATAAAAACTTCAAAAAAATGGACACAGACAATCTCAC
 CCCATATGACTACTCCTCTGTGATGCAATATGGAAAAACTGCCTTTGGAAAGAACAGGGCAGAATCCATCACTCCTATCC
 ```
 
-This becomes very useful for example if you have a comma separated value document and want to turn it into a tab separated value document. In that case you can use the command: 
+This becomes very useful for example if you have a comma separated value document and want to turn it into a tab separated value document. In that case you can use the command:
 
 ```{bash}
 tr "," "\t"
