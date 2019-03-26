@@ -7,3 +7,7 @@
    introduction.md
 
    atmosphere_cloud.md
+
+   bash_lesson.md
+
+   bioconda_lesson.md
