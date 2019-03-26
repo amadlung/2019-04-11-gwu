@@ -51,41 +51,41 @@
 
 **Day-1**
 
-09:00-09:45am : Introduction and Genomics Workshop Overview
+09:30-10:15am : Introduction and Genomics Workshop Overview
 
-09:45-10:30am : [Introduction to CyVerse Atmosphere Cloud](https://gwu-omics2019.readthedocs.io/en/latest/atmosphere_cloud.html)
+10:15-11:00am : [Introduction to CyVerse Atmosphere Cloud](https://gwu-omics2019.readthedocs.io/en/latest/atmosphere_cloud.html)
 
-10:30-10:45am : Coffee/Tea break
+11:00-11:15am : Coffee/Tea break
 
-10:45-12:00pm : [BASH - Command Line for Genomics](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson.html)
+11:15-12:30pm : [BASH - Command Line for Genomics](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson.html)
 
-12:00-1:00pm  : Lunch Break
+12:30-1:30pm  : Lunch Break
 
-01:00-2:30pm  : BASH - continued & [Bioconda](https://gwu-omics2019.readthedocs.io/en/latest/bioconda_lesson.html)
+01:30-3:00pm  : BASH - continued & [Bioconda](https://gwu-omics2019.readthedocs.io/en/latest/bioconda_lesson.html)
 
-02:30-3:00pm  : Coffee/Tea Break
+03:00-3:30pm  : Coffee/Tea Break
 
-03:00-4:00pm  : Overview of Genomics Analysis Pipelines & Project Organization
+03:30-4:30pm  : Overview of Genomics Analysis Pipelines & Project Organization
 
-04:00-5:00pm  : Assessing Read Quality
+04:30-5:30pm  : Assessing Read Quality
 
 **Day-2**
 
-09:00-09:45am : Trimming and Filtering
+09:30-10:15am : Trimming and Filtering
 
-09:45-10:30am : Variant Calling Workflow
+10:15-11:00am : Variant Calling Workflow
 
-10:30-10:45am : Coffee/Tea break
+11:00-11:15am : Coffee/Tea break
 
-10:45-12:00pm : Building Reproducible Workflows
+11:15-12:30pm : Building Reproducible Workflows
 
-12:00-01:00pm : Lunch Break
+12:30-01:30pm : Lunch Break
 
-01:00-04:00pm : Workflows-continued
+01:30-04:30pm : Workflows-continued
 
 02:30-03:00pm : Coffee/Tea Break
 
-04:00-05:00pm : Discussion & End of workshop
+04:30-05:30pm : Discussion & End of workshop
 
 > Notepad for the workshop : Click [here](https://hackmd.io/nPo6cXDOSye5I0tOqeF3Jg#)
 
