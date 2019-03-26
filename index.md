@@ -3,7 +3,7 @@
 # **Data Carpentry Genomics Workshop - George Washington University**
 
 ---
-**WHEN:** **April 11-12, 2019 (9:00 AM - 5:00 PM)**
+**WHEN:** **April 11-12, 2019 (9:30 AM - 5:30 PM)**
 
 **WHERE:** **Gelman Library, 2130 H St NW, Room 301/302, Washington, DC 20052** . Get directions with [OpenStreetMap](https://osm.org/go/ZZcbJto48?way=66409261) or [Google Maps](https://goo.gl/maps/vZdYWxLsZwQ2).
 
