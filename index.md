@@ -45,6 +45,8 @@
 
   **HELPERS**
   * Adam Wong
+  * Keylie Gibson
+  * Rebecca Clement
 
 
 **SCHEDULE**
