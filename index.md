@@ -44,9 +44,9 @@
 * [Sateesh Peri](https://twitter.com/perisateesh)
 
   **HELPERS**
-  * Adam Wong
-  * Keylie Gibson
-  * Rebecca Clement
+  * [Adam Wong](aklwong@gwu.edu)
+  * [Keylie Gibson](kmgibson@gwmail.gwu.edu)
+  * [Rebecca Clement](rebeccaclement@gwmail.gwu.edu)
 
 
 **SCHEDULE**
@@ -63,7 +63,7 @@
 
 12:30-1:30pm  : Lunch Break
 
-01:30-3:00pm  : [BASH - continued](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson_2.html) & [Bioconda](https://gwu-omics2019.readthedocs.io/en/latest/bioconda_lesson.html)
+01:30-3:00pm  : [BASH - Continued](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson_2.html) & [Bioconda](https://gwu-omics2019.readthedocs.io/en/latest/bioconda_lesson.html)
 
 03:00-3:30pm  : Coffee/Tea Break
 
