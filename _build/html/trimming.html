@@ -1,0 +1,433 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>17. Trimming and Filtering &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="19. Variant Calling Workflow" href="variant_calling.html" />
+    <link rel="prev" title="12. Assessing Read Quality" href="quality_control.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="variant_calling.html" title="19. Variant Calling Workflow"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="quality_control.html" title="12. Assessing Read Quality"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">17. Trimming and Filtering</a></li>
+<li><a class="reference internal" href="#cleaning-reads">18. Cleaning Reads</a><ul>
+<li><a class="reference internal" href="#trimmomatic-options">18.1. Trimmomatic Options</a></li>
+<li><a class="reference internal" href="#running-trimmomatic">18.2. Running Trimmomatic</a></li>
+<li><a class="reference internal" href="#exercise">18.3. Exercise</a></li>
+<li><a class="reference internal" href="#solution">18.4. Solution</a></li>
+<li><a class="reference internal" href="#id1">18.5. Exercise</a></li>
+<li><a class="reference internal" href="#id2">18.6. Solution</a></li>
+<li><a class="reference internal" href="#bonus-exercise-advanced">18.7. Bonus Exercise (Advanced)</a></li>
+<li><a class="reference internal" href="#id3">18.8. Solution</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="quality_control.html"
+                        title="previous chapter">12. Assessing Read Quality</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="variant_calling.html"
+                        title="next chapter">19. Variant Calling Workflow</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/trimming.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="toc.html">Docs</a></li>
+              
+              <li>17. Trimming and Filtering</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="trimming-and-filtering">
+<h1>17. Trimming and Filtering<a class="headerlink" href="#trimming-and-filtering" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Objectives:</p>
+<ul class="simple">
+<li>“Clean FASTQ reads using Trimmommatic.”</li>
+<li>“Select and set multiple options for command-line bioinformatics tools.”</li>
+<li>“Write <code class="docutils literal notranslate"><span class="pre">for</span></code> loops with two variables.”</li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><p>Keypoints:</p>
+<ul class="simple">
+<li>“The options you set for the command-line tools you use are important!”</li>
+<li>“Data cleaning is an essential step in a genomics workflow.”</li>
+</ul>
+</div></blockquote>
+</div>
+<hr class="docutils" />
+<div class="section" id="cleaning-reads">
+<h1>18. Cleaning Reads<a class="headerlink" href="#cleaning-reads" title="Permalink to this headline">¶</a></h1>
+<p>In the previous episode, we took a high-level look at the quality
+of each of our samples using FastQC. We vizualized per-base quality
+graphs showing the distribution of read quality at each base across
+all reads in a sample and extracted information about which samples
+fail which quality checks. Some of our samples failed quite a few quality metrics used by FastQC. This doesn’t mean,
+though, that our samples should be thrown out! It’s very common to have some quality metrics fail, and this may or may not be a problem for your downstream application. For our variant callig workflow, we will be removing some of the low quality sequences to reduce our false positive rate due to sequencing error.</p>
+<p>We will use a program called
+<a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a> to
+filter poor quality reads and trim poor quality bases from our samples.</p>
+<div class="section" id="trimmomatic-options">
+<h2>18.1. Trimmomatic Options<a class="headerlink" href="#trimmomatic-options" title="Permalink to this headline">¶</a></h2>
+<p>Trimmomatic has a variety of options to trim your reads. If we run the command, we can see some of our options.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ trimmomatic
+</pre></div>
+</div>
+<p>Which will give you the following output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Usage</span><span class="p">:</span>
+       <span class="n">PE</span> <span class="p">[</span><span class="o">-</span><span class="n">version</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">threads</span> <span class="o">&lt;</span><span class="n">threads</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">phred33</span><span class="o">|-</span><span class="n">phred64</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">trimlog</span> <span class="o">&lt;</span><span class="n">trimLogFile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">summary</span> <span class="o">&lt;</span><span class="n">statsSummaryFile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">quiet</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">validatePairs</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">basein</span> <span class="o">&lt;</span><span class="n">inputBase</span><span class="o">&gt;</span> <span class="o">|</span> <span class="o">&lt;</span><span class="n">inputFile1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">inputFile2</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">baseout</span> <span class="o">&lt;</span><span class="n">outputBase</span><span class="o">&gt;</span> <span class="o">|</span> <span class="o">&lt;</span><span class="n">outputFile1P</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile1U</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile2P</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile2U</span><span class="o">&gt;</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">trimmer1</span><span class="o">&gt;...</span>
+   <span class="ow">or</span><span class="p">:</span>
+       <span class="n">SE</span> <span class="p">[</span><span class="o">-</span><span class="n">version</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">threads</span> <span class="o">&lt;</span><span class="n">threads</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">phred33</span><span class="o">|-</span><span class="n">phred64</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">trimlog</span> <span class="o">&lt;</span><span class="n">trimLogFile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">summary</span> <span class="o">&lt;</span><span class="n">statsSummaryFile</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">quiet</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">inputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">outputFile</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">trimmer1</span><span class="o">&gt;...</span>
+   <span class="ow">or</span><span class="p">:</span>
+       <span class="o">-</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>This output shows us that we must first specify whether we have paired end (<code class="docutils literal notranslate"><span class="pre">PE</span></code>) or single end (<code class="docutils literal notranslate"><span class="pre">SE</span></code>) reads.
+Next, we specify what flag we would like to run. For example, you can specify <code class="docutils literal notranslate"><span class="pre">threads</span></code> to indicate the number
+processors on your computer that you want Trimmomatic to use. These flags are not necessary, but they can give
+you more control over the command. The flags are followed by positional arguments, meaning the order in which you
+specify them is important. In paired end mode, Trimmomatic expects the two input files, and then the names of the
+output files. These files are described below.</p>
+<p>| option    | meaning |
+| ——- | ———- |
+|  <inputFile1>  | Input reads to be trimmed. Typically the file name will contain an <code class="docutils literal notranslate"><span class="pre">_1</span></code> or <code class="docutils literal notranslate"><span class="pre">_R1</span></code> in the name.|
+| <inputFile2> | Input reads to be trimmed. Typically the file name will contain an <code class="docutils literal notranslate"><span class="pre">_2</span></code> or <code class="docutils literal notranslate"><span class="pre">_R2</span></code> in the name.|
+|  <outputFile1P> | Output file that contains surviving pairs from the <code class="docutils literal notranslate"><span class="pre">_1</span></code> file. |
+|  <outputFile1U> | Output file that contains orphaned reads from the <code class="docutils literal notranslate"><span class="pre">_1</span></code> file. |
+|  <outputFile2P> | Output file that contains surviving pairs from the <code class="docutils literal notranslate"><span class="pre">_2</span></code> file.|
+|  <outputFile2U> | Output file that contains orphaned reads from the <code class="docutils literal notranslate"><span class="pre">_2</span></code> file.|</p>
+<p>The last thing trimmomatic expects to see is the trimming parameters:</p>
+<p>| step   | meaning |
+| ——- | ———- |
+| <code class="docutils literal notranslate"><span class="pre">ILLUMINACLIP</span></code> | Perform adapter removal |
+| <code class="docutils literal notranslate"><span class="pre">SLIDINGWINDOW</span></code> | Perform sliding window trimming, cutting once the average quality within the window falls below a threshold. |
+| <code class="docutils literal notranslate"><span class="pre">LEADING</span></code>  | Cut bases off the start of a read, if below a threshold quality.  |
+|  <code class="docutils literal notranslate"><span class="pre">TRAILING</span></code> |  Cut bases off the end of a read, if below a threshold quality. |
+| <code class="docutils literal notranslate"><span class="pre">CROP</span></code>  |  Cut the read to a specified length. |
+|  <code class="docutils literal notranslate"><span class="pre">HEADCROP</span></code> |  Cut the specified number of bases from the start of the read. |
+| <code class="docutils literal notranslate"><span class="pre">MINLEN</span></code>  |  Drop an entire read if it is below a specified length. |
+|  <code class="docutils literal notranslate"><span class="pre">TOPHRED33</span></code> | Convert quality scores to Phred-33.  |
+|  <code class="docutils literal notranslate"><span class="pre">TOPHRED64</span></code> |  Convert quality scores to Phred-64. |</p>
+<p>We will use only a few of these options and trimming steps in our
+analysis. It is important to understand the steps you are using to
+clean your data. For more information about the Trimmomatic arguments
+and options, see <a class="reference external" href="http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf">the Trimmomatic manual</a>.</p>
+<p>However, a complete command for Trimmomatic will look something like the command below. This command is an example and will not work as we do not have the files it refers to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ trimmomatic PE -threads 4 SRR_1056_1.fastq SRR_1056_2.fastq  \
+              SRR_1056_1.trimmed.fastq SRR_1056_1un.trimmed.fastq \
+              SRR_1056_2.trimmed.fastq SRR_1056_2un.trimmed.fastq \
+              ILLUMINACLIP:SRR_adapters.fa SLIDINGWINDOW:4:20
+</pre></div>
+</div>
+<p>In this example, we’ve told Trimmomatic:</p>
+<p>| <code class="docutils literal notranslate"><span class="pre">PE</span></code> | that it will be taking a single end file as input |
+| <code class="docutils literal notranslate"><span class="pre">-threads</span> <span class="pre">4</span></code> | to use four computing threads to run (this will spead up our run) |
+| <code class="docutils literal notranslate"><span class="pre">SRR_1056_1.fastq</span></code> | the first input file name |
+| <code class="docutils literal notranslate"><span class="pre">SRR_1056_2.fastq</span></code> | the second input file name |
+| <code class="docutils literal notranslate"><span class="pre">SRR_1056_1.trimmed.fastq</span></code> | the output file for surviving pairs from the <code class="docutils literal notranslate"><span class="pre">_1</span></code> file |
+| <code class="docutils literal notranslate"><span class="pre">SRR_1056_1un.trimmed.fastq</span></code> | the output file for orphaned reads from the <code class="docutils literal notranslate"><span class="pre">_1</span></code> file |
+| <code class="docutils literal notranslate"><span class="pre">SRR_1056_2.trimmed.fastq</span></code> | the output file for surviving pairs from the <code class="docutils literal notranslate"><span class="pre">_2</span></code> file |
+| <code class="docutils literal notranslate"><span class="pre">SRR_1056_2un.trimmed.fastq</span></code> | the output file for orphaned reads from the <code class="docutils literal notranslate"><span class="pre">_2</span></code> file |
+| <code class="docutils literal notranslate"><span class="pre">ILLUMINACLIP:SRR_adapters.fa</span></code>| to clip the Illumina adapters from the input file using the adapter sequences listed in <code class="docutils literal notranslate"><span class="pre">SRR_adapters.fa</span></code> |
+|<code class="docutils literal notranslate"><span class="pre">SLIDINGWINDOW:4:20</span></code> | to use a sliding window of size 4 that will remove bases if their phred score is below 20 |</p>
+</div>
+<div class="section" id="running-trimmomatic">
+<h2>18.2. Running Trimmomatic<a class="headerlink" href="#running-trimmomatic" title="Permalink to this headline">¶</a></h2>
+<p>Now we will run Trimmomatic on our data. To begin, navigate to your <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> data directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/data/untrimmed_fastq
+</pre></div>
+</div>
+<p>We are going to run Trimmomatic on one of our paired-end samples.
+We saw using FastQC that Nextera adapters were present in our samples.
+The adapter sequences came with the installation of trimmomatic, so we will first copy these sequences into our current directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cp ~/miniconda3/pkgs/trimmomatic-0.38-0/share/trimmomatic-0.38-0/adapters/NexteraPE-PE.fa .
+</pre></div>
+</div>
+<p>We will also use a sliding window of size 4 that will remove bases if their
+phred score is below 20 (like in our example above). We will also
+discard any reads that do not have at least 20 bases remaining after
+this trimming step. This command will take a few minutes to run.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ trimmomatic PE SRR2589044_1.fastq.gz SRR2589044_2.fastq.gz \
+                SRR2589044_1.trim.fastq.gz SRR2589044_1un.trim.fastq.gz \
+                SRR2589044_2.trim.fastq.gz SRR2589044_2un.trim.fastq.gz \
+                SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:NexteraPE-PE.fa:2:40:15
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TrimmomaticPE</span><span class="p">:</span> <span class="n">Started</span> <span class="k">with</span> <span class="n">arguments</span><span class="p">:</span>
+ <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span> <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span> <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span> <span class="n">SRR2589044_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span> <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span> <span class="n">SRR2589044_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span> <span class="n">SLIDINGWINDOW</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">20</span> <span class="n">MINLEN</span><span class="p">:</span><span class="mi">25</span> <span class="n">ILLUMINACLIP</span><span class="p">:</span><span class="n">NexteraPE</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">15</span>
+<span class="n">Multiple</span> <span class="n">cores</span> <span class="n">found</span><span class="p">:</span> <span class="n">Using</span> <span class="mi">2</span> <span class="n">threads</span>
+<span class="n">Using</span> <span class="n">PrefixPair</span><span class="p">:</span> <span class="s1">&#39;AGATGTGTATAAGAGACAG&#39;</span> <span class="ow">and</span> <span class="s1">&#39;AGATGTGTATAAGAGACAG&#39;</span>
+<span class="n">Using</span> <span class="n">Long</span> <span class="n">Clipping</span> <span class="n">Sequence</span><span class="p">:</span> <span class="s1">&#39;GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG&#39;</span>
+<span class="n">Using</span> <span class="n">Long</span> <span class="n">Clipping</span> <span class="n">Sequence</span><span class="p">:</span> <span class="s1">&#39;TCGTCGGCAGCGTCAGATGTGTATAAGAGACAG&#39;</span>
+<span class="n">Using</span> <span class="n">Long</span> <span class="n">Clipping</span> <span class="n">Sequence</span><span class="p">:</span> <span class="s1">&#39;CTGTCTCTTATACACATCTCCGAGCCCACGAGAC&#39;</span>
+<span class="n">Using</span> <span class="n">Long</span> <span class="n">Clipping</span> <span class="n">Sequence</span><span class="p">:</span> <span class="s1">&#39;CTGTCTCTTATACACATCTGACGCTGCCGACGA&#39;</span>
+<span class="n">ILLUMINACLIP</span><span class="p">:</span> <span class="n">Using</span> <span class="mi">1</span> <span class="n">prefix</span> <span class="n">pairs</span><span class="p">,</span> <span class="mi">4</span> <span class="n">forward</span><span class="o">/</span><span class="n">reverse</span> <span class="n">sequences</span><span class="p">,</span> <span class="mi">0</span> <span class="n">forward</span> <span class="n">only</span> <span class="n">sequences</span><span class="p">,</span> <span class="mi">0</span> <span class="n">reverse</span> <span class="n">only</span> <span class="n">sequences</span>
+<span class="n">Quality</span> <span class="n">encoding</span> <span class="n">detected</span> <span class="k">as</span> <span class="n">phred33</span>
+<span class="n">Input</span> <span class="n">Read</span> <span class="n">Pairs</span><span class="p">:</span> <span class="mi">1107090</span> <span class="n">Both</span> <span class="n">Surviving</span><span class="p">:</span> <span class="mi">885220</span> <span class="p">(</span><span class="mf">79.96</span><span class="o">%</span><span class="p">)</span> <span class="n">Forward</span> <span class="n">Only</span> <span class="n">Surviving</span><span class="p">:</span> <span class="mi">216472</span> <span class="p">(</span><span class="mf">19.55</span><span class="o">%</span><span class="p">)</span> <span class="n">Reverse</span> <span class="n">Only</span> <span class="n">Surviving</span><span class="p">:</span> <span class="mi">2850</span> <span class="p">(</span><span class="mf">0.26</span><span class="o">%</span><span class="p">)</span> <span class="n">Dropped</span><span class="p">:</span> <span class="mi">2548</span> <span class="p">(</span><span class="mf">0.23</span><span class="o">%</span><span class="p">)</span>
+<span class="n">TrimmomaticPE</span><span class="p">:</span> <span class="n">Completed</span> <span class="n">successfully</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exercise">
+<h2>18.3. Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h2>
+<p>Use the output from your Trimmomatic command to answer the
+following questions.</p>
+<ol class="simple">
+<li>What percent of reads did we discard from our sample?</li>
+<li>What percent of reads did we keep both pairs?</li>
+</ol>
+</div>
+<div class="section" id="solution">
+<h2>18.4. Solution<a class="headerlink" href="#solution" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>0.23%</li>
+<li>79.96%</li>
+</ol>
+</div>
+<div class="section" id="id1">
+<h2>18.5. Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>We trimmed our fastq files with Nextera adapters,
+but there are other adapters that are commonly used.
+What other adapter files came with Trimmomatic?</p>
+</div>
+<div class="section" id="id2">
+<h2>18.6. Solution<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls ~/miniconda3/pkgs/trimmomatic-0.38-0/share/trimmomatic-0.38-0/adapters/
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NexteraPE</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span>  <span class="n">TruSeq2</span><span class="o">-</span><span class="n">SE</span><span class="o">.</span><span class="n">fa</span>    <span class="n">TruSeq3</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span>
+<span class="n">TruSeq2</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span>    <span class="n">TruSeq3</span><span class="o">-</span><span class="n">PE</span><span class="o">-</span><span class="mf">2.</span><span class="n">fa</span>  <span class="n">TruSeq3</span><span class="o">-</span><span class="n">SE</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bonus-exercise-advanced">
+<h2>18.7. Bonus Exercise (Advanced)<a class="headerlink" href="#bonus-exercise-advanced" title="Permalink to this headline">¶</a></h2>
+<p>Now that we’ve quality controled our samples, they should perform
+better on the quality tests run by FastQC. Go ahead and re-run
+FastQC on your trimmed FASTQ files and visualize the HTML files
+to see whether your per base sequence quality is higher after
+trimming.</p>
+</div>
+<div class="section" id="id3">
+<h2>18.8. Solution<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>In your AWS terminal window do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ fastqc ~/dc_workshop/data/trimmed_fastq
+</pre></div>
+</div>
+<p>In a new tab in your terminal do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir ~/Desktop/fastqc_html/trimmed
+$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/trimmed_fastq/*.html ~/Desktop/fastqc_html/trimmed
+$ open ~/Desktop/fastqc_html/trimmed/*.html
+</pre></div>
+</div>
+<p>Remember to replace everything between the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and <code class="docutils literal notranslate"><span class="pre">:</span></code> in your scp
+command with your AWS instance number.</p>
+<p>After trimming and filtering, our overall quality is much higher,
+we have a distribution of sequence lengths, and more samples pass
+adapter content. However, quality trimming is not perfect, and some
+programs are better at removing some sequences than others. Because our
+sequences still contain 3’ adapters, it could be important to explore
+other trimming tools like <a class="reference external" href="http://cutadapt.readthedocs.io/en/stable/">cutadapt</a> to remove these, depending on your
+downstream application. Trimmomatic did pretty well though, and its performance
+is good enough for our workflow.</p>
+</div>
+</div>
+<p>You may have noticed that Trimmomatic automatically detected the
+quality encoding of our sample. It is always a good idea to
+double-check this or to enter the quality encoding manually.</p>
+<p>We can confirm that we have our output file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls SRR2589044*
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>       <span class="n">SRR2589044_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>         <span class="n">SRR2589044_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>The output file is also a FASTQ file. It should be smaller than our
+input file because we’ve removed reads. We can confirm this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls SRR2589044* -l -h
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">dcuser</span> <span class="n">dcuser</span> <span class="mi">124</span><span class="n">M</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">20</span><span class="p">:</span><span class="mi">22</span> <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">dcuser</span> <span class="n">dcuser</span>  <span class="mi">94</span><span class="n">M</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">22</span><span class="p">:</span><span class="mi">33</span> <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">dcuser</span> <span class="n">dcuser</span>  <span class="mi">18</span><span class="n">M</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">22</span><span class="p">:</span><span class="mi">33</span> <span class="n">SRR2589044_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">dcuser</span> <span class="n">dcuser</span> <span class="mi">128</span><span class="n">M</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">20</span><span class="p">:</span><span class="mi">24</span> <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">dcuser</span> <span class="n">dcuser</span>  <span class="mi">91</span><span class="n">M</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">22</span><span class="p">:</span><span class="mi">33</span> <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">dcuser</span> <span class="n">dcuser</span> <span class="mi">271</span><span class="n">K</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">22</span><span class="p">:</span><span class="mi">33</span> <span class="n">SRR2589044_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>We’ve just successfully run Trimmomatic on one of our FASTQ files!
+However, there is some bad news. Trimmomatic can only operate on
+one sample at a time and we have more than one sample. The good news
+is that we can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to iterate through our sample files
+quickly!</p>
+<p>We unzipped one of our files before to work with it, let’s compress it again before we run our for loop.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gzip</span> <span class="n">SRR2584863_1</span><span class="o">.</span><span class="n">fastq</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ for infile in *_1.fastq.gz
+&gt; do
+&gt;   base=$(basename ${infile} _1.fastq.gz)
+&gt;   trimmomatic PE ${infile} ${base}_2.fastq.gz \
+&gt;                ${base}_1.trim.fastq.gz ${base}_1un.trim.fastq.gz \
+&gt;                ${base}_2.trim.fastq.gz ${base}_2un.trim.fastq.gz \
+&gt;                SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:NexteraPE-PE.fa:2:40:15
+&gt; done
+</pre></div>
+</div>
+<p>Go ahead and run the for loop. It should take a few minutes for
+Trimmomatic to run for each of our six input files. Once it’s done
+running, take a look at your directory contents. You’ll notice that even though we ran Trimmomatic on file <code class="docutils literal notranslate"><span class="pre">SRR2589044</span></code> before running the for loop, there is only one set of files for it. Because of we matched the ending <code class="docutils literal notranslate"><span class="pre">_1.fastq.gz</span></code>, we re-ran Trimmomatic on this file, overwriting our first results. That’s ok, but it’s good to be aware that it happened.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NexteraPE</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span>               <span class="n">SRR2584866_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>         <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>         <span class="n">SRR2584866_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2589044_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2584866_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2584866_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>         <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>         <span class="n">SRR2584866_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2589044_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2584866_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+<p>We’ve now completed the trimming and filtering steps of our quality
+control process! Before we move on, let’s move our trimmed FASTQ files
+to a new subdirectory within our <code class="docutils literal notranslate"><span class="pre">data/</span></code> directory. We can also remove
+our extra, double-trimmed file for the <code class="docutils literal notranslate"><span class="pre">SRR098283</span></code> sample.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/data/untrimmed_fastq
+$ mkdir ../trimmed_fastq
+$ mv *.trim* ../trimmed_fastq
+$ cd ../trimmed_fastq
+$ ls
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SRR2584863_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2584866_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2584866_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2589044_1un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2584866_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>    <span class="n">SRR2589044_2</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">SRR2584863_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2584866_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2589044_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
+</pre></div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="quality_control.html" title="previous chapter (use the left arrow)">12. Assessing Read Quality</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="variant_calling.html" title="next chapter (use the right arrow)">19. Variant Calling Workflow</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="variant_calling.html" title="19. Variant Calling Workflow"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="quality_control.html" title="12. Assessing Read Quality"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, Sateesh Peri. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

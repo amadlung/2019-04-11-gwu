@@ -1,0 +1,607 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>19. Variant Calling Workflow &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="22. Advanced Topics" href="advanced_atmosphere.html" />
+    <link rel="prev" title="17. Trimming and Filtering" href="trimming.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="advanced_atmosphere.html" title="22. Advanced Topics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="trimming.html" title="17. Trimming and Filtering"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">19. Variant Calling Workflow</a></li>
+<li><a class="reference internal" href="#alignment-to-a-reference-genome">20. Alignment to a reference genome</a></li>
+<li><a class="reference internal" href="#setting-up">21. Setting up</a><ul>
+<li><a class="reference internal" href="#index-the-reference-genome">21.1. Index the reference genome</a></li>
+<li><a class="reference internal" href="#align-reads-to-reference-genome">21.2. Align reads to reference genome</a><ul>
+<li><a class="reference internal" href="#sam-bam-format">21.2.1. SAM/BAM format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sort-bam-file-by-coordinates">21.3. Sort BAM file by coordinates</a></li>
+<li><a class="reference internal" href="#variant-calling">21.4. Variant calling</a><ul>
+<li><a class="reference internal" href="#step-1-calculate-the-read-coverage-of-positions-in-the-genome">21.4.1. Step 1: Calculate the read coverage of positions in the genome</a></li>
+<li><a class="reference internal" href="#step-2-detect-the-single-nucleotide-polymorphisms-snps">21.4.2. Step 2: Detect the single nucleotide polymorphisms (SNPs)</a></li>
+<li><a class="reference internal" href="#step-3-filter-and-report-the-snp-variants-in-variant-calling-format-vcf">21.4.3. Step 3: Filter and report the SNP variants in variant calling format (VCF)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#explore-the-vcf-format">21.5. Explore the VCF format:</a></li>
+<li><a class="reference internal" href="#assess-the-alignment-visualization-optional-step">21.6. Assess the alignment (visualization) - optional step</a><ul>
+<li><a class="reference internal" href="#viewing-with-tview">21.6.1. Viewing with <code class="docutils literal notranslate"><span class="pre">tview</span></code></a></li>
+<li><a class="reference internal" href="#viewing-with-igv">21.6.2. Viewing with IGV</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#other-notes">21.7. Other Notes</a><ul>
+<li><a class="reference internal" href="#bwa-alignment-options">21.7.1. BWA Alignment options</a></li>
+<li><a class="reference internal" href="#multi-line-commands">21.7.2. Multi-line commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="trimming.html"
+                        title="previous chapter">17. Trimming and Filtering</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="advanced_atmosphere.html"
+                        title="next chapter">22. Advanced Topics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/variant_calling.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="toc.html">Docs</a></li>
+              
+              <li>19. Variant Calling Workflow</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="variant-calling-workflow">
+<h1>19. Variant Calling Workflow<a class="headerlink" href="#variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Objectives:</p>
+<ul class="simple">
+<li>“Understand the steps involved in variant calling.”</li>
+<li>“Describe the types of data formats encountered during variant calling.”</li>
+<li>“Use command line tools to perform variant calling.”</li>
+</ul>
+</div></blockquote>
+<blockquote>
+<div><p>Keypoints:</p>
+<ul class="simple">
+<li>“Bioinformatics command line tools are collections of commands that can be used to carry out bioinformatics analyses.”</li>
+<li>“To use most powerful bioinformatics tools, you’ll need to use the command line.”</li>
+<li>“There are many different file formats for storing genomics data. It’s important to understand what type of information is contained in each file, and how it was derived.”</li>
+</ul>
+</div></blockquote>
+<hr class="docutils" />
+<p>We mentioned before that we are working with files from a long-term evolution study of an <em>E. coli</em> population (designated Ara-3). Now that we have looked at our data to make sure that it is high quality, and removed low-quality base calls, we can perform variant calling to see how the population changed over time. We care how this population changed relative to the original population, <em>E. coli</em> strain REL606. Therefore, we will align each of our samples to the <em>E. coli</em> REL606 reference genome, and see what differences exist in our reads versus the genome.</p>
+</div>
+<div class="section" id="alignment-to-a-reference-genome">
+<h1>20. Alignment to a reference genome<a class="headerlink" href="#alignment-to-a-reference-genome" title="Permalink to this headline">¶</a></h1>
+<p><img alt="_images/variant_calling_workflow_align.png" src="_images/variant_calling_workflow_align.png" /></p>
+<p>We perform read alignment or mapping to determine where in the genome our reads originated from. There are a number of tools to
+choose from and, while there is no gold standard, there are some tools that are better suited for particular NGS analyses. We will be
+using the <a class="reference external" href="http://bio-bwa.sourceforge.net/">Burrows Wheeler Aligner (BWA)</a>, which is a software package for mapping low-divergent
+sequences against a large reference genome.</p>
+<p>The alignment process consists of two steps:</p>
+<ol class="simple">
+<li>Indexing the reference genome</li>
+<li>Aligning the reads to the reference genome</li>
+</ol>
+</div>
+<div class="section" id="setting-up">
+<h1>21. Setting up<a class="headerlink" href="#setting-up" title="Permalink to this headline">¶</a></h1>
+<p>First we download the reference genome for <em>E. coli</em> REL606. Although we could copy or move the file with <code class="docutils literal notranslate"><span class="pre">cp</span></code> or <code class="docutils literal notranslate"><span class="pre">mv</span></code>, most genomics workflows begin with a download step, so we will practice that here.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop
+$ mkdir -p data/ref_genome
+$ curl -L -o data/ref_genome/ecoli_rel606.fasta.gz ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/985/GCA_000017985.1_ASM1798v1/GCA_000017985.1_ASM1798v1_genomic.fna.gz
+$ gunzip data/ref_genome/ecoli_rel606.fasta.gz
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>Exercise</strong></p>
+<p>We saved this file as <code class="docutils literal notranslate"><span class="pre">data/ref_genome/ecoli_rel606.fasta.gz</span></code> and then decompressed it.
+What is the real name of the genome?</p>
+<blockquote>
+<div><p><em>Solution</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ head data/ref_genome/ecoli_rel606.fasta
+</pre></div>
+</div>
+<p>The name of the sequence follows the <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> character. The name is <code class="docutils literal notranslate"><span class="pre">CP000819.1</span> <span class="pre">Escherichia</span> <span class="pre">coli</span> <span class="pre">B</span> <span class="pre">str.</span> <span class="pre">REL606,</span> <span class="pre">complete</span> <span class="pre">genome</span></code>.
+Keep this chromosome name (<code class="docutils literal notranslate"><span class="pre">CP000819.1</span></code>) in mind, as we will use it later in the lesson.</p>
+</div></blockquote>
+</div></blockquote>
+<p>We will also download a set of trimmed FASTQ files to work with. These are small subsets of our real trimmed data,
+and will enable us to run our variant calling workflow quite quickly.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl -L -o sub.tar.gz https://ndownloader.figshare.com/files/14418248
+$ tar xvf sub.tar.gz
+$ mv sub/ ~/dc_workshop/data/trimmed_fastq_small
+</pre></div>
+</div>
+<p>You will also need to create directories for the results that will be generated as part of this workflow. We can do this in a single
+line of code because <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> can accept multiple new directory
+names as input.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p results/sam results/bam results/bcf results/vcf
+</pre></div>
+</div>
+<div class="section" id="index-the-reference-genome">
+<h2>21.1. Index the reference genome<a class="headerlink" href="#index-the-reference-genome" title="Permalink to this headline">¶</a></h2>
+<p>Our first step is to index the reference genome for use by BWA. Indexing allows the aligner to quickly find potential alignment sites for query sequences in a genome, which saves time during alignment. Indexing the reference only has to be run once. The only reason you would want to create a new index is if you are working with a different reference genome or you are using a different tool for alignment.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bwa index data/ref_genome/ecoli_rel606.fasta
+</pre></div>
+</div>
+<p>While the index is created, you will see output something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">bwa_index</span><span class="p">]</span> <span class="n">Pack</span> <span class="n">FASTA</span><span class="o">...</span> <span class="mf">0.04</span> <span class="n">sec</span>
+<span class="p">[</span><span class="n">bwa_index</span><span class="p">]</span> <span class="n">Construct</span> <span class="n">BWT</span> <span class="k">for</span> <span class="n">the</span> <span class="n">packed</span> <span class="n">sequence</span><span class="o">...</span>
+<span class="p">[</span><span class="n">bwa_index</span><span class="p">]</span> <span class="mf">1.05</span> <span class="n">seconds</span> <span class="n">elapse</span><span class="o">.</span>
+<span class="p">[</span><span class="n">bwa_index</span><span class="p">]</span> <span class="n">Update</span> <span class="n">BWT</span><span class="o">...</span> <span class="mf">0.03</span> <span class="n">sec</span>
+<span class="p">[</span><span class="n">bwa_index</span><span class="p">]</span> <span class="n">Pack</span> <span class="n">forward</span><span class="o">-</span><span class="n">only</span> <span class="n">FASTA</span><span class="o">...</span> <span class="mf">0.02</span> <span class="n">sec</span>
+<span class="p">[</span><span class="n">bwa_index</span><span class="p">]</span> <span class="n">Construct</span> <span class="n">SA</span> <span class="kn">from</span> <span class="nn">BWT</span> <span class="ow">and</span> <span class="n">Occ</span><span class="o">...</span> <span class="mf">0.57</span> <span class="n">sec</span>
+<span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">0.7</span><span class="o">.</span><span class="mi">17</span><span class="o">-</span><span class="n">r1188</span>
+<span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">CMD</span><span class="p">:</span> <span class="n">bwa</span> <span class="n">index</span> <span class="n">data</span><span class="o">/</span><span class="n">ref_genome</span><span class="o">/</span><span class="n">ecoli_rel606</span><span class="o">.</span><span class="n">fasta</span>
+<span class="p">[</span><span class="n">main</span><span class="p">]</span> <span class="n">Real</span> <span class="n">time</span><span class="p">:</span> <span class="mf">1.765</span> <span class="n">sec</span><span class="p">;</span> <span class="n">CPU</span><span class="p">:</span> <span class="mf">1.715</span> <span class="n">sec</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="align-reads-to-reference-genome">
+<h2>21.2. Align reads to reference genome<a class="headerlink" href="#align-reads-to-reference-genome" title="Permalink to this headline">¶</a></h2>
+<p>The alignment process consists of choosing an appropriate reference genome to map our reads against and then deciding on an aligner. We will use the BWA-MEM algorithm, which is the latest and is generally recommended for high-quality queries as it is faster and more accurate.</p>
+<p>An example of what a <code class="docutils literal notranslate"><span class="pre">bwa</span></code> command looks like is below. This command will not run, as we do not have the files <code class="docutils literal notranslate"><span class="pre">ref_genome.fa</span></code>, <code class="docutils literal notranslate"><span class="pre">input_file_R1.fastq</span></code>, or <code class="docutils literal notranslate"><span class="pre">input_file_R2.fastq</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bwa mem ref_genome.fasta input_file_R1.fastq input_file_R2.fastq &gt; output.sam
+</pre></div>
+</div>
+<p>Have a look at the <a class="reference external" href="http://bio-bwa.sourceforge.net/bwa.shtml">bwa options page</a>. While we are running bwa with the default parameters here, your use case might require a change of parameters. <em>NOTE: Always read the manual page for any tool before using and make sure the options you use are appropriate for your data.</em></p>
+<p>We’re going to start by aligning the reads from just one of the
+samples in our dataset (<code class="docutils literal notranslate"><span class="pre">SRR2584866</span></code>). Later, we’ll be
+iterating this whole process on all of our sample files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bwa mem data/ref_genome/ecoli_rel606.fasta data/trimmed_fastq_small/SRR2584866_1.trim.sub.fastq data/trimmed_fastq_small/SRR2584866_2.trim.sub.fastq &gt; results/sam/SRR2584866.aligned.sam
+</pre></div>
+</div>
+<p>You will see output that starts like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">bwa_idx_load_from_disk</span><span class="p">]</span> <span class="n">read</span> <span class="mi">0</span> <span class="n">ALT</span> <span class="n">contigs</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">process</span><span class="p">]</span> <span class="n">read</span> <span class="mi">77446</span> <span class="n">sequences</span> <span class="p">(</span><span class="mi">10000033</span> <span class="n">bp</span><span class="p">)</span><span class="o">...</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">process</span><span class="p">]</span> <span class="n">read</span> <span class="mi">77296</span> <span class="n">sequences</span> <span class="p">(</span><span class="mi">10000182</span> <span class="n">bp</span><span class="p">)</span><span class="o">...</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">mem_pestat</span><span class="p">]</span> <span class="c1"># candidate unique pairs for (FF, FR, RF, RR): (48, 36728, 21, 61)</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">mem_pestat</span><span class="p">]</span> <span class="n">analyzing</span> <span class="n">insert</span> <span class="n">size</span> <span class="n">distribution</span> <span class="k">for</span> <span class="n">orientation</span> <span class="n">FF</span><span class="o">...</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">mem_pestat</span><span class="p">]</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span> <span class="n">percentile</span><span class="p">:</span> <span class="p">(</span><span class="mi">420</span><span class="p">,</span> <span class="mi">660</span><span class="p">,</span> <span class="mi">1774</span><span class="p">)</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">mem_pestat</span><span class="p">]</span> <span class="n">low</span> <span class="ow">and</span> <span class="n">high</span> <span class="n">boundaries</span> <span class="k">for</span> <span class="n">computing</span> <span class="n">mean</span> <span class="ow">and</span> <span class="n">std</span><span class="o">.</span><span class="n">dev</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4482</span><span class="p">)</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">mem_pestat</span><span class="p">]</span> <span class="n">mean</span> <span class="ow">and</span> <span class="n">std</span><span class="o">.</span><span class="n">dev</span><span class="p">:</span> <span class="p">(</span><span class="mf">784.68</span><span class="p">,</span> <span class="mf">700.87</span><span class="p">)</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">mem_pestat</span><span class="p">]</span> <span class="n">low</span> <span class="ow">and</span> <span class="n">high</span> <span class="n">boundaries</span> <span class="k">for</span> <span class="n">proper</span> <span class="n">pairs</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5836</span><span class="p">)</span>
+<span class="p">[</span><span class="n">M</span><span class="p">::</span><span class="n">mem_pestat</span><span class="p">]</span> <span class="n">analyzing</span> <span class="n">insert</span> <span class="n">size</span> <span class="n">distribution</span> <span class="k">for</span> <span class="n">orientation</span> <span class="n">FR</span><span class="o">...</span>
+</pre></div>
+</div>
+<div class="section" id="sam-bam-format">
+<h3>21.2.1. SAM/BAM format<a class="headerlink" href="#sam-bam-format" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="https://github.com/adamfreedman/knowyourdata-genomics/blob/gh-pages/lessons/01-know_your_data.md#aligned-reads-sam">SAM file</a>, is a tab-delimited text file that contains information for each individual read and its alignment to the genome. While we do not have time to go in detail of the features of the SAM format, the paper by <a class="reference external" href="http://bioinformatics.oxfordjournals.org/content/25/16/2078.full">Heng Li et al.</a> provides a lot more detail on the specification.</p>
+<p><strong>The compressed binary version of SAM is called a BAM file.</strong> We use this version to reduce size and to allow for <em>indexing</em>, which enables efficient random access of the data contained within the file.</p>
+<p>The file begins with a <strong>header</strong>, which is optional. The header is used to describe source of data, reference sequence, method of
+alignment, etc., this will change depending on the aligner being used. Following the header is the <strong>alignment section</strong>. Each line
+that follows corresponds to alignment information for a single read. Each alignment line has <strong>11 mandatory fields</strong> for essential
+mapping information and a variable number of other fields for aligner specific information. An example entry from a SAM file is
+displayed below with the different fields highlighted.</p>
+<p><img alt="_images/sam_bam.png" src="_images/sam_bam.png" /></p>
+<p><img alt="_images/sam_bam3.png" src="_images/sam_bam3.png" /></p>
+<p>We will convert the SAM file to BAM format using the <code class="docutils literal notranslate"><span class="pre">samtools</span></code> program with the <code class="docutils literal notranslate"><span class="pre">view</span></code> command and tell this command that the input is in SAM format (<code class="docutils literal notranslate"><span class="pre">-S</span></code>) and to output BAM format (<code class="docutils literal notranslate"><span class="pre">-b</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools view -S -b results/sam/SRR2584866.aligned.sam &gt; results/bam/SRR2584866.aligned.bam
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">samopen</span><span class="p">]</span> <span class="n">SAM</span> <span class="n">header</span> <span class="ow">is</span> <span class="n">present</span><span class="p">:</span> <span class="mi">1</span> <span class="n">sequences</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sort-bam-file-by-coordinates">
+<h2>21.3. Sort BAM file by coordinates<a class="headerlink" href="#sort-bam-file-by-coordinates" title="Permalink to this headline">¶</a></h2>
+<p>Next we sort the BAM file using the <code class="docutils literal notranslate"><span class="pre">sort</span></code> command from <code class="docutils literal notranslate"><span class="pre">samtools</span></code>. <code class="docutils literal notranslate"><span class="pre">-o</span></code> tells the command where to write the output.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools sort -o results/bam/SRR2584866.aligned.sorted.bam results/bam/SRR2584866.aligned.bam
+</pre></div>
+</div>
+<p>Our files are pretty small, so we won’t see this output. If you run the workflow with larger files, you will see something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">bam_sort_core</span><span class="p">]</span> <span class="n">merging</span> <span class="kn">from</span> <span class="mi">2</span> <span class="n">files</span><span class="o">...</span>
+</pre></div>
+</div>
+<p>SAM/BAM files can be sorted in multiple ways, e.g. by location of alignment on the chromosome, by read name, etc. It is important to be aware that different alignment tools will output differently sorted SAM/BAM, and different downstream tools require differently sorted alignment files as input.</p>
+<p>You can use samtools to learn more about this bam file as well.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samtools</span> <span class="n">flagstat</span> <span class="n">results</span><span class="o">/</span><span class="n">bam</span><span class="o">/</span><span class="n">SRR2584866</span><span class="o">.</span><span class="n">aligned</span><span class="o">.</span><span class="n">sorted</span><span class="o">.</span><span class="n">bam</span>
+</pre></div>
+</div>
+<p>This will give you the following statistics about your sorted bam file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">351169</span> <span class="o">+</span> <span class="mi">0</span> <span class="ow">in</span> <span class="n">total</span> <span class="p">(</span><span class="n">QC</span><span class="o">-</span><span class="n">passed</span> <span class="n">reads</span> <span class="o">+</span> <span class="n">QC</span><span class="o">-</span><span class="n">failed</span> <span class="n">reads</span><span class="p">)</span>
+<span class="mi">0</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">secondary</span>
+<span class="mi">1169</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">supplementary</span>
+<span class="mi">0</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">duplicates</span>
+<span class="mi">351103</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">mapped</span> <span class="p">(</span><span class="mf">99.98</span><span class="o">%</span> <span class="p">:</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span><span class="p">)</span>
+<span class="mi">350000</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">paired</span> <span class="ow">in</span> <span class="n">sequencing</span>
+<span class="mi">175000</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">read1</span>
+<span class="mi">175000</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">read2</span>
+<span class="mi">346688</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">properly</span> <span class="n">paired</span> <span class="p">(</span><span class="mf">99.05</span><span class="o">%</span> <span class="p">:</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span><span class="p">)</span>
+<span class="mi">349876</span> <span class="o">+</span> <span class="mi">0</span> <span class="k">with</span> <span class="n">itself</span> <span class="ow">and</span> <span class="n">mate</span> <span class="n">mapped</span>
+<span class="mi">58</span> <span class="o">+</span> <span class="mi">0</span> <span class="n">singletons</span> <span class="p">(</span><span class="mf">0.02</span><span class="o">%</span> <span class="p">:</span> <span class="n">N</span><span class="o">/</span><span class="n">A</span><span class="p">)</span>
+<span class="mi">0</span> <span class="o">+</span> <span class="mi">0</span> <span class="k">with</span> <span class="n">mate</span> <span class="n">mapped</span> <span class="n">to</span> <span class="n">a</span> <span class="n">different</span> <span class="nb">chr</span>
+<span class="mi">0</span> <span class="o">+</span> <span class="mi">0</span> <span class="k">with</span> <span class="n">mate</span> <span class="n">mapped</span> <span class="n">to</span> <span class="n">a</span> <span class="n">different</span> <span class="nb">chr</span> <span class="p">(</span><span class="n">mapQ</span><span class="o">&gt;=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="variant-calling">
+<h2>21.4. Variant calling<a class="headerlink" href="#variant-calling" title="Permalink to this headline">¶</a></h2>
+<p>A variant call is a conclusion that there is a nucleotide difference vs. some reference at a given position in an individual genome or transcriptome, often referred to as a Single Nucleotide Polymorphism (SNP). The call is usually accompanied by an estimate of variant frequency and some measure of confidence. Similar to other steps in this workflow, there are number of tools available for variant calling. In this workshop we will be using <code class="docutils literal notranslate"><span class="pre">bcftools</span></code>, but there are a few things we need to do before actually calling the variants.</p>
+<p><img alt="_images/variant_calling_workflow.png" src="_images/variant_calling_workflow.png" /></p>
+<div class="section" id="step-1-calculate-the-read-coverage-of-positions-in-the-genome">
+<h3>21.4.1. Step 1: Calculate the read coverage of positions in the genome<a class="headerlink" href="#step-1-calculate-the-read-coverage-of-positions-in-the-genome" title="Permalink to this headline">¶</a></h3>
+<p>Do the first pass on variant calling by counting read coverage with <a class="reference external" href="https://samtools.github.io/bcftools/bcftools.html">bcftools</a>. We will use the command <code class="docutils literal notranslate"><span class="pre">mpileup</span></code>. The flag <code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">b</span></code> tells samtools to generate a bcf format output file, <code class="docutils literal notranslate"><span class="pre">-o</span></code> specifies where to write the output file, and <code class="docutils literal notranslate"><span class="pre">-f</span></code> flags the path to the reference genome:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bcftools mpileup -O b -o results/bcf/SRR2584866_raw.bcf \
+-f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorted.bam
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">mpileup</span><span class="p">]</span> <span class="mi">1</span> <span class="n">samples</span> <span class="ow">in</span> <span class="mi">1</span> <span class="nb">input</span> <span class="n">files</span>
+</pre></div>
+</div>
+<p>We have now generated a file with coverage information for every base.</p>
+</div>
+<div class="section" id="step-2-detect-the-single-nucleotide-polymorphisms-snps">
+<h3>21.4.2. Step 2: Detect the single nucleotide polymorphisms (SNPs)<a class="headerlink" href="#step-2-detect-the-single-nucleotide-polymorphisms-snps" title="Permalink to this headline">¶</a></h3>
+<p>Identify SNPs using bcftools <code class="docutils literal notranslate"><span class="pre">call</span></code>. We have to specify ploidy with the flag <code class="docutils literal notranslate"><span class="pre">--ploidy</span></code>, which is one for the haploid <em>E. coli</em>. <code class="docutils literal notranslate"><span class="pre">-m</span></code> allows for multiallelic and rare-variant calling, <code class="docutils literal notranslate"><span class="pre">-v</span></code> tells the program to output variant sites only (not every site in the genome), and <code class="docutils literal notranslate"><span class="pre">-o</span></code> specifies where to write the output file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bcftools call --ploidy 1 -m -v -o results/bcf/SRR2584866_variants.vcf results/bcf/SRR2584866_raw.bcf
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-3-filter-and-report-the-snp-variants-in-variant-calling-format-vcf">
+<h3>21.4.3. Step 3: Filter and report the SNP variants in variant calling format (VCF)<a class="headerlink" href="#step-3-filter-and-report-the-snp-variants-in-variant-calling-format-vcf" title="Permalink to this headline">¶</a></h3>
+<p>Filter the SNPs for the final output in VCF format, using <code class="docutils literal notranslate"><span class="pre">vcfutils.pl</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ vcfutils.pl varFilter results/bcf/SRR2584866_variants.vcf  &gt; results/vcf/SRR2584866_final_variants.vcf
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="explore-the-vcf-format">
+<h2>21.5. Explore the VCF format:<a class="headerlink" href="#explore-the-vcf-format" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ less -S results/vcf/SRR2584866_final_variants.vcf
+</pre></div>
+</div>
+<p>You will see the header (which describes the format), the time and date the file was created, the version of bcftools that was used, the command line parameters used, and some additional information:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##fileformat=VCFv4.2</span>
+<span class="c1">##FILTER=&lt;ID=PASS,Description=&quot;All filters passed&quot;&gt;</span>
+<span class="c1">##bcftoolsVersion=1.8+htslib-1.8</span>
+<span class="c1">##bcftoolsCommand=mpileup -O b -o results/bcf/SRR2584866_raw.bcf -f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorted.bam</span>
+<span class="c1">##reference=file://data/ref_genome/ecoli_rel606.fasta</span>
+<span class="c1">##contig=&lt;ID=CP000819.1,length=4629812&gt;</span>
+<span class="c1">##ALT=&lt;ID=*,Description=&quot;Represents allele(s) other than observed.&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=INDEL,Number=0,Type=Flag,Description=&quot;Indicates that the variant is an INDEL.&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=IDV,Number=1,Type=Integer,Description=&quot;Maximum number of reads supporting an indel&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=IMF,Number=1,Type=Float,Description=&quot;Maximum fraction of reads supporting an indel&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=DP,Number=1,Type=Integer,Description=&quot;Raw read depth&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=VDB,Number=1,Type=Float,Description=&quot;Variant Distance Bias for filtering splice-site artefacts in RNA-seq data (bigger is better)&quot;,Version=</span>
+<span class="c1">##INFO=&lt;ID=RPB,Number=1,Type=Float,Description=&quot;Mann-Whitney U test of Read Position Bias (bigger is better)&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=MQB,Number=1,Type=Float,Description=&quot;Mann-Whitney U test of Mapping Quality Bias (bigger is better)&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=BQB,Number=1,Type=Float,Description=&quot;Mann-Whitney U test of Base Quality Bias (bigger is better)&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=MQSB,Number=1,Type=Float,Description=&quot;Mann-Whitney U test of Mapping Quality vs Strand Bias (bigger is better)&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=SGB,Number=1,Type=Float,Description=&quot;Segregation based metric.&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=MQ0F,Number=1,Type=Float,Description=&quot;Fraction of MQ0 reads (smaller is better)&quot;&gt;</span>
+<span class="c1">##FORMAT=&lt;ID=PL,Number=G,Type=Integer,Description=&quot;List of Phred-scaled genotype likelihoods&quot;&gt;</span>
+<span class="c1">##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=ICB,Number=1,Type=Float,Description=&quot;Inbreeding Coefficient Binomial test (bigger is better)&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=HOB,Number=1,Type=Float,Description=&quot;Bias in the number of HOMs number (smaller is better)&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=AC,Number=A,Type=Integer,Description=&quot;Allele count in genotypes for each ALT allele, in the same order as listed&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=AN,Number=1,Type=Integer,Description=&quot;Total number of alleles in called genotypes&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=DP4,Number=4,Type=Integer,Description=&quot;Number of high-quality ref-forward , ref-reverse, alt-forward and alt-reverse bases&quot;&gt;</span>
+<span class="c1">##INFO=&lt;ID=MQ,Number=1,Type=Integer,Description=&quot;Average mapping quality&quot;&gt;</span>
+<span class="c1">##bcftools_callVersion=1.8+htslib-1.8</span>
+<span class="c1">##bcftools_callCommand=call --ploidy 1 -m -v -o results/bcf/SRR2584866_variants.vcf results/bcf/SRR2584866_raw.bcf; Date=Tue Oct  9 18:48:10 2018</span>
+</pre></div>
+</div>
+<p>Followed by information on each of the variations observed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  results/bam/SRR2584866.aligned.sorted.bam</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">1521</span>    <span class="o">.</span>       <span class="n">C</span>       <span class="n">T</span>       <span class="mi">207</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">9</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.993024</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.662043</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mf">0.974597</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">1612</span>    <span class="o">.</span>       <span class="n">A</span>       <span class="n">G</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">13</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.52194</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.676189</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mf">0.950952</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">9092</span>    <span class="o">.</span>       <span class="n">A</span>       <span class="n">G</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">14</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.717543</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.670168</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mf">0.916482</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">9972</span>    <span class="o">.</span>       <span class="n">T</span>       <span class="n">G</span>       <span class="mi">214</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.022095</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.670168</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>      <span class="n">GT</span><span class="p">:</span><span class="n">PL</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">10563</span>   <span class="o">.</span>       <span class="n">G</span>       <span class="n">A</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">11</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.958658</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.670168</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mf">0.952347</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">22257</span>   <span class="o">.</span>       <span class="n">C</span>       <span class="n">T</span>       <span class="mi">127</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.0765947</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.590765</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>      <span class="n">GT</span><span class="p">:</span><span class="n">PL</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">38971</span>   <span class="o">.</span>       <span class="n">A</span>       <span class="n">G</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">14</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.872139</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.680642</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>      <span class="n">GT</span><span class="p">:</span><span class="n">PL</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">42306</span>   <span class="o">.</span>       <span class="n">A</span>       <span class="n">G</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">15</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.969686</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.686358</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>      <span class="n">GT</span><span class="p">:</span><span class="n">PL</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">45277</span>   <span class="o">.</span>       <span class="n">A</span>       <span class="n">G</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">15</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.470998</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.680642</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mf">0.95494</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">56613</span>   <span class="o">.</span>       <span class="n">C</span>       <span class="n">G</span>       <span class="mi">183</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">12</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.879703</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.676189</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>      <span class="n">GT</span><span class="p">:</span><span class="n">PL</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">62118</span>   <span class="o">.</span>       <span class="n">A</span>       <span class="n">G</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">19</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.414981</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.691153</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mf">0.906029</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">59</span>
+<span class="n">CP000819</span><span class="o">.</span><span class="mi">1</span>      <span class="mi">64042</span>   <span class="o">.</span>       <span class="n">G</span>       <span class="n">A</span>       <span class="mi">225</span>     <span class="o">.</span>       <span class="n">DP</span><span class="o">=</span><span class="mi">18</span><span class="p">;</span><span class="n">VDB</span><span class="o">=</span><span class="mf">0.451328</span><span class="p">;</span><span class="n">SGB</span><span class="o">=-</span><span class="mf">0.689466</span><span class="p">;</span><span class="n">MQSB</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">MQ0F</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">AC</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">AN</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">DP4</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">;</span><span class="n">MQ</span><span class="o">=</span><span class="mi">60</span>      <span class="n">GT</span><span class="p">:</span><span class="n">PL</span>
+</pre></div>
+</div>
+<p>This is a lot of information, so let’s take some time to make sure we understand our output.</p>
+<p>The first few columns represent the information we have about a predicted variation.</p>
+<ul class="simple">
+<li>CHROM : contig location where the variation occurs</li>
+<li>POS : position within the contig where the variation occurs</li>
+<li>ID : a <code class="docutils literal notranslate"><span class="pre">.</span></code> until we add annotation information</li>
+<li>REF : reference genotype (forward strand)</li>
+<li>ALT : sample genotype (forward strand)</li>
+<li>QUAL : Phred-scaled probablity that the observed variant exists at this site (higher is better)</li>
+<li>FILTER : a <code class="docutils literal notranslate"><span class="pre">.</span></code> if no quality filters have been applied, PASS if a filter is passed, or the name of the filters this variant failed</li>
+</ul>
+<p>In an ideal world, the information in the <code class="docutils literal notranslate"><span class="pre">QUAL</span></code> column would be all we needed to filter out bad variant calls.
+However, in reality we need to filter on multiple other metrics.</p>
+<p>The last two columns contain the genotypes and can be tricky to decode.</p>
+<ul class="simple">
+<li>FORMAT : lists in order the metrics presented in the final column</li>
+<li>Results : lists the values associated with those metrics in order</li>
+</ul>
+<p>For our file, the metrics presented are GT:PL:GQ.</p>
+<ul class="simple">
+<li>GT : the genotype of this sample which for a diploid genome is encoded with a 0 for the REF allele, 1 for the first ALT allele, 2 for the second and so on. So 0/0 means homozygous reference, 0/1 is heterozygous, and 1/1 is homozygous for the alternate allele. For a diploid organism, the GT field indicates the two alleles carried by the sample, encoded by a 0 for the REF allele, 1 for the first ALT allele, 2 for the second ALT allele, etc.</li>
+<li>PL : the likelihoods of the given genotypes</li>
+<li>GQ : the Phred-scaled confidence for the genotype</li>
+<li>AD, DP : the depth per allele by sample and coverage</li>
+</ul>
+<p>The Broad Institute’s <a class="reference external" href="https://www.broadinstitute.org/gatk/guide/article?id=1268">VCF guide</a> is an excellent place
+to learn more about VCF file format.</p>
+<blockquote>
+<div><p><strong>Exercise</strong></p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">wc</span></code> commands you’ve learned to assess how many variants are in the vcf file.</p>
+<blockquote>
+<div><p><em>Solution</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep -v &quot;#&quot; results/vcf/SRR2584866_final_variants.vcf | wc -l
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">766</span>
+</pre></div>
+</div>
+<p>{: .output}</p>
+<p>There are 766 variants in this file.</p>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="assess-the-alignment-visualization-optional-step">
+<h2>21.6. Assess the alignment (visualization) - optional step<a class="headerlink" href="#assess-the-alignment-visualization-optional-step" title="Permalink to this headline">¶</a></h2>
+<p>It is often instructive to look at your data in a genome browser. Visualisation will allow you to get a “feel” for
+the data, as well as detecting abnormalities and problems. Also, exploring the data in such a way may give you
+ideas for further analyses.  As such, visualization tools are useful for exploratory analysis. In this lesson we
+will describe two different tools for visualisation; a light-weight command-line based one and the Broad
+Institute’s Integrative Genomics Viewer (IGV) which requires
+software installation and transfer of files.</p>
+<p>In order for us to visualize the alignment files, we will need to index the BAM file using <code class="docutils literal notranslate"><span class="pre">samtools</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools index results/bam/SRR2584866.aligned.sorted.bam
+</pre></div>
+</div>
+<div class="section" id="viewing-with-tview">
+<h3>21.6.1. Viewing with <code class="docutils literal notranslate"><span class="pre">tview</span></code><a class="headerlink" href="#viewing-with-tview" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://www.htslib.org/">Samtools</a> implements a very simple text alignment viewer based on the GNU
+<code class="docutils literal notranslate"><span class="pre">ncurses</span></code> library, called <code class="docutils literal notranslate"><span class="pre">tview</span></code>. This alignment viewer works with short indels and shows <a class="reference external" href="http://maq.sourceforge.net/">MAQ</a> consensus.
+It uses different colors to display mapping quality or base quality, subjected to users’ choice. Samtools viewer is known to work with an 130 GB alignment swiftly. Due to its text interface, displaying alignments over network is also very fast.</p>
+<p>In order to visualize our mapped reads we use <code class="docutils literal notranslate"><span class="pre">tview</span></code>, giving it the sorted bam file and the reference file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools tview results/bam/SRR2584866.aligned.sorted.bam data/ref_genome/ecoli_rel606.fasta
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>         <span class="mi">11</span>        <span class="mi">21</span>        <span class="mi">31</span>        <span class="mi">41</span>        <span class="mi">51</span>        <span class="mi">61</span>        <span class="mi">71</span>        <span class="mi">81</span>        <span class="mi">91</span>        <span class="mi">101</span>       <span class="mi">111</span>       <span class="mi">121</span>
+<span class="n">AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTGAACTGGTTACCTGCCGTGAGTAAATTAAAATTTTATTGACTTAGGTCACTAAATAC</span>
+<span class="o">..................................................................................................................................</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span> <span class="o">..................</span><span class="n">N</span><span class="o">.................</span> <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span><span class="o">........................</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span> <span class="o">..................</span><span class="n">N</span><span class="o">.................</span> <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,</span><span class="o">.............................</span>
+<span class="o">...................................</span><span class="p">,</span><span class="n">g</span><span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>  <span class="o">....................................</span>   <span class="o">................</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span><span class="o">....................................</span>   <span class="o">....................................</span>      <span class="p">,,,,,,,,,,</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>  <span class="o">....................................</span>  <span class="p">,,</span><span class="n">a</span><span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>     <span class="o">.......</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span> <span class="o">.............................</span>  <span class="p">,,,,,,,,,,,,,,,,,</span><span class="n">g</span><span class="p">,,,,,</span>    <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>  <span class="o">...........................</span><span class="n">T</span><span class="o">.......</span>   <span class="p">,,,,,,,,,,,,,,,,,,,,,,,</span><span class="n">c</span><span class="p">,</span>          <span class="o">......</span>
+<span class="o">.........................</span> <span class="o">................................</span>   <span class="p">,</span><span class="n">g</span><span class="p">,,,,,,,,,,,,,,,,,,,</span>      <span class="o">...........................</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,</span> <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span> <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>       <span class="o">..........................</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>   <span class="o">................................</span><span class="n">T</span><span class="o">..</span>  <span class="o">..............................</span>   <span class="p">,,,,,,</span>
+<span class="o">...........................</span>       <span class="p">,,,,,,</span><span class="n">g</span><span class="p">,,,,,,,,,,,,,,,,,</span>   <span class="o">....................................</span>         <span class="p">,,,,,,</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,</span> <span class="o">....................................</span>  <span class="o">...................................</span>        <span class="o">....</span>
+<span class="o">....................................</span>  <span class="o">........................</span>  <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>      <span class="o">....</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>   <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>  <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>
+<span class="o">........................</span>            <span class="o">..................................</span> <span class="o">.............................</span>     <span class="o">....</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>   <span class="o">....................................</span>        <span class="o">..........................</span>
+<span class="o">...............................</span>       <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span> <span class="o">....................................</span>
+<span class="o">...................................</span>  <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>  <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span> <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>  <span class="o">..................................</span>
+<span class="o">....................................</span> <span class="p">,,,,,,,,,,,,,,,,,,</span><span class="n">a</span><span class="p">,,,,,,,,,,,,,,,,,</span>        <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,</span>
+<span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>  <span class="o">............................</span> <span class="p">,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,</span>
+</pre></div>
+</div>
+<p>The first line of output shows the genome coordinates in our reference genome. The second line shows the reference
+genome sequence. The third lines shows the consensus sequence determined from the sequence reads. A <code class="docutils literal notranslate"><span class="pre">.</span></code> indicates
+a match to the reference sequence, so we can see that the consensus from our sample matches the reference in most
+locations. That is good! If that wasn’t the case, we should probably reconsider our choice of reference.</p>
+<p>Below the horizontal line, we can see all of the reads in our sample aligned with the reference genome. Only
+positions where the called base differs from the reference are shown. You can use the arrow keys on your keyboard
+to scroll or type <code class="docutils literal notranslate"><span class="pre">?</span></code> for a help menu. To navigate to a specific position, type <code class="docutils literal notranslate"><span class="pre">g</span></code>. A dialogue box will appear. In
+this box, type the name of the “chromosome” followed by a colon and the position of the variant you would like to view
+(e.g. for this sample, type <code class="docutils literal notranslate"><span class="pre">CP000819.1:50</span></code> to view the 50th base. Type <code class="docutils literal notranslate"><span class="pre">Ctrl^C</span></code> or <code class="docutils literal notranslate"><span class="pre">q</span></code> to exit <code class="docutils literal notranslate"><span class="pre">tview</span></code>.</p>
+<blockquote>
+<div><p><strong>Exercise</strong></p>
+<p>Visualize the alignment of the reads for our <code class="docutils literal notranslate"><span class="pre">SRR2584866</span></code> sample. What variant is present at
+position 4377265? What is the canonical nucleotide in that position?</p>
+<blockquote>
+<div><p><em>Solution</em></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools tview ~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/dc_workshop/data/ref_genome/ecoli_rel606.fasta
+</pre></div>
+</div>
+<p>Then type <code class="docutils literal notranslate"><span class="pre">g</span></code>. In the dialogue box, type <code class="docutils literal notranslate"><span class="pre">CP000819.1:4377265</span></code>.
+<code class="docutils literal notranslate"><span class="pre">G</span></code> is the variant. <code class="docutils literal notranslate"><span class="pre">A</span></code> is canonical. This variant possibly changes the phenotype of this sample to hypermutable. It occurs
+in the gene <em>mutL</em>, which controls DNA mismatch repair.</p>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="viewing-with-igv">
+<h3>21.6.2. Viewing with IGV<a class="headerlink" href="#viewing-with-igv" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://www.broadinstitute.org/igv/">IGV</a> is a stand-alone browser, which has the advantage of being installed locally and providing fast access. Web-based genome browsers, like <a class="reference external" href="http://www.ensembl.org/index.html">Ensembl</a> or the <a class="reference external" href="https://genome.ucsc.edu/">UCSC browser</a>, are slower, but provide more functionality. They not only allow for more polished and flexible visualisation, but also provide easy access to a wealth of annotations and external data sources. This makes it straightforward to relate your data with information about repeat regions, known genes, epigenetic features or areas of cross-species conservation, to name just a few.</p>
+<p>In order to use IGV, we will need to transfer some files to our local machine. We know how to do this with <code class="docutils literal notranslate"><span class="pre">scp</span></code>.
+Open a new tab in your terminal window and create a new folder. We’ll put this folder on our Desktop for
+demonstration purposes, but in general you should avoide proliferating folders and files on your Desktop and
+instead organize files within a directory structure like we’ve been using in our <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir ~/Desktop/files_for_igv
+$ cd ~/Desktop/files_for_igv
+</pre></div>
+</div>
+<p>Now we will transfer our files to that new directory. Remember to replace the text between the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and the <code class="docutils literal notranslate"><span class="pre">:</span></code>
+with your instance. The commands to <code class="docutils literal notranslate"><span class="pre">scp</span></code> always go in the terminal window that is connected to your
+local computer (not your AWS instance).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/Desktop/files_for_igv
+$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam.bai ~/Desktop/files_for_igv
+$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/ref_genome/ecoli_rel606.fasta ~/Desktop/files_for_igv
+$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/vcf/SRR2584866_final_variants.vcf ~/Desktop/files_for_igv
+</pre></div>
+</div>
+<p>You will need to type the password for your AWS instance each time you call <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
+<p>Next we need to open the IGV software. If you haven’t done so already, you can download IGV from the <a class="reference external" href="https://www.broadinstitute.org/software/igv/download">Broad Institute’s software page</a>, double-click the <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file
+to unzip it, and then drag the program into your Applications folder.</p>
+<ol class="simple">
+<li>Open IGV.</li>
+<li>Load our reference genome file (<code class="docutils literal notranslate"><span class="pre">ecoli_rel606.fasta</span></code>) into IGV using the <strong>“Load Genomes from File…”</strong> option under the <strong>“Genomes”</strong> pull-down menu.</li>
+<li>Load our BAM file (<code class="docutils literal notranslate"><span class="pre">SRR2584866.aligned.sorted.bam</span></code>) using the <strong>“Load from File…”</strong> option under the <strong>“File”</strong> pull-down menu.</li>
+<li>Do the same with our VCF file (<code class="docutils literal notranslate"><span class="pre">SRR2584866_final_variants.vcf</span></code>).</li>
+</ol>
+<p>Your IGV browser should look like the screenshot below:</p>
+<p><img alt="img/igv-screenshot.png" src="img/igv-screenshot.png" /></p>
+<p>There should be two tracks: one corresponding to our BAM file and the other for our VCF file.</p>
+<p>In the <strong>VCF track</strong>, each bar across the top of the plot shows the allele fraction for a single locus. The second bar shows
+the genotypes for each locus in each <em>sample</em>. We only have one sample called here so we only see a single line. Dark blue =
+heterozygous, Cyan = homozygous variant, Grey = reference.  Filtered entries are transparent.</p>
+<p>Zoom in to inspect variants you see in your filtered VCF file to become more familiar with IGV. See how quality information
+corresponds to alignment information at those loci.
+Use <a class="reference external" href="http://software.broadinstitute.org/software/igv/AlignmentData">this website</a> and the links there-in to understand how IGV colors the alignments.</p>
+<p>Now that we’ve run through our workflow for a single sample, we want to repeat this workflow for our other five
+samples. However, we don’t want to type each of these individual steps again five more times. That would be very
+time consuming and error-prone, and would become impossible as we gathered more and more samples. Luckily, we
+already know the tools we need to use to automate this workflow and run it on as many files as we want using a
+single line of code. Those tools are: wildcards, for loops, and bash scripts. We’ll use all three in the next
+lesson.</p>
+</div>
+</div>
+<div class="section" id="other-notes">
+<h2>21.7. Other Notes<a class="headerlink" href="#other-notes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bwa-alignment-options">
+<h3>21.7.1. BWA Alignment options<a class="headerlink" href="#bwa-alignment-options" title="Permalink to this headline">¶</a></h3>
+<p>BWA consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence
+reads up to 100bp, while the other two are for sequences ranging from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features such
+as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it
+is faster and more accurate.
+{: .callout}</p>
+</div>
+<div class="section" id="multi-line-commands">
+<h3>21.7.2. Multi-line commands<a class="headerlink" href="#multi-line-commands" title="Permalink to this headline">¶</a></h3>
+<p>Some of the commands we ran in this lesson are burly! When typing a long
+command into your terminal, you can use the <code class="docutils literal notranslate"><span class="pre">\</span></code> character
+to separate code chunks onto separate lines. This can make your code more readable.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="trimming.html" title="previous chapter (use the left arrow)">17. Trimming and Filtering</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="advanced_atmosphere.html" title="next chapter (use the right arrow)">22. Advanced Topics</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="advanced_atmosphere.html" title="22. Advanced Topics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="trimming.html" title="17. Trimming and Filtering"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, Sateesh Peri. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

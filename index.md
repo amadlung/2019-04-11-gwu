@@ -69,13 +69,13 @@
 
 03:30-4:30pm  : Overview of Genomics Analysis Pipelines & Project Organization
 
-04:30-5:30pm  : [Assessing Read Quality](https://datacarpentry.org/wrangling-genomics/02-quality-control/index.html)
+04:30-5:30pm  : [Assessing Read Quality](https://gwu-omics2019.readthedocs.io/en/latest/quality_control.html)
 
 **Day-2**
 
-09:30-10:15am : [Trimming and Filtering](https://datacarpentry.org/wrangling-genomics/03-trimming/index.html)
+09:30-10:15am : [Trimming and Filtering](https://gwu-omics2019.readthedocs.io/en/latest/trimming.html)
 
-10:15-11:00am : [Variant Calling Workflow](https://datacarpentry.org/wrangling-genomics/04-variant_calling/index.html)
+10:15-11:00am : [Variant Calling Workflow](https://gwu-omics2019.readthedocs.io/en/latest/variant_calling.html)
 
 11:00-11:15am : Coffee/Tea break
 

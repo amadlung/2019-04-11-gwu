@@ -1,17 +1,17 @@
 Bash lesson 2
 ===
 
-> objectives:
-- View, search within, copy, move, and rename files. Create new directories.
-- Use wild cards (`*`) to perform operations on multiple files.
-- Make a file read only
-- Use the `history` command to view and repeat recently used commands.
+> Objectives:
+> - View, search within, copy, move, and rename files. Create new directories.
+> - Use wild cards (`*`) to perform operations on multiple files.
+> - Make a file read only
+> - Use the `history` command to view and repeat recently used commands.
 
->keypoints:
-- "You can view file contents using `less`, `cat`, `head` or `tail`."
-- "The commands `cp`, `mv`, and `mkdir` are useful for manipulating existing files and creating new directories."
-- "You can view file permissions using `ls -l` and change permissions using `chmod`."
-- "The `history` command and the up arrow on your keyboard can be used to repeat recently used commands."
+> Keypoints:
+> - "You can view file contents using `less`, `cat`, `head` or `tail`."
+> - "The commands `cp`, `mv`, and `mkdir` are useful for manipulating existing files and creating new directories."
+> - "You can view file permissions using `ls -l` and change permissions using `chmod`."
+> - "The `history` command and the up arrow on your keyboard can be used to repeat recently used commands."
 
 ## Working with Files
 
@@ -449,18 +449,18 @@ This will delete not only the directory, but all files within the directory. If 
 > > ```
 
 ---
-objectives:
-- "Employ the `grep` command to search for information within files."
-- "Print the results of a command to a file."
-- "Construct command pipelines with two or more stages."
-keypoints:
-- "`grep` is a powerful search tool with many options for customization."
-- "`>`, `>>`, and `|` are different ways of redirecting output."
-- "`command > file` redirects a command's output to a file."
-- "`command >> file` redirects a command's output to a file without overwriting the existing contents of the file."
-- "`command_1 | command_2` redirects the output of the first command as input to the second command."
-- "for loops are used for iteration"
-- "`basename` gets rid of repetitive parts of names"
+> Objectives:
+> - "Employ the `grep` command to search for information within files."
+> - "Print the results of a command to a file."
+> - "Construct command pipelines with two or more stages."
+> Keypoints:
+> - "`grep` is a powerful search tool with many options for customization."
+> - "`>`, `>>`, and `|` are different ways of redirecting output."
+> - "`command > file` redirects a command's output to a file."
+> - "`command >> file` redirects a command's output to a file without overwriting the existing contents of the file."
+> - "`command_1 | command_2` redirects the output of the first command as input to the second command."
+> - "for loops are used for iteration"
+> - "`basename` gets rid of repetitive parts of names"
 ---
 
 ## Searching files

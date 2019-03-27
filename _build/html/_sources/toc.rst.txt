@@ -16,4 +16,10 @@
 
    bioconda_lesson.md
 
+   quality_control.md
+
+   trimming.md
+
+   variant_calling.md
+
    advanced_atmosphere.md
