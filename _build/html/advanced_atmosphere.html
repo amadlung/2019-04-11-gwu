@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Advanced Topics &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
+    <title>12. Advanced Topics &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,6 +25,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="11. Working with Bioconda." href="bioconda_lesson.html" />
   
    
 
@@ -35,6 +36,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bioconda_lesson.html" title="11. Working with Bioconda."
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
@@ -50,20 +54,23 @@
     <h2>Contents</h2>
     <div class="sidebar-localtoc">
       <ul>
-<li><a class="reference internal" href="#">Advanced Topics</a></li>
-<li><a class="reference internal" href="#transferring-data-to-and-from-an-instance">Transferring Data to and from an Instance</a><ul>
-<li><a class="reference internal" href="#transferring-data-using-icommands"><strong>Transferring Data using iCommands</strong></a></li>
+<li><a class="reference internal" href="#">12. Advanced Topics</a></li>
+<li><a class="reference internal" href="#transferring-data-to-and-from-an-instance">13. Transferring Data to and from an Instance</a><ul>
+<li><a class="reference internal" href="#transferring-data-using-icommands">13.1. <strong>Transferring Data using iCommands</strong></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#creating-custom-atmosphere-images">Creating custom Atmosphere Images</a></li>
-<li><a class="reference internal" href="#ssh-rsa-key-for-password-less-login">ssh-rsa-key for password-less login</a></li>
-<li><a class="reference internal" href="#tmux-screen">Tmux &amp; Screen</a></li>
-<li><a class="reference internal" href="#ssh-remote-host-id-changed-error">SSH Remote host ID Changed Error</a></li>
+<li><a class="reference internal" href="#creating-custom-atmosphere-images">14. Creating custom Atmosphere Images</a></li>
+<li><a class="reference internal" href="#ssh-rsa-key-for-password-less-login">15. ssh-rsa-key for password-less login</a></li>
+<li><a class="reference internal" href="#tmux-screen">16. Tmux &amp; Screen</a></li>
+<li><a class="reference internal" href="#ssh-remote-host-id-changed-error">17. SSH Remote host ID Changed Error</a></li>
 </ul>
 
     </div>
   </div>
 </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bioconda_lesson.html"
+                        title="previous chapter">11. Working with Bioconda.</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -93,20 +100,20 @@
             <ol class="breadcrumb">
               <li><a href="toc.html">Docs</a></li>
               
-              <li>Advanced Topics</li>
+              <li>12. Advanced Topics</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
   <div class="section" id="advanced-topics">
-<h1>Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permalink to this headline">¶</a></h1>
+<h1>12. Advanced Topics<a class="headerlink" href="#advanced-topics" title="Permalink to this headline">¶</a></h1>
 </div>
 <div class="section" id="transferring-data-to-and-from-an-instance">
-<h1>Transferring Data to and from an Instance<a class="headerlink" href="#transferring-data-to-and-from-an-instance" title="Permalink to this headline">¶</a></h1>
+<h1>13. Transferring Data to and from an Instance<a class="headerlink" href="#transferring-data-to-and-from-an-instance" title="Permalink to this headline">¶</a></h1>
 <p><strong>An Atmosphere instance only contains data that were included in the original image that was used to make that instance. You can transfer data to/from the CyVerse Data Store, an Atmosphere Volume, a sever, or your local machine.</strong></p>
 <div class="section" id="transferring-data-using-icommands">
-<h2><strong>Transferring Data using iCommands</strong><a class="headerlink" href="#transferring-data-using-icommands" title="Permalink to this headline">¶</a></h2>
+<h2>13.1. <strong>Transferring Data using iCommands</strong><a class="headerlink" href="#transferring-data-using-icommands" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://cyverse-data-store-guide.readthedocs-hosted.com/en/latest/step2.html"><strong>iCommands Guide:</strong></a></li>
 <li><a class="reference external" href="https://wiki.cyverse.org/wiki/display/DS/Setting+Up+iCommands"><strong>iCommands Download:</strong></a></li>
@@ -164,7 +171,7 @@ $ icd # change directory
 </div>
 </div>
 <div class="section" id="creating-custom-atmosphere-images">
-<h1>Creating custom Atmosphere Images<a class="headerlink" href="#creating-custom-atmosphere-images" title="Permalink to this headline">¶</a></h1>
+<h1>14. Creating custom Atmosphere Images<a class="headerlink" href="#creating-custom-atmosphere-images" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><a class="reference external" href="https://atmo.cyverse.org/application/images/1687">Snakemake2019 v1.0 Image</a></li>
 <li><a class="reference external" href="https://hackmd.io/im0eDxViQgmxTL4zYBfGoQ#">Jetstream</a></li>
@@ -206,7 +213,7 @@ RSTUDIO_LATEST=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstud
 </div>
 </div>
 <div class="section" id="ssh-rsa-key-for-password-less-login">
-<h1>ssh-rsa-key for password-less login<a class="headerlink" href="#ssh-rsa-key-for-password-less-login" title="Permalink to this headline">¶</a></h1>
+<h1>15. ssh-rsa-key for password-less login<a class="headerlink" href="#ssh-rsa-key-for-password-less-login" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li>Cryptographic keys are a convenient and secure way to authenticate without having to use passwords. They consist of a pair of files called the public and private keys: the public part can be shared with whoever you’d like to authenticate with (in our case, CyVerse Atmosphere!), and the private part is kept “secret” on your machine. Things that are encrypted with the public key can be be decrypted with the private key, but it is computationally intractable (ie, it would take on the order of thousands of years) to determine a private key from a public key. You can read more about it <a class="reference external" href="https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2">here</a></li>
 <li>Create the RSA Key Pair on your laptop/computer:</li>
@@ -259,11 +266,11 @@ RSTUDIO_LATEST=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstud
 <p><img alt="_images/ssh_no_pass.png" src="_images/ssh_no_pass.png" /></p>
 </div>
 <div class="section" id="tmux-screen">
-<h1>Tmux &amp; Screen<a class="headerlink" href="#tmux-screen" title="Permalink to this headline">¶</a></h1>
+<h1>16. Tmux &amp; Screen<a class="headerlink" href="#tmux-screen" title="Permalink to this headline">¶</a></h1>
 <p>Have you ever faced the situation where you perform a long-running task on a remote machine and suddenly your connection drops, the SSH session is terminated and your work is lost. Well it has happened to all of us at some point, hasn’t it? Luckily, there are utilities like <a class="reference external" href="https://linuxize.com/post/getting-started-with-tmux/#what-is-tmux">Tmux</a> &amp; <a class="reference external" href="https://linuxize.com/post/how-to-use-linux-screen/">Screen</a> that allow us to the resume our sessions.</p>
 </div>
 <div class="section" id="ssh-remote-host-id-changed-error">
-<h1>SSH Remote host ID Changed Error<a class="headerlink" href="#ssh-remote-host-id-changed-error" title="Permalink to this headline">¶</a></h1>
+<h1>17. SSH Remote host ID Changed Error<a class="headerlink" href="#ssh-remote-host-id-changed-error" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li>When we suspend an instance and re-start it, the IP address might change. But, when two instances get the same address this login-error might pop-up</li>
 </ul>
@@ -292,6 +299,15 @@ Host key verification failed.
 
           </div>
             
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="bioconda_lesson.html" title="previous chapter (use the left arrow)">11. Working with Bioconda.</a>
+      </div>
+    
+    </div>
+    <div class="clearer"></div>
+  
         </div>
         <div class="clearfix"></div>
     </div>
@@ -301,6 +317,9 @@ Host key verification failed.
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="bioconda_lesson.html" title="11. Working with Bioconda."
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>

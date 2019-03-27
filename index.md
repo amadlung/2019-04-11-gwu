@@ -29,7 +29,7 @@
 - Complete [Pre-Workshop survey](https://www.surveymonkey.com/r/dcpreworkshopassessment?workshop_id=2019-04-11-gwu). *We use this to calibrate the pace of the workshop and, together with a post-workshop survey, to assess how it went.*
 
 **CODE OF CONDUCT:**
-- The workshop follows a code of conduct, which can be found [here](). (*tl;dr:* Be Nice and Respect each other.)
+- The workshop follows a code of conduct, which can be found [here](https://gwu-omics2019.readthedocs.io/en/latest/code_of_conduct.html). (*tl;dr:* Be Nice and Respect each other.)
 
 **ACCESSIBILITY:** We are committed to making this workshop accessible to everybody. The workshop organizers have checked that:
   + The room is wheelchair / scooter accessible.
@@ -59,23 +59,23 @@
 
 11:00-11:15am : Coffee/Tea break
 
-11:15-12:30pm : [BASH - Command Line for Genomics](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson.html)
+11:15-12:30pm : [BASH - Command Line for Genomics](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson_1.html)
 
 12:30-1:30pm  : Lunch Break
 
-01:30-3:00pm  : BASH - continued & [Bioconda](https://gwu-omics2019.readthedocs.io/en/latest/bioconda_lesson.html)
+01:30-3:00pm  : [BASH - continued](https://gwu-omics2019.readthedocs.io/en/latest/bash_lesson_2.html) & [Bioconda](https://gwu-omics2019.readthedocs.io/en/latest/bioconda_lesson.html)
 
 03:00-3:30pm  : Coffee/Tea Break
 
 03:30-4:30pm  : Overview of Genomics Analysis Pipelines & Project Organization
 
-04:30-5:30pm  : Assessing Read Quality
+04:30-5:30pm  : [Assessing Read Quality](https://datacarpentry.org/wrangling-genomics/02-quality-control/index.html)
 
 **Day-2**
 
-09:30-10:15am : Trimming and Filtering
+09:30-10:15am : [Trimming and Filtering](https://datacarpentry.org/wrangling-genomics/03-trimming/index.html)
 
-10:15-11:00am : Variant Calling Workflow
+10:15-11:00am : [Variant Calling Workflow](https://datacarpentry.org/wrangling-genomics/04-variant_calling/index.html)
 
 11:00-11:15am : Coffee/Tea break
 

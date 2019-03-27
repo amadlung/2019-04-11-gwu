@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Using the Command Line &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
+    <title>8. Using the Command Line &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,6 +25,8 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="9. Introducing the Shell”" href="bash_lesson1.html" />
+    <link rel="prev" title="2. Accessing The Atmosphere Cloud" href="atmosphere_cloud.html" />
   
    
 
@@ -35,6 +37,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="bash_lesson1.html" title="9. Introducing the Shell”"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="atmosphere_cloud.html" title="2. Accessing The Atmosphere Cloud"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
@@ -50,33 +58,33 @@
     <h2>Contents</h2>
     <div class="sidebar-localtoc">
       <ul>
-<li><a class="reference internal" href="#">Using the Command Line</a><ul>
-<li><a class="reference internal" href="#goals">Goals</a></li>
-<li><a class="reference internal" href="#background">Background</a></li>
-<li><a class="reference internal" href="#what-does-it-look-like">What does it look like?</a></li>
-<li><a class="reference internal" href="#usage">Usage</a><ul>
-<li><a class="reference internal" href="#advantages">Advantages</a></li>
+<li><a class="reference internal" href="#">8. Using the Command Line</a><ul>
+<li><a class="reference internal" href="#goals">8.1. Goals</a></li>
+<li><a class="reference internal" href="#background">8.2. Background</a></li>
+<li><a class="reference internal" href="#what-does-it-look-like">8.3. What does it look like?</a></li>
+<li><a class="reference internal" href="#usage">8.4. Usage</a><ul>
+<li><a class="reference internal" href="#advantages">8.4.1. Advantages</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#navigating-files-and-directories">Navigating Files and Directories</a><ul>
-<li><a class="reference internal" href="#viewing-hidden-files">Viewing hidden files</a></li>
-<li><a class="reference internal" href="#absolute-vs-relative-paths">Absolute vs. Relative paths</a></li>
+<li><a class="reference internal" href="#navigating-files-and-directories">8.5. Navigating Files and Directories</a><ul>
+<li><a class="reference internal" href="#viewing-hidden-files">8.5.1. Viewing hidden files</a></li>
+<li><a class="reference internal" href="#absolute-vs-relative-paths">8.5.2. Absolute vs. Relative paths</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#creating-files-and-folders">Creating files and folders</a><ul>
-<li><a class="reference internal" href="#new-folders">New folders</a></li>
-<li><a class="reference internal" href="#things-to-note-about-folder-names">Things to note about folder names</a></li>
-<li><a class="reference internal" href="#new-files-and-editing">New files and editing</a><ul>
-<li><a class="reference internal" href="#choose-a-text-editor">Choose a text editor</a></li>
+<li><a class="reference internal" href="#creating-files-and-folders">8.6. Creating files and folders</a><ul>
+<li><a class="reference internal" href="#new-folders">8.6.1. New folders</a></li>
+<li><a class="reference internal" href="#things-to-note-about-folder-names">8.6.2. Things to note about folder names</a></li>
+<li><a class="reference internal" href="#new-files-and-editing">8.6.3. New files and editing</a><ul>
+<li><a class="reference internal" href="#choose-a-text-editor">8.6.3.1. Choose a text editor</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#piping">Piping</a></li>
-<li><a class="reference internal" href="#grep-tr-wc-mv-and-many-others">Grep, tr, wc, mv and many others</a><ul>
-<li><a class="reference internal" href="#grep">Grep</a></li>
-<li><a class="reference internal" href="#tr">Tr</a></li>
-<li><a class="reference internal" href="#wc">wc</a></li>
+<li><a class="reference internal" href="#piping">8.7. Piping</a></li>
+<li><a class="reference internal" href="#grep-tr-wc-mv-and-many-others">8.8. Grep, tr, wc, mv and many others</a><ul>
+<li><a class="reference internal" href="#grep">8.8.1. Grep</a></li>
+<li><a class="reference internal" href="#tr">8.8.2. Tr</a></li>
+<li><a class="reference internal" href="#wc">8.8.3. wc</a></li>
 </ul>
 </li>
 </ul>
@@ -86,6 +94,12 @@
     </div>
   </div>
 </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="atmosphere_cloud.html"
+                        title="previous chapter">2. Accessing The Atmosphere Cloud</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bash_lesson1.html"
+                        title="next chapter">9. Introducing the Shell”</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -115,27 +129,27 @@
             <ol class="breadcrumb">
               <li><a href="toc.html">Docs</a></li>
               
-              <li>Using the Command Line</li>
+              <li>8. Using the Command Line</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
   <div class="section" id="using-the-command-line">
-<h1>Using the Command Line<a class="headerlink" href="#using-the-command-line" title="Permalink to this headline">¶</a></h1>
+<h1>8. Using the Command Line<a class="headerlink" href="#using-the-command-line" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="goals">
-<h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<h2>8.1. Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Explain how shell relates to the operating system, and users’ programs.</li>
 <li>Explain when and why command-line interfaces should be used instead of graphical interfaces.</li>
 </ul>
 </div>
 <div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<h2>8.2. Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
 <p>A shell is a program like any other. What’s special about it is that its job is to run other programs rather than to do calculations itself. The most popular Unix shell is Bash, the Bourne Again SHell (so-called because it’s derived from a shell written by Stephen Bourne). Bash is the default shell on most modern implementations of Unix and in most packages that provide Unix-like tools for Windows.</p>
 </div>
 <div class="section" id="what-does-it-look-like">
-<h2>What does it look like?<a class="headerlink" href="#what-does-it-look-like" title="Permalink to this headline">¶</a></h2>
+<h2>8.3. What does it look like?<a class="headerlink" href="#what-does-it-look-like" title="Permalink to this headline">¶</a></h2>
 <p>The shell <strong>prompt</strong> allows you to interact with you computer and the files and folders present in it.</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>campus-009-192:~ eoziolor$
 </pre></div>
@@ -229,7 +243,7 @@ DESCRIPTION
 <p>P.S.: To quit the man prompt you can just type “q”</p>
 </div>
 <div class="section" id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<h2>8.4. Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>Command prompts are simple and are a language of their own. That means that unless you are percise and accurate about what you want to do - it will get done <strong>poorly</strong>!</p>
 <p>Let’s say that you forget a space between your command and the modifier you are using.</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>campus-009-192:~ eoziolor$ ls-F
@@ -238,13 +252,13 @@ DESCRIPTION
 </div>
 <p>Bash has no idea what you mean and is likely not going to try to guess what it is. This is why you should always double, triple, quadruple check scripts that you write. One letter off can throw out a whole pipeline and sometimes you might not even know that it’s happening.</p>
 <div class="section" id="advantages">
-<h3>Advantages<a class="headerlink" href="#advantages" title="Permalink to this headline">¶</a></h3>
+<h3>8.4.1. Advantages<a class="headerlink" href="#advantages" title="Permalink to this headline">¶</a></h3>
 <p>Biggest advantage of using command line is that you know exactly what you are doing. This is not a black box in which a program is going to magically analyze your data and spit out results. If you’re here, usually you know what your data looks like and format it needs to take to be received by the various programs of unix command-line.</p>
 <p>Another big advantage of unix is that it uses <strong>pipes</strong> (|). Basically that is the way for unix to rush the output from one command into another, so that you don’t have to save any intermediates. We will chat more about this later, but overall that simplifies analyses <strong>immensely</strong>.</p>
 </div>
 </div>
 <div class="section" id="navigating-files-and-directories">
-<h2>Navigating Files and Directories<a class="headerlink" href="#navigating-files-and-directories" title="Permalink to this headline">¶</a></h2>
+<h2>8.5. Navigating Files and Directories<a class="headerlink" href="#navigating-files-and-directories" title="Permalink to this headline">¶</a></h2>
 <p>When you open the terminal you are immediately placed in a location on your computer. You can find where you are by running the command pwd (print working directory).</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>campus-009-192:~ eoziolor$ pwd
 /Users/eoziolor
@@ -277,7 +291,7 @@ campus-009-192:~ eoziolor$
 </pre></div>
 </div>
 <div class="section" id="viewing-hidden-files">
-<h3>Viewing hidden files<a class="headerlink" href="#viewing-hidden-files" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.1. Viewing hidden files<a class="headerlink" href="#viewing-hidden-files" title="Permalink to this headline">¶</a></h3>
 <p>There are also files on your system that do not appear on normal list searches. They are called <strong>hidden</strong> files and you can reveal them by appending -a at the end of ls.</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>campus-009-192:~ eoziolor$ ls -a
 .				.gitconfig			.zoomus				angus_private_key
@@ -296,7 +310,7 @@ campus-009-192:~ eoziolor$
 </div>
 </div>
 <div class="section" id="absolute-vs-relative-paths">
-<h3>Absolute vs. Relative paths<a class="headerlink" href="#absolute-vs-relative-paths" title="Permalink to this headline">¶</a></h3>
+<h3>8.5.2. Absolute vs. Relative paths<a class="headerlink" href="#absolute-vs-relative-paths" title="Permalink to this headline">¶</a></h3>
 <p>There are two ways at getting to a folder. One way is to specify the absolute location of the folder:</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>campus-009-192:~ eoziolor$ cd /Users/eoziolor/Desktop/
 campus-009-192:Desktop eoziolor$ pwd
@@ -324,9 +338,9 @@ campus-009-192:Desktop eoziolor$ pwd
 </div>
 </div>
 <div class="section" id="creating-files-and-folders">
-<h2>Creating files and folders<a class="headerlink" href="#creating-files-and-folders" title="Permalink to this headline">¶</a></h2>
+<h2>8.6. Creating files and folders<a class="headerlink" href="#creating-files-and-folders" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="new-folders">
-<h3>New folders<a class="headerlink" href="#new-folders" title="Permalink to this headline">¶</a></h3>
+<h3>8.6.1. New folders<a class="headerlink" href="#new-folders" title="Permalink to this headline">¶</a></h3>
 <p>You can use the command mkdir (make directory) to make a folder in the directory you are.</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>campus-009-192:~ eoziolor$ mkdir blabla
 campus-009-192:~ eoziolor$ ls
@@ -342,7 +356,7 @@ GIGAIII_bioinformatics_workshop	angus_private_key		phgenome_post
 <p>To delete a folder with contents type rm -rf followed by the directory. <strong>BE VERY CAREFUL</strong> with this! You cannot undo this! It does not go into trash, it just disappears <strong>FOREVER</strong>!</p>
 </div>
 <div class="section" id="things-to-note-about-folder-names">
-<h3>Things to note about folder names<a class="headerlink" href="#things-to-note-about-folder-names" title="Permalink to this headline">¶</a></h3>
+<h3>8.6.2. Things to note about folder names<a class="headerlink" href="#things-to-note-about-folder-names" title="Permalink to this headline">¶</a></h3>
 <p>Here are some rules of thumb for creating new folders:</p>
 <ul class="simple">
 <li>don’t have spaces in the name - it confuses bash</li>
@@ -352,7 +366,7 @@ GIGAIII_bioinformatics_workshop	angus_private_key		phgenome_post
 </ul>
 </div>
 <div class="section" id="new-files-and-editing">
-<h3>New files and editing<a class="headerlink" href="#new-files-and-editing" title="Permalink to this headline">¶</a></h3>
+<h3>8.6.3. New files and editing<a class="headerlink" href="#new-files-and-editing" title="Permalink to this headline">¶</a></h3>
 <p>In a similar manner you can create a new file with the command <strong>touch</strong></p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>campus-030-034:~ eoziolor$ touch document.txt
 campus-030-034:~ eoziolor$ ls
@@ -366,7 +380,7 @@ campus-030-034:~ eoziolor$
 </pre></div>
 </div>
 <div class="section" id="choose-a-text-editor">
-<h4>Choose a text editor<a class="headerlink" href="#choose-a-text-editor" title="Permalink to this headline">¶</a></h4>
+<h4>8.6.3.1. Choose a text editor<a class="headerlink" href="#choose-a-text-editor" title="Permalink to this headline">¶</a></h4>
 <p><strong>Do not open vim unless you’re ready</strong></p>
 <p>Let’s start by opening the document we created with the test editor <strong>nano</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nano</span> <span class="n">document</span><span class="o">.</span><span class="n">txt</span>
@@ -419,7 +433,7 @@ Advantages of <strong>cat</strong>:</p>
 </div>
 </div>
 <div class="section" id="piping">
-<h2>Piping<a class="headerlink" href="#piping" title="Permalink to this headline">¶</a></h2>
+<h2>8.7. Piping<a class="headerlink" href="#piping" title="Permalink to this headline">¶</a></h2>
 <p>Piping is one of the most useful thing in bash script. The unix shell was made to do something to a file and be able to unitize these commands to pass a certain <strong>pipeline</strong>.</p>
 <p>The pipe basically means that I will do something to a file and the output of that I will pass to another program…to do whatever the other program is doing with it. The pipe symbol is <strong>|</strong> and can work as following:</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>cat document.txt | head -n 3
@@ -431,7 +445,7 @@ what
 <p>In this case what I’m doing is printing our file and piping the output into the <strong>head</strong> commnad, which allows me to print only the first 3 lines.</p>
 </div>
 <div class="section" id="grep-tr-wc-mv-and-many-others">
-<h2>Grep, tr, wc, mv and many others<a class="headerlink" href="#grep-tr-wc-mv-and-many-others" title="Permalink to this headline">¶</a></h2>
+<h2>8.8. Grep, tr, wc, mv and many others<a class="headerlink" href="#grep-tr-wc-mv-and-many-others" title="Permalink to this headline">¶</a></h2>
 <p>I can use an abundance of commands to now manipulate this text. Let’s look at a slightly more complicated document and see what we can do.</p>
 <p>Let’s quickly download a small fasta file containing the <em>Fundulus heteroclitus</em> transcriptome and play with it:</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>curl -O ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/826/765/GCF_000826765.1_Fundulus_heteroclitus-3.0.2/GCF_000826765.1_Fundulus_heteroclitus-3.0.2_rna.fna.gz
@@ -456,7 +470,7 @@ CCCATATGACTACTCCTCTGTGATGCAATATGGAAAAACTGCCTTTGGAAAGAACAGGGCAGAATCCATCACTCCTATCC
 </pre></div>
 </div>
 <div class="section" id="grep">
-<h3>Grep<a class="headerlink" href="#grep" title="Permalink to this headline">¶</a></h3>
+<h3>8.8.1. Grep<a class="headerlink" href="#grep" title="Permalink to this headline">¶</a></h3>
 <p>Here’s your normal fasta output. Now let’s try to get some quick stats out of this.</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>zcat &lt; fhet.tr.fna.gz | grep -c &quot;^&gt;&quot;
 41170
@@ -466,7 +480,7 @@ CCCATATGACTACTCCTCTGTGATGCAATATGGAAAAACTGCCTTTGGAAAGAACAGGGCAGAATCCATCACTCCTATCC
 <p>In this case I have counted the number of new lines that begin with <strong>&gt;</strong>, which is every other line in a fasta document. What that tells me is that there are 41170 transcripts represented in this file.</p>
 </div>
 <div class="section" id="tr">
-<h3>Tr<a class="headerlink" href="#tr" title="Permalink to this headline">¶</a></h3>
+<h3>8.8.2. Tr<a class="headerlink" href="#tr" title="Permalink to this headline">¶</a></h3>
 <p>Notice that every &gt; line starts with <strong>NM_</strong>. What if we want to get rid of all of these underscores and replace them with a dot? We can do this with <strong>tr</strong>.</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>zcat &lt; fhet.tr.fna.gz | tr &quot;_&quot; &quot;.&quot; | head
 &gt;NM.001309911.1 Fundulus heteroclitus low choriolytic enzyme-like (LOC105918466), mRNA
@@ -488,7 +502,7 @@ CCCATATGACTACTCCTCTGTGATGCAATATGGAAAAACTGCCTTTGGAAAGAACAGGGCAGAATCCATCACTCCTATCC
 <p>and now you have a tab separated value document.</p>
 </div>
 <div class="section" id="wc">
-<h3>wc<a class="headerlink" href="#wc" title="Permalink to this headline">¶</a></h3>
+<h3>8.8.3. wc<a class="headerlink" href="#wc" title="Permalink to this headline">¶</a></h3>
 <p>Word count is a useful feature and we can use it in variety of ways.</p>
 <div class="highlight-{bash} notranslate"><div class="highlight"><pre><span></span>zcat &lt; fhet.tr.fna.gz | grep -v &quot;^&gt;&quot; | wc -m
  131885065
@@ -503,6 +517,18 @@ CCCATATGACTACTCCTCTGTGATGCAATATGGAAAAACTGCCTTTGGAAAGAACAGGGCAGAATCCATCACTCCTATCC
 
           </div>
             
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="atmosphere_cloud.html" title="previous chapter (use the left arrow)">2. Accessing The Atmosphere Cloud</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="bash_lesson1.html" title="next chapter (use the right arrow)">9. Introducing the Shell”</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
         </div>
         <div class="clearfix"></div>
     </div>
@@ -512,6 +538,12 @@ CCCATATGACTACTCCTCTGTGATGCAATATGGAAAAACTGCCTTTGGAAAGAACAGGGCAGAATCCATCACTCCTATCC
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="bash_lesson1.html" title="9. Introducing the Shell”"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="atmosphere_cloud.html" title="2. Accessing The Atmosphere Cloud"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
