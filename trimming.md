@@ -13,7 +13,7 @@ Trimming and Filtering
 
 # Cleaning Reads
 
-In the previous episode, we took a high-level look at the quality of each of our samples using FastQC. We vizualized per-base quality
+> In the previous episode, we took a high-level look at the quality of each of our samples using FastQC. We vizualized per-base quality
 graphs showing the distribution of read quality at each base across all reads in a sample and extracted information about which samples
 fail which quality checks. Some of our samples failed quite a few quality metrics used by FastQC. This doesn't mean, though, that our samples should be thrown out! It's very common to have some quality metrics fail, and this may or may not be a problem for your downstream application. For our variant callig workflow, we will be removing some of the low quality sequences to reduce our false positive rate due to sequencing error.
 
@@ -40,12 +40,12 @@ This output shows us that we must first specify whether we have paired end (`PE`
 output files. These files are described below.
 
 
--  <inputFile1>  : Input reads to be trimmed. Typically the file name will contain an `_1` or `_R1` in the name
+- <inputFile1>  : Input reads to be trimmed. Typically the file name will contain an `_1` or `_R1` in the name
 - <inputFile2> : Input reads to be trimmed. Typically the file name will contain an `_2` or `_R2` in the name
--  <outputFile1P> : Output file that contains surviving pairs from the `_1` file
--  <outputFile1U> : Output file that contains orphaned reads from the `_1` file
--  <outputFile2P> : Output file that contains surviving pairs from the `_2` file
--  <outputFile2U> : Output file that contains orphaned reads from the `_2` file
+- <outputFile1P> : Output file that contains surviving pairs from the `_1` file
+- <outputFile1U> : Output file that contains orphaned reads from the `_1` file
+- <outputFile2P> : Output file that contains surviving pairs from the `_2` file
+- <outputFile2U> : Output file that contains orphaned reads from the `_2` file
 
 The last thing trimmomatic expects to see is the trimming parameters:
 
@@ -53,15 +53,15 @@ The last thing trimmomatic expects to see is the trimming parameters:
 - `ILLUMINACLIP` : Perform adapter removal
 - `SLIDINGWINDOW` : Perform sliding window trimming, cutting once the average quality within the window falls below a threshold
 - `LEADING`  : Cut bases off the start of a read, if below a threshold quality
--  `TRAILING` :  Cut bases off the end of a read, if below a threshold quality
+- `TRAILING` :  Cut bases off the end of a read, if below a threshold quality
 - `CROP`  :  Cut the read to a specified length
--  `HEADCROP` :  Cut the specified number of bases from the start of the read
+- `HEADCROP` :  Cut the specified number of bases from the start of the read
 - `MINLEN`  :  Drop an entire read if it is below a specified length
--  `TOPHRED33` : Convert quality scores to Phred-33
--  `TOPHRED64` :  Convert quality scores to Phred-64
+- `TOPHRED33` : Convert quality scores to Phred-33
+- `TOPHRED64` :  Convert quality scores to Phred-64
 
 We will use only a few of these options and trimming steps in our analysis. It is important to understand the steps you are using to
-clean your data. For more information about the Trimmomatic arguments and options, see [the Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
+clean your data. For more information about the Trimmomatic arguments and options, see the [Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
 
 However, a complete command for Trimmomatic will look something like the command below. This command is an example and will not work as we do not have the files it refers to:
 
@@ -72,8 +72,7 @@ $ trimmomatic PE -threads 4 SRR_1056_1.fastq SRR_1056_2.fastq  \
               ILLUMINACLIP:SRR_adapters.fa SLIDINGWINDOW:4:20
 ~~~
 
-In this example, we've told Trimmomatic:
-
+> In this example, we've told Trimmomatic:
 - `PE` : that it will be taking a single end file as input
 - `-threads 4` : to use four computing threads to run (this will spead up our run)
 - `SRR_1056_1.fastq` : the first input file name
@@ -83,7 +82,7 @@ In this example, we've told Trimmomatic:
 - `SRR_1056_2.trimmed.fastq` : the output file for surviving pairs from the `_2` file
 - `SRR_1056_2un.trimmed.fastq` : the output file for orphaned reads from the `_2` file
 - `ILLUMINACLIP:SRR_adapters.fa`: to clip the Illumina adapters from the input file using the adapter sequences listed in `SRR_adapters.fa`
--`SLIDINGWINDOW:4:20` : to use a sliding window of size 4 that will remove bases if their phred score is below 20
+- `SLIDINGWINDOW:4:20` : to use a sliding window of size 4 that will remove bases if their phred score is below 20
 
 ## Running Trimmomatic
 
@@ -201,23 +200,6 @@ SRR2584863_2.trim.fastq.gz    SRR2584866_2un.trim.fastq.gz
 SRR2584863_2un.trim.fastq.gz  SRR2589044_1.fastq.gz
 ~~~
 
-> **Exercise**
-> We trimmed our fastq files with Nextera adapters,
-> but there are other adapters that are commonly used.
-> What other adapter files came with Trimmomatic?
->
->
->> *Solution*
->> ~~~
->> $ ls ~/miniconda3/pkgs/trimmomatic-0.38-0/share/trimmomatic-0.38-0/adapters/
->> ~~~
->>
->>
->> ~~~
->> NexteraPE-PE.fa  TruSeq2-SE.fa    TruSeq3-PE.fa
->> TruSeq2-PE.fa    TruSeq3-PE-2.fa  TruSeq3-SE.fa
->> ~~~
-
 We've now completed the trimming and filtering steps of our quality control process! Before we move on, let's move our trimmed FASTQ files
 to a new subdirectory within our `data/` directory. We can also remove our extra, double-trimmed file for the `SRR098283` sample.
 
@@ -238,15 +220,11 @@ SRR2584863_2un.trim.fastq.gz  SRR2584866_2un.trim.fastq.gz  SRR2589044_2un.trim.
 
 > **Bonus Exercise (Advanced)**
 >
-> Now that we've quality controled our samples, they should perform
-> better on the quality tests run by FastQC. Go ahead and re-run
-> FastQC on your trimmed FASTQ files and visualize the HTML files
-> to see whether your per base sequence quality is higher after
-> trimming.
+> Now that we've quality controled our samples, they should perform better on the quality tests run by FastQC. Go ahead and re-run FastQC on your trimmed FASTQ files and visualize the HTML files to see whether your per base sequence quality is higher after trimming.
 >
 >> *Solution*
 >>
->> In your AWS terminal window do:
+>> In your terminal window do:
 >>
 >> ~~~
 >> $ fastqc ~/dc_workshop/data/trimmed_fastq
@@ -258,5 +236,4 @@ SRR2584863_2un.trim.fastq.gz  SRR2584866_2un.trim.fastq.gz  SRR2589044_2un.trim.
 >> $ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/trimmed_fastq/*.html ~/Desktop/fastqc_html/trimmed
 >> $ open ~/Desktop/fastqc_html/trimmed/*.html
 >> ~~~
->>
 >> After trimming and filtering, our overall quality is much higher, we have a distribution of sequence lengths, and more samples pass adapter content. However, quality trimming is not perfect, and some programs are better at removing some sequences than others. Because our sequences still contain 3' adapters, it could be important to explore other trimming tools like [cutadapt](http://cutadapt.readthedocs.io/en/stable/) to remove these, depending on your downstream application. Trimmomatic did pretty well though, and its performance is good enough for our workflow.

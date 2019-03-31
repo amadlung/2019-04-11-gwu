@@ -68,7 +68,7 @@
 
 03:00-3:30pm  : Coffee/Tea Break
 
-03:30-4:30pm  : Overview of Genomics Analysis Pipelines & Project Organization
+03:30-4:30pm  : [Overview of Genomics Analysis Workflow](https://gwu-omics2019.readthedocs.io/en/latest/workflow_overview.html)
 
 04:30-5:30pm  : [Assessing Read Quality](https://gwu-omics2019.readthedocs.io/en/latest/quality_control.html)
 

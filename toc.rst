@@ -16,6 +16,8 @@
 
    bioconda_lesson.md
 
+   workflow_overview.md
+
    quality_control.md
 
    trimming.md
