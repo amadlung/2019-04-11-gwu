@@ -61,7 +61,7 @@
 <li><a class="reference internal" href="#">9. Introducing the Shell</a><ul>
 <li><a class="reference internal" href="#what-is-a-shell-and-why-should-i-care">9.1. What is a shell and why should I care?</a></li>
 <li><a class="reference internal" href="#navigating-your-file-system">9.2. Navigating your file system</a><ul>
-<li><a class="reference internal" href="#shortcut-tab-completion">9.2.1. Shortcut: Tab Completion</a></li>
+<li><a class="reference internal" href="#shortcut-kbd-tab-kbd-completion">9.2.1. Shortcut: <kbd>Tab</kbd> Completion</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#summary">9.3. Summary</a></li>
@@ -152,9 +152,9 @@
 <div class="section" id="what-is-a-shell-and-why-should-i-care">
 <h2>9.1. What is a shell and why should I care?<a class="headerlink" href="#what-is-a-shell-and-why-should-i-care" title="Permalink to this headline">¶</a></h2>
 <p>A <em>shell</em> is a computer program that presents a command line interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard combination.</p>
-<p>There are many reasons to learn about the shell.</p>
+<p>There are many reasons to learn about the shell:</p>
 <ul class="simple">
-<li>Many bioinformatics tools can only be used through a command line interface, or have extra capabilities in the command line version that are not available in the GUI. This is true, for example, of BLAST, which offers many advanced functions only accessible to users who know how to use a shell.</li>
+<li>Many bioinformatics tools can only be used through a command line interface, or have extra capabilities in the command line version that are not available in the GUI.</li>
 <li>The shell makes your work more reproducible. When you carry out your work in the command-line (rather than a GUI), your computer keeps a record of every step that you’ve carried out, which you can use to re-do your work when you need to. It also gives you a way to communicate unambiguously what you’ve done, so that others can check your work or apply your process to new data.</li>
 <li>Many bioinformatic tasks require large amounts of computing power and can’t realistically be run on your own machine. These tasks are best performed using remote computers or cloud computing, which can only be accessed through a shell.</li>
 </ul>
@@ -162,39 +162,35 @@
 <div class="section" id="navigating-your-file-system">
 <h2>9.2. Navigating your file system<a class="headerlink" href="#navigating-your-file-system" title="Permalink to this headline">¶</a></h2>
 <p><img alt="_images/filesystem.svg" src="_images/filesystem.svg" /></p>
-<p>The part of the operating system responsible for managing files and directories is called the <strong>file system</strong>. It organizes our data into files, which hold information, and directories (also called “folders”), which hold files or other directories.</p>
 <p>Several commands are frequently used to create, inspect, rename, and delete files and directories.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$
 </pre></div>
 </div>
-<p>The dollar sign is a <strong>prompt</strong>, which shows us that the shell is waiting for input; your shell may use a different character as a prompt and may add information before the prompt. When typing commands, either from these lessons or from other sources, do not type the prompt, only the commands that follow it.</p>
-<p>Let’s find out where we are by running a command called <code class="docutils literal notranslate"><span class="pre">pwd</span></code> (which stands for “print working directory”). At any moment, our <strong>current working directory</strong> is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.</p>
-<p>Here, the computer’s response is <code class="docutils literal notranslate"><span class="pre">/home/sateeshp</span></code>, which is the top level directory within our cloud system:</p>
+<blockquote>
+<div>The dollar sign is a <strong>prompt</strong>, which shows us that the shell is waiting for input; your shell may use a different character as a prompt and may add information before the prompt. When typing commands, either from these lessons or from other sources, do not type the prompt, only the commands that follow it.</div></blockquote>
+<p>Let’s find out where we are by running a command called <code class="docutils literal notranslate"><span class="pre">pwd</span></code> (which stands for “<strong>print working directory</strong>”). At any moment, our current working directory is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pwd
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sateeshp</span>
-</pre></div>
-</div>
-<p>Let’s look at how our file system is organized. At the top is our home directory, which holds all the subdirectories and files. Inside that directory there is currently one other directory:</p>
+<p>Here, the computer’s response is <code class="docutils literal notranslate"><span class="pre">/home/sateeshp</span></code>, which is the top level directory within our cloud system:</p>
+<p>Let’s look at how our file system is organized. At the top is our home directory, which holds all the sub-directories and files. Inside that directory there is currently one other directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shell_data</span>
 </pre></div>
 </div>
 <p>We’ll be working with this sub-directory, and creating new sub-directories, throughout this workshop.</p>
-<p>The command to change locations in our file system is <code class="docutils literal notranslate"><span class="pre">cd</span></code> followed by a directory name to change our working directory. <code class="docutils literal notranslate"><span class="pre">cd</span></code> stands for “change directory”.</p>
+<p>The command to change locations in our file system is <code class="docutils literal notranslate"><span class="pre">cd</span></code> followed by a directory name to change our working directory. <code class="docutils literal notranslate"><span class="pre">cd</span></code> stands for “<strong>change directory</strong>”.</p>
 <p>Let’s say we want to navigate to the <code class="docutils literal notranslate"><span class="pre">shell_data</span></code> directory we saw above.  We can use the following command to get there:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd shell_data
 </pre></div>
 </div>
-<p>We can see files and sub-directories are in this directory by running <code class="docutils literal notranslate"><span class="pre">ls</span></code>, which stands for “listing”:</p>
+<p>We can see files and sub-directories are in this directory by running <code class="docutils literal notranslate"><span class="pre">ls</span></code>, which stands for “<strong>listing</strong>”:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sra_metadata</span>  <span class="n">untrimmed_fastq</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ls</span></code> prints the names of the files and directories in the current directory in alphabetical order,
-arranged neatly into columns. We can make its output more comprehensible by using the <strong>flag</strong> <code class="docutils literal notranslate"><span class="pre">-F</span></code>, which tells <code class="docutils literal notranslate"><span class="pre">ls</span></code> to add a trailing <code class="docutils literal notranslate"><span class="pre">/</span></code> to the names of directories:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ls</span></code> prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We can make its output more comprehensible by using the <strong>flag</strong> <code class="docutils literal notranslate"><span class="pre">-F</span></code>, which tells <code class="docutils literal notranslate"><span class="pre">ls</span></code> to add a trailing <code class="docutils literal notranslate"><span class="pre">/</span></code> to the names of directories:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -F
 </pre></div>
 </div>
@@ -209,25 +205,22 @@ arranged neatly into columns. We can make its output more comprehensible by usin
 <p>Some manual files are very long. You can scroll through the file using your keyboard’s down arrow or use the <kbd>Space</kbd> key to go forward one page and the <kbd>b</kbd> key to go backwards one page. When you are done reading, hit <kbd>q</kbd> to quit.</p>
 <blockquote>
 <div><p><strong>Challenge</strong>
-Use the <code class="docutils literal notranslate"><span class="pre">-l</span></code> option for the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command to display more information for each item
-in the directory. What is one piece of additional information this long format
-gives you that you don’t see with the bare <code class="docutils literal notranslate"><span class="pre">ls</span></code> command?</p>
+Use the <code class="docutils literal notranslate"><span class="pre">-l</span></code> option for the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command to display more information for each item in the directory. What is one piece of additional information this long format gives you that you don’t see with the bare <code class="docutils literal notranslate"><span class="pre">ls</span></code> command?</p>
 <blockquote>
 <div><p><strong>Solution</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -l
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">total</span> <span class="mi">8</span>
-<span class="n">drwxr</span><span class="o">-</span><span class="n">x</span><span class="o">---</span> <span class="mi">2</span> <span class="n">dcuser</span> <span class="n">dcuser</span> <span class="mi">4096</span> <span class="n">Jul</span> <span class="mi">30</span>  <span class="mi">2015</span> <span class="n">sra_metadata</span>
-<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span> <span class="mi">2</span> <span class="n">dcuser</span> <span class="n">dcuser</span> <span class="mi">4096</span> <span class="n">Nov</span> <span class="mi">15</span>  <span class="mi">2017</span> <span class="n">untrimmed_fastq</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">x</span><span class="o">---</span> <span class="mi">2</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">4096</span> <span class="n">Mar</span> <span class="mi">30</span> <span class="mi">20</span><span class="p">:</span><span class="mi">23</span> <span class="n">sra_metadata</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">x</span><span class="o">---</span> <span class="mi">2</span> <span class="n">root</span> <span class="n">root</span> <span class="mi">4096</span> <span class="n">Mar</span> <span class="mi">30</span> <span class="mi">20</span><span class="p">:</span><span class="mi">23</span> <span class="n">untrimmed_fastq</span>
 </pre></div>
 </div>
-<p>The additional information given includes the name of the owner of the file,
-when the file was last modified, and whether the current user has permission
-to read and write to the file.</p>
+<p>The additional information given includes the name of the owner of the file, when the file was last modified, and whether the current user has permission to read and write to the file.</p>
 </div></blockquote>
 </div></blockquote>
-<p>No one can possibly learn all of these arguments, that’s why the manual page is for. You can (and should) refer to the manual page or other help files as needed.</p>
+<blockquote>
+<div>No one can possibly learn all of these arguments, that’s why the manual page is for. You can (and should) refer to the manual page or other help files as needed.</div></blockquote>
 <p>Let’s go into the <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> directory and see what is in there.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd untrimmed_fastq
 $ ls -F
@@ -237,15 +230,15 @@ $ ls -F
 </pre></div>
 </div>
 <p>This directory contains two files with <code class="docutils literal notranslate"><span class="pre">.fastq</span></code> extensions. FASTQ is a format for storing information about sequencing reads and their quality. We will be learning more about FASTQ files in a later lesson.</p>
-<div class="section" id="shortcut-tab-completion">
-<h3>9.2.1. Shortcut: Tab Completion<a class="headerlink" href="#shortcut-tab-completion" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="shortcut-kbd-tab-kbd-completion">
+<h3>9.2.1. Shortcut: <kbd>Tab</kbd> Completion<a class="headerlink" href="#shortcut-kbd-tab-kbd-completion" title="Permalink to this headline">¶</a></h3>
 <p>Typing out file or directory names can waste a lot of time and it’s easy to make typing mistakes. Instead we can use tab complete as a shortcut. When you start typing out the name of a directory or file, then hit the <kbd>Tab</kbd> key, the shell will try to fill in the rest of the directory or file name.</p>
 <p>Return to your home directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
 </pre></div>
 </div>
 <p>then enter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd she&lt;tab&gt;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd she&lt;kbd&gt;Tab&lt;/kbd&gt;
 </pre></div>
 </div>
 <p>The shell will fill in the rest of the directory name for <code class="docutils literal notranslate"><span class="pre">shell_data</span></code>.</p>
@@ -254,12 +247,12 @@ $ ls -F
 $ cd untrimmed_fastq
 </pre></div>
 </div>
-<p>Using tab complete can be very helpful. However, it will only auto-complete a file or directory name if you’ve typed enough characters to provide a unique identifier for the file or directory you are trying to access.</p>
+<p>Using <kbd>Tab</kbd> complete can be very helpful. However, it will only auto-complete a file or directory name if you’ve typed enough characters to provide a unique identifier for the file or directory you are trying to access.</p>
 <p>If we navigate back to our <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> directory and try to access one of our sample files:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
 $ cd shell_data
 $ cd untrimmed_fastq
-$ ls SR&lt;tab&gt;
+$ ls SR&lt;kbd&gt;Tab&lt;/kbd&gt;
 </pre></div>
 </div>
 <p>The shell auto-completes your command to <code class="docutils literal notranslate"><span class="pre">SRR09</span></code>, because all file names in the directory begin with this prefix. When you hit <kbd>Tab</kbd> again, the shell will list the possible choices.</p>

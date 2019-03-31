@@ -22,9 +22,8 @@
 
 A *shell* is a computer program that presents a command line interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard combination.
 
-There are many reasons to learn about the shell.
-
-* Many bioinformatics tools can only be used through a command line interface, or have extra capabilities in the command line version that are not available in the GUI. This is true, for example, of BLAST, which offers many advanced functions only accessible to users who know how to use a shell.
+There are many reasons to learn about the shell:
+* Many bioinformatics tools can only be used through a command line interface, or have extra capabilities in the command line version that are not available in the GUI.
 * The shell makes your work more reproducible. When you carry out your work in the command-line (rather than a GUI), your computer keeps a record of every step that you've carried out, which you can use to re-do your work when you need to. It also gives you a way to communicate unambiguously what you've done, so that others can check your work or apply your process to new data.
 * Many bioinformatic tasks require large amounts of computing power and can't realistically be run on your own machine. These tasks are best performed using remote computers or cloud computing, which can only be accessed through a shell.
 
@@ -32,29 +31,23 @@ There are many reasons to learn about the shell.
 
 ![](/img/filesystem.svg)
 
-The part of the operating system responsible for managing files and directories is called the **file system**. It organizes our data into files, which hold information, and directories (also called "folders"), which hold files or other directories.
-
 Several commands are frequently used to create, inspect, rename, and delete files and directories.
 
 ```
 $
 ```
 
-The dollar sign is a **prompt**, which shows us that the shell is waiting for input; your shell may use a different character as a prompt and may add information before the prompt. When typing commands, either from these lessons or from other sources, do not type the prompt, only the commands that follow it.
+> The dollar sign is a **prompt**, which shows us that the shell is waiting for input; your shell may use a different character as a prompt and may add information before the prompt. When typing commands, either from these lessons or from other sources, do not type the prompt, only the commands that follow it.
 
-Let's find out where we are by running a command called `pwd` (which stands for "print working directory"). At any moment, our **current working directory** is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.
-
-Here, the computer's response is `/home/sateeshp`, which is the top level directory within our cloud system:
+Let's find out where we are by running a command called `pwd` (which stands for "**print working directory**"). At any moment, our current working directory is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.
 
 ```
 $ pwd
 ```
 
-```
-/home/sateeshp
-```
+Here, the computer's response is `/home/sateeshp`, which is the top level directory within our cloud system:
 
-Let's look at how our file system is organized. At the top is our home directory, which holds all the subdirectories and files. Inside that directory there is currently one other directory:
+Let's look at how our file system is organized. At the top is our home directory, which holds all the sub-directories and files. Inside that directory there is currently one other directory:
 
 ```
 shell_data
@@ -62,7 +55,7 @@ shell_data
 
 We'll be working with this sub-directory, and creating new sub-directories, throughout this workshop.
 
-The command to change locations in our file system is `cd` followed by a directory name to change our working directory. `cd` stands for "change directory".
+The command to change locations in our file system is `cd` followed by a directory name to change our working directory. `cd` stands for "**change directory**".
 
 Let's say we want to navigate to the `shell_data` directory we saw above.  We can use the following command to get there:
 
@@ -70,7 +63,7 @@ Let's say we want to navigate to the `shell_data` directory we saw above.  We ca
 $ cd shell_data
 ```
 
-We can see files and sub-directories are in this directory by running `ls`, which stands for "listing":
+We can see files and sub-directories are in this directory by running `ls`, which stands for "**listing**":
 
 ```
 $ ls
@@ -80,8 +73,7 @@ $ ls
 sra_metadata  untrimmed_fastq
 ```
 
-`ls` prints the names of the files and directories in the current directory in alphabetical order,
-arranged neatly into columns. We can make its output more comprehensible by using the **flag** `-F`, which tells `ls` to add a trailing `/` to the names of directories:
+`ls` prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We can make its output more comprehensible by using the **flag** `-F`, which tells `ls` to add a trailing `/` to the names of directories:
 
 ```
 $ ls -F
@@ -102,9 +94,7 @@ $ man ls
 Some manual files are very long. You can scroll through the file using your keyboard's down arrow or use the <kbd>Space</kbd> key to go forward one page and the <kbd>b</kbd> key to go backwards one page. When you are done reading, hit <kbd>q</kbd> to quit.
 
 > **Challenge**
-> Use the `-l` option for the `ls` command to display more information for each item
-> in the directory. What is one piece of additional information this long format
-> gives you that you don't see with the bare `ls` command?
+> Use the `-l` option for the `ls` command to display more information for each item in the directory. What is one piece of additional information this long format gives you that you don't see with the bare `ls` command?
 >
 > > **Solution**
 > > ```
@@ -112,15 +102,13 @@ Some manual files are very long. You can scroll through the file using your keyb
 > > ```
 > > ```
 > > total 8
-> > drwxr-x--- 2 dcuser dcuser 4096 Jul 30  2015 sra_metadata
-> > drwxr-xr-x 2 dcuser dcuser 4096 Nov 15  2017 untrimmed_fastq
+> > drwxr-x--- 2 root root 4096 Mar 30 20:23 sra_metadata
+> > drwxr-x--- 2 root root 4096 Mar 30 20:23 untrimmed_fastq
 > > ```
 > >
-> > The additional information given includes the name of the owner of the file,
-> > when the file was last modified, and whether the current user has permission
-> > to read and write to the file.
+> > The additional information given includes the name of the owner of the file, when the file was last modified, and whether the current user has permission to read and write to the file.
 
-No one can possibly learn all of these arguments, that's why the manual page is for. You can (and should) refer to the manual page or other help files as needed.
+> No one can possibly learn all of these arguments, that's why the manual page is for. You can (and should) refer to the manual page or other help files as needed.
 
 Let's go into the `untrimmed_fastq` directory and see what is in there.
 
@@ -135,7 +123,7 @@ SRR097977.fastq  SRR098026.fastq
 
 This directory contains two files with `.fastq` extensions. FASTQ is a format for storing information about sequencing reads and their quality. We will be learning more about FASTQ files in a later lesson.
 
-### Shortcut: Tab Completion
+### Shortcut: <kbd>Tab</kbd> Completion
 
 Typing out file or directory names can waste a lot of time and it's easy to make typing mistakes. Instead we can use tab complete as a shortcut. When you start typing out the name of a directory or file, then hit the <kbd>Tab</kbd> key, the shell will try to fill in the rest of the directory or file name.
 
@@ -148,7 +136,7 @@ $ cd
 then enter:
 
 ```
-$ cd she<tab>
+$ cd she<kbd>Tab</kbd>
 ```
 
 The shell will fill in the rest of the directory name for `shell_data`.
@@ -160,7 +148,7 @@ $ cd shell_data
 $ cd untrimmed_fastq
 ```
 
-Using tab complete can be very helpful. However, it will only auto-complete a file or directory name if you've typed enough characters to provide a unique identifier for the file or directory you are trying to access.
+Using <kbd>Tab</kbd> complete can be very helpful. However, it will only auto-complete a file or directory name if you've typed enough characters to provide a unique identifier for the file or directory you are trying to access.
 
 If we navigate back to our `untrimmed_fastq` directory and try to access one of our sample files:
 
@@ -168,7 +156,7 @@ If we navigate back to our `untrimmed_fastq` directory and try to access one of 
 $ cd
 $ cd shell_data
 $ cd untrimmed_fastq
-$ ls SR<tab>
+$ ls SR<kbd>Tab</kbd>
 ```
 
 The shell auto-completes your command to `SRR09`, because all file names in the directory begin with this prefix. When you hit <kbd>Tab</kbd> again, the shell will list the possible choices.

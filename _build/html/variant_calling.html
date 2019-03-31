@@ -188,16 +188,14 @@ What is the real name of the genome?</p>
 Keep this chromosome name (<code class="docutils literal notranslate"><span class="pre">CP000819.1</span></code>) in mind, as we will use it later in the lesson.</p>
 </div></blockquote>
 </div></blockquote>
-<p>We will also download a set of trimmed FASTQ files to work with. These are small subsets of our real trimmed data,
-and will enable us to run our variant calling workflow quite quickly.</p>
+<p>We will also download a set of trimmed FASTQ files to work with. These are small subsets of our real trimmed data, and will enable us to run our variant calling workflow quite quickly.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl -L -o sub.tar.gz https://ndownloader.figshare.com/files/14418248
 $ tar xvf sub.tar.gz
 $ mv sub/ ~/dc_workshop/data/trimmed_fastq_small
 </pre></div>
 </div>
 <p>You will also need to create directories for the results that will be generated as part of this workflow. We can do this in a single
-line of code because <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> can accept multiple new directory
-names as input.</p>
+line of code because <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> can accept multiple new directory names as input.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p results/sam results/bam results/bcf results/vcf
 </pre></div>
 </div>
@@ -228,9 +226,7 @@ names as input.</p>
 </pre></div>
 </div>
 <p>Have a look at the <a class="reference external" href="http://bio-bwa.sourceforge.net/bwa.shtml">bwa options page</a>. While we are running bwa with the default parameters here, your use case might require a change of parameters. <em>NOTE: Always read the manual page for any tool before using and make sure the options you use are appropriate for your data.</em></p>
-<p>We’re going to start by aligning the reads from just one of the
-samples in our dataset (<code class="docutils literal notranslate"><span class="pre">SRR2584866</span></code>). Later, we’ll be
-iterating this whole process on all of our sample files.</p>
+<p>We’re going to start by aligning the reads from just one of the samples in our dataset (<code class="docutils literal notranslate"><span class="pre">SRR2584866</span></code>). Later, we’ll be iterating this whole process on all of our sample files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bwa mem data/ref_genome/ecoli_rel606.fasta data/trimmed_fastq_small/SRR2584866_1.trim.sub.fastq data/trimmed_fastq_small/SRR2584866_2.trim.sub.fastq &gt; results/sam/SRR2584866.aligned.sam
 </pre></div>
 </div>
@@ -393,22 +389,22 @@ displayed below with the different fields highlighted.</p>
 <li>QUAL : Phred-scaled probablity that the observed variant exists at this site (higher is better)</li>
 <li>FILTER : a <code class="docutils literal notranslate"><span class="pre">.</span></code> if no quality filters have been applied, PASS if a filter is passed, or the name of the filters this variant failed</li>
 </ul>
-<p>In an ideal world, the information in the <code class="docutils literal notranslate"><span class="pre">QUAL</span></code> column would be all we needed to filter out bad variant calls.
-However, in reality we need to filter on multiple other metrics.</p>
-<p>The last two columns contain the genotypes and can be tricky to decode.</p>
+<p>In an ideal world, the information in the <code class="docutils literal notranslate"><span class="pre">QUAL</span></code> column would be all we needed to filter out bad variant calls. However, in reality we need to filter on multiple other metrics.</p>
+<p>The last two columns contain the genotypes and can be tricky to decode:</p>
 <ul class="simple">
 <li>FORMAT : lists in order the metrics presented in the final column</li>
 <li>Results : lists the values associated with those metrics in order</li>
 </ul>
-<p>For our file, the metrics presented are GT:PL:GQ.</p>
+<blockquote>
+<div><p>For our file, the metrics presented are GT:PL:GQ.</p>
 <ul class="simple">
 <li>GT : the genotype of this sample which for a diploid genome is encoded with a 0 for the REF allele, 1 for the first ALT allele, 2 for the second and so on. So 0/0 means homozygous reference, 0/1 is heterozygous, and 1/1 is homozygous for the alternate allele. For a diploid organism, the GT field indicates the two alleles carried by the sample, encoded by a 0 for the REF allele, 1 for the first ALT allele, 2 for the second ALT allele, etc.</li>
 <li>PL : the likelihoods of the given genotypes</li>
 <li>GQ : the Phred-scaled confidence for the genotype</li>
 <li>AD, DP : the depth per allele by sample and coverage</li>
 </ul>
-<p>The Broad Institute’s <a class="reference external" href="https://www.broadinstitute.org/gatk/guide/article?id=1268">VCF guide</a> is an excellent place
-to learn more about VCF file format.</p>
+</div></blockquote>
+<p>The Broad Institute’s <a class="reference external" href="https://www.broadinstitute.org/gatk/guide/article?id=1268">VCF guide</a> is an excellent place to learn more about VCF file format.</p>
 <blockquote>
 <div><p><strong>Exercise</strong></p>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">grep</span></code> and <code class="docutils literal notranslate"><span class="pre">wc</span></code> commands you’ve learned to assess how many variants are in the vcf file.</p>
@@ -420,28 +416,20 @@ to learn more about VCF file format.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">766</span>
 </pre></div>
 </div>
-<p>{: .output}</p>
 <p>There are 766 variants in this file.</p>
 </div></blockquote>
 </div></blockquote>
 </div>
 <div class="section" id="assess-the-alignment-visualization-optional-step">
 <h2>21.6. Assess the alignment (visualization) - optional step<a class="headerlink" href="#assess-the-alignment-visualization-optional-step" title="Permalink to this headline">¶</a></h2>
-<p>It is often instructive to look at your data in a genome browser. Visualisation will allow you to get a “feel” for
-the data, as well as detecting abnormalities and problems. Also, exploring the data in such a way may give you
-ideas for further analyses.  As such, visualization tools are useful for exploratory analysis. In this lesson we
-will describe two different tools for visualisation; a light-weight command-line based one and the Broad
-Institute’s Integrative Genomics Viewer (IGV) which requires
-software installation and transfer of files.</p>
+<p>It is often instructive to look at your data in a genome browser. Visualisation will allow you to get a “feel” for the data, as well as detecting abnormalities and problems. Also, exploring the data in such a way may give you ideas for further analyses.  As such, visualization tools are useful for exploratory analysis. In this lesson we will describe two different tools for visualisation; a light-weight command-line based one and the Broad Institute’s Integrative Genomics Viewer (IGV) which requires software installation and transfer of files.</p>
 <p>In order for us to visualize the alignment files, we will need to index the BAM file using <code class="docutils literal notranslate"><span class="pre">samtools</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools index results/bam/SRR2584866.aligned.sorted.bam
 </pre></div>
 </div>
 <div class="section" id="viewing-with-tview">
 <h3>21.6.1. Viewing with <code class="docutils literal notranslate"><span class="pre">tview</span></code><a class="headerlink" href="#viewing-with-tview" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://www.htslib.org/">Samtools</a> implements a very simple text alignment viewer based on the GNU
-<code class="docutils literal notranslate"><span class="pre">ncurses</span></code> library, called <code class="docutils literal notranslate"><span class="pre">tview</span></code>. This alignment viewer works with short indels and shows <a class="reference external" href="http://maq.sourceforge.net/">MAQ</a> consensus.
-It uses different colors to display mapping quality or base quality, subjected to users’ choice. Samtools viewer is known to work with an 130 GB alignment swiftly. Due to its text interface, displaying alignments over network is also very fast.</p>
+<p><a class="reference external" href="http://www.htslib.org/">Samtools</a> implements a very simple text alignment viewer based on the GNU <code class="docutils literal notranslate"><span class="pre">ncurses</span></code> library, called <code class="docutils literal notranslate"><span class="pre">tview</span></code>. This alignment viewer works with short indels and shows <a class="reference external" href="http://maq.sourceforge.net/">MAQ</a> consensus. It uses different colors to display mapping quality or base quality, subjected to users’ choice. Samtools viewer is known to work with an 130 GB alignment swiftly. Due to its text interface, displaying alignments over network is also very fast.</p>
 <p>In order to visualize our mapped reads we use <code class="docutils literal notranslate"><span class="pre">tview</span></code>, giving it the sorted bam file and the reference file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools tview results/bam/SRR2584866.aligned.sorted.bam data/ref_genome/ecoli_rel606.fasta
 </pre></div>
@@ -499,17 +487,12 @@ in the gene <em>mutL</em>, which controls DNA mismatch repair.</p>
 <div class="section" id="viewing-with-igv">
 <h3>21.6.2. Viewing with IGV<a class="headerlink" href="#viewing-with-igv" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://www.broadinstitute.org/igv/">IGV</a> is a stand-alone browser, which has the advantage of being installed locally and providing fast access. Web-based genome browsers, like <a class="reference external" href="http://www.ensembl.org/index.html">Ensembl</a> or the <a class="reference external" href="https://genome.ucsc.edu/">UCSC browser</a>, are slower, but provide more functionality. They not only allow for more polished and flexible visualisation, but also provide easy access to a wealth of annotations and external data sources. This makes it straightforward to relate your data with information about repeat regions, known genes, epigenetic features or areas of cross-species conservation, to name just a few.</p>
-<p>In order to use IGV, we will need to transfer some files to our local machine. We know how to do this with <code class="docutils literal notranslate"><span class="pre">scp</span></code>.
-Open a new tab in your terminal window and create a new folder. We’ll put this folder on our Desktop for
-demonstration purposes, but in general you should avoide proliferating folders and files on your Desktop and
-instead organize files within a directory structure like we’ve been using in our <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> directory.</p>
+<p>In order to use IGV, we will need to transfer some files to our local machine. We know how to do this with <code class="docutils literal notranslate"><span class="pre">scp</span></code>. Open a new tab in your terminal window and create a new folder. We’ll put this folder on our Desktop for demonstration purposes, but in general you should avoide proliferating folders and files on your Desktop and instead organize files within a directory structure like we’ve been using in our <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> directory.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir ~/Desktop/files_for_igv
 $ cd ~/Desktop/files_for_igv
 </pre></div>
 </div>
-<p>Now we will transfer our files to that new directory. Remember to replace the text between the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and the <code class="docutils literal notranslate"><span class="pre">:</span></code>
-with your instance. The commands to <code class="docutils literal notranslate"><span class="pre">scp</span></code> always go in the terminal window that is connected to your
-local computer (not your AWS instance).</p>
+<p>Now we will transfer our files to that new directory. Remember to replace the text between the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and the <code class="docutils literal notranslate"><span class="pre">:</span></code> with your instance. The commands to <code class="docutils literal notranslate"><span class="pre">scp</span></code> always go in the terminal window that is connected to your local computer (not your AWS instance).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/Desktop/files_for_igv
 $ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam.bai ~/Desktop/files_for_igv
 $ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/ref_genome/ecoli_rel606.fasta ~/Desktop/files_for_igv
@@ -517,8 +500,7 @@ $ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/vc
 </pre></div>
 </div>
 <p>You will need to type the password for your AWS instance each time you call <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
-<p>Next we need to open the IGV software. If you haven’t done so already, you can download IGV from the <a class="reference external" href="https://www.broadinstitute.org/software/igv/download">Broad Institute’s software page</a>, double-click the <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file
-to unzip it, and then drag the program into your Applications folder.</p>
+<p>Next we need to open the IGV software. If you haven’t done so already, you can download IGV from the <a class="reference external" href="https://www.broadinstitute.org/software/igv/download">Broad Institute’s software page</a>, double-click the <code class="docutils literal notranslate"><span class="pre">.zip</span></code> file to unzip it, and then drag the program into your Applications folder.</p>
 <ol class="simple">
 <li>Open IGV.</li>
 <li>Load our reference genome file (<code class="docutils literal notranslate"><span class="pre">ecoli_rel606.fasta</span></code>) into IGV using the <strong>“Load Genomes from File…”</strong> option under the <strong>“Genomes”</strong> pull-down menu.</li>
@@ -528,34 +510,21 @@ to unzip it, and then drag the program into your Applications folder.</p>
 <p>Your IGV browser should look like the screenshot below:</p>
 <p><img alt="img/igv-screenshot.png" src="img/igv-screenshot.png" /></p>
 <p>There should be two tracks: one corresponding to our BAM file and the other for our VCF file.</p>
-<p>In the <strong>VCF track</strong>, each bar across the top of the plot shows the allele fraction for a single locus. The second bar shows
-the genotypes for each locus in each <em>sample</em>. We only have one sample called here so we only see a single line. Dark blue =
-heterozygous, Cyan = homozygous variant, Grey = reference.  Filtered entries are transparent.</p>
+<p>In the <strong>VCF track</strong>, each bar across the top of the plot shows the allele fraction for a single locus. The second bar shows the genotypes for each locus in each <em>sample</em>. We only have one sample called here so we only see a single line. Dark blue = heterozygous, Cyan = homozygous variant, Grey = reference.  Filtered entries are transparent.</p>
 <p>Zoom in to inspect variants you see in your filtered VCF file to become more familiar with IGV. See how quality information
-corresponds to alignment information at those loci.
-Use <a class="reference external" href="http://software.broadinstitute.org/software/igv/AlignmentData">this website</a> and the links there-in to understand how IGV colors the alignments.</p>
-<p>Now that we’ve run through our workflow for a single sample, we want to repeat this workflow for our other five
-samples. However, we don’t want to type each of these individual steps again five more times. That would be very
-time consuming and error-prone, and would become impossible as we gathered more and more samples. Luckily, we
-already know the tools we need to use to automate this workflow and run it on as many files as we want using a
-single line of code. Those tools are: wildcards, for loops, and bash scripts. We’ll use all three in the next
-lesson.</p>
+corresponds to alignment information at those loci. Use <a class="reference external" href="http://software.broadinstitute.org/software/igv/AlignmentData">this website</a> and the links there-in to understand how IGV colors the alignments.</p>
+<p>Now that we’ve run through our workflow for a single sample, we want to repeat this workflow for our other five samples. However, we don’t want to type each of these individual steps again five more times. That would be very time consuming and error-prone, and would become impossible as we gathered more and more samples. Luckily, we already know the tools we need to use to automate this workflow and run it on as many files as we want using a single line of code. Those tools are: wildcards, for loops, and bash scripts. We’ll use all three in the next lesson.</p>
 </div>
 </div>
 <div class="section" id="other-notes">
 <h2>21.7. Other Notes<a class="headerlink" href="#other-notes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="bwa-alignment-options">
 <h3>21.7.1. BWA Alignment options<a class="headerlink" href="#bwa-alignment-options" title="Permalink to this headline">¶</a></h3>
-<p>BWA consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence
-reads up to 100bp, while the other two are for sequences ranging from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features such
-as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it
-is faster and more accurate.
-{: .callout}</p>
+<p>BWA consists of three algorithms: BWA-backtrack, BWA-SW and BWA-MEM. The first algorithm is designed for Illumina sequence reads up to 100bp, while the other two are for sequences ranging from 70bp to 1Mbp. BWA-MEM and BWA-SW share similar features such as long-read support and split alignment, but BWA-MEM, which is the latest, is generally recommended for high-quality queries as it is faster and more accurate.</p>
 </div>
 <div class="section" id="multi-line-commands">
 <h3>21.7.2. Multi-line commands<a class="headerlink" href="#multi-line-commands" title="Permalink to this headline">¶</a></h3>
-<p>Some of the commands we ran in this lesson are burly! When typing a long
-command into your terminal, you can use the <code class="docutils literal notranslate"><span class="pre">\</span></code> character
+<p>Some of the commands we ran in this lesson are burly! When typing a long command into your terminal, you can use the <code class="docutils literal notranslate"><span class="pre">\</span></code> character
 to separate code chunks onto separate lines. This can make your code more readable.</p>
 </div>
 </div>

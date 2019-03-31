@@ -26,7 +26,7 @@
 
 - Register for a free account on CyVerse [**Here**](https://user.cyverse.org/register)
 
-- Complete [Pre-Workshop survey](https://www.surveymonkey.com/r/dcpreworkshopassessment?workshop_id=2019-04-11-gwu). *We use this to calibrate the pace of the workshop and, together with a post-workshop survey, to assess how it went.*
+- Complete [**Pre-Workshop survey**](https://www.surveymonkey.com/r/dcpreworkshopassessment?workshop_id=2019-04-11-gwu). *We use this to calibrate the pace of the workshop and, together with a post-workshop survey, to assess how it went.*
 
 **CODE OF CONDUCT:**
 - The workshop follows a code of conduct, which can be found [here](https://gwu-omics2019.readthedocs.io/en/latest/code_of_conduct.html). (*tl;dr:* Be Nice and Respect each other.)
@@ -47,6 +47,7 @@
   * [Adam Wong](aklwong@gwu.edu)
   * [Keylie Gibson](kmgibson@gwmail.gwu.edu)
   * [Rebecca Clement](rebeccaclement@gwmail.gwu.edu)
+  * [William Bonnett](synchronous@email.gwu.edu)
 
 
 **SCHEDULE**

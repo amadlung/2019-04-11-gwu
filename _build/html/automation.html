@@ -1,0 +1,438 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Automating a Variant Calling Workflow &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Automating a Variant Calling Workflow</a><ul>
+<li><a class="reference internal" href="#creating-variables">Creating Variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#analyzing-quality-with-fastqc">Analyzing Quality with FastQC</a><ul>
+<li><a class="reference internal" href="#using-echo-statements">Using <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#automating-the-rest-of-our-variant-calling-workflow">Automating the Rest of our Variant Calling Workflow</a></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/automation.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="toc.html">Docs</a></li>
+              
+              <li>Automating a Variant Calling Workflow</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="automating-a-variant-calling-workflow">
+<h1>Automating a Variant Calling Workflow<a class="headerlink" href="#automating-a-variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Keypoints:</p>
+<ul class="simple">
+<li>“We can combine multiple commands into a shell script to automate a workflow.”</li>
+<li>“Use <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements within your scripts to get an automated progress update.”</li>
+</ul>
+</div></blockquote>
+<hr class="docutils" />
+<p>What is a shell script?</p>
+<p>You wrote a simple shell script in a <a class="reference external" href="http://www.datacarpentry.org/shell-genomics/05-writing-scripts/">previous lesson</a> that we used to extract bad reads from our FASTQ files and put them into a new file.</p>
+<p>Here’s the script you wrote:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">-</span><span class="n">B1</span> <span class="o">-</span><span class="n">A2</span> <span class="n">NNNNNNNNNN</span> <span class="o">*.</span><span class="n">fastq</span> <span class="o">&gt;</span> <span class="n">scripted_bad_reads</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="n">echo</span> <span class="s2">&quot;Script finished!&quot;</span>
+</pre></div>
+</div>
+<p>That script was only two lines long, but shell scripts can be much more complicated than that and can be used to perform a large number of operations on one or many files. This saves you the effort of having to type each of those commands over for each of your data files and makes your work less error-prone and more reproducible. For example, the variant calling workflow we just carried out had about eight steps where we had to type a command into our terminal. Most of these commands were pretty long. If we wanted to do this for all six of our data files, that would be forty-eight steps. If we had 50 samples (a more realistic number), it would be 400 steps! You can see why we want to automate this.</p>
+<p>We’ve also used <code class="docutils literal notranslate"><span class="pre">for</span></code> loops in previous lessons to iterate one or two commands over multiple input files. In these <code class="docutils literal notranslate"><span class="pre">for</span></code> loops, the filename was defined as a variable in the <code class="docutils literal notranslate"><span class="pre">for</span></code> statement, which enabled you to run the loop on multiple files. We will be using variable assignments like this in our new shell scripts.</p>
+<p>Here’s the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop you wrote for unzipping <code class="docutils literal notranslate"><span class="pre">.zip</span></code> files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ for filename in *.zip
+&gt; do
+&gt; unzip $filename
+&gt; done
+</pre></div>
+</div>
+<p>And here’s the one you wrote for running Trimmomatic on all of our <code class="docutils literal notranslate"><span class="pre">.fastq</span></code> sample files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ for infile in *_1.fastq.gz
+&gt; do
+&gt;   base=$(basename ${infile} _1.fastq.gz)
+&gt;   trimmomatic PE ${infile} ${base}_2.fastq.gz \
+&gt;                ${base}_1.trim.fastq.gz ${base}_1un.trim.fastq.gz \
+&gt;                ${base}_2.trim.fastq.gz ${base}_2un.trim.fastq.gz \
+&gt;                SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:NexteraPE-PE.fa:2:40:15
+&gt; done
+</pre></div>
+</div>
+<p>Notice that in this <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we used two variables, <code class="docutils literal notranslate"><span class="pre">infile</span></code>, which was defined in the <code class="docutils literal notranslate"><span class="pre">for</span></code> statement, and <code class="docutils literal notranslate"><span class="pre">base</span></code>, which was created from the filename during each iteration of the loop.</p>
+<div class="section" id="creating-variables">
+<h2>Creating Variables<a class="headerlink" href="#creating-variables" title="Permalink to this headline">¶</a></h2>
+<p>Within the Bash shell you can create variables at any time (as we did above, and during the ‘for’ loop lesson). Assign any name and the value using the assignment operator: ‘=’. You can check the current definition of your variable by typing into your script: echo $variable_name.</p>
+</div>
+<p>In this lesson, we’ll use two shell scripts to automate the variant calling analysis: one for FastQC analysis (including creating our summary file), and a second for the remaining variant calling. To write a script to run our FastQC analysis, we’ll take each of the commands we entered to run FastQC and process the output files and put them into a single file with a <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension. The <code class="docutils literal notranslate"><span class="pre">.sh</span></code> is not essential, but serves as a reminder to ourselves and to the computer that this is a shell script.</p>
+</div>
+<div class="section" id="analyzing-quality-with-fastqc">
+<h1>Analyzing Quality with FastQC<a class="headerlink" href="#analyzing-quality-with-fastqc" title="Permalink to this headline">¶</a></h1>
+<p>We will use the command <code class="docutils literal notranslate"><span class="pre">touch</span></code> to create a new file where we will write our shell script. We will create this script in a new
+directory called <code class="docutils literal notranslate"><span class="pre">scripts/</span></code>. Previously, we used
+<code class="docutils literal notranslate"><span class="pre">nano</span></code> to create and open a new file. The command <code class="docutils literal notranslate"><span class="pre">touch</span></code> allows us to create a new file without opening that file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p ~/dc_workshop/scripts
+$ cd ~/dc_workshop/scripts
+$ touch read_qc.sh
+$ ls
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">read_qc</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>We now have an empty file called <code class="docutils literal notranslate"><span class="pre">read_qc.sh</span></code> in our <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory. We will now open this file in <code class="docutils literal notranslate"><span class="pre">nano</span></code> and start
+building our script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nano read_qc.sh
+</pre></div>
+</div>
+<p><strong>Enter the following pieces of code into your shell script (not into your terminal prompt).</strong></p>
+<p>Our first line will ensure that our script will exit if an error occurs, and is a good idea to include at the beginning of your scripts. The second line will move us into the <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq/</span></code> directory when we run our script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="o">-</span><span class="n">e</span>
+<span class="n">cd</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">untrimmed_fastq</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>These next two lines will give us a status message to tell us that we are currently running FastQC, then will run FastQC
+on all of the files in our current directory with a <code class="docutils literal notranslate"><span class="pre">.fastq</span></code> extension.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;Running FastQC ...&quot;</span>
+<span class="o">~/</span><span class="n">FastQC</span><span class="o">/</span><span class="n">fastqc</span> <span class="o">*.</span><span class="n">fastq</span>
+</pre></div>
+</div>
+<p>Our next line will create a new directory to hold our FastQC output files. Here we are using the <code class="docutils literal notranslate"><span class="pre">-p</span></code> option for <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>. This option allows <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create the new directory, even if one of the parent directories doesn’t already exist. It also supresses errors if the directory already exists, without overwriting that directory. It is a good idea to use this option in your shell scripts to avoid running into errors if you don’t have the directory structure you think you do.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span>
+</pre></div>
+</div>
+<p>Our next three lines first give us a status message to tell us we are saving the results from FastQC, then moves all of the files
+with a <code class="docutils literal notranslate"><span class="pre">.zip</span></code> or a <code class="docutils literal notranslate"><span class="pre">.html</span></code> extension to the directory we just created for storing our FastQC results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;Saving FastQC results...&quot;</span>
+<span class="n">mv</span> <span class="o">*.</span><span class="n">zip</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span><span class="o">/</span>
+<span class="n">mv</span> <span class="o">*.</span><span class="n">html</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>The next line moves us to the results directory where we’ve stored our output.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>The next five lines should look very familiar. First we give ourselves a status message to tell us that we’re unzipping our ZIP
+files. Then we run our for loop to unzip all of the <code class="docutils literal notranslate"><span class="pre">.zip</span></code> files in this directory.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo &quot;Unzipping...&quot;
+for filename in *.zip
+    do
+    unzip $filename
+    done
+</pre></div>
+</div>
+<p>Next we concatenate all of our summary files into a single output file, with a status message to remind ourselves that this is
+what we’re doing.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;Saving summary...&quot;</span>
+<span class="n">cat</span> <span class="o">*/</span><span class="n">summary</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">fastqc_summaries</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<div class="section" id="using-echo-statements">
+<h2>Using <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements<a class="headerlink" href="#using-echo-statements" title="Permalink to this headline">¶</a></h2>
+<p>We’ve used <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements to add progress statements to our script. Our script will print these statements
+as it is running and therefore we will be able to see how far our script has progressed.</p>
+</div>
+<p>Your full shell script should now look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set -e
+cd ~/dc_workshop/data/untrimmed_fastq/
+
+echo &quot;Running FastQC ...&quot;
+~/FastQC/fastqc *.fastq
+
+mkdir -p ~/dc_workshop/results/fastqc_untrimmed_reads
+
+echo &quot;Saving FastQC results...&quot;
+mv *.zip ~/dc_workshop/results/fastqc_untrimmed_reads/
+mv *.html ~/dc_workshop/results/fastqc_untrimmed_reads/
+
+cd ~/dc_workshop/results/fastqc_untrimmed_reads/
+
+echo &quot;Unzipping...&quot;
+for filename in *.zip
+    do
+    unzip $filename
+    done
+
+echo &quot;Saving summary...&quot;
+cat */summary.txt &gt; ~/dc_workshop/docs/fastqc_summaries.txt
+</pre></div>
+</div>
+<p>Save your file and exit <code class="docutils literal notranslate"><span class="pre">nano</span></code>. We can now run our script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bash read_qc.sh
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Running</span> <span class="n">FastQC</span> <span class="o">...</span>
+<span class="n">Started</span> <span class="n">analysis</span> <span class="n">of</span> <span class="n">SRR2584866</span><span class="o">.</span><span class="n">fastq</span>
+<span class="n">Approx</span> <span class="mi">5</span><span class="o">%</span> <span class="n">complete</span> <span class="k">for</span> <span class="n">SRR2584866</span><span class="o">.</span><span class="n">fastq</span>
+<span class="n">Approx</span> <span class="mi">10</span><span class="o">%</span> <span class="n">complete</span> <span class="k">for</span> <span class="n">SRR2584866</span><span class="o">.</span><span class="n">fastq</span>
+<span class="n">Approx</span> <span class="mi">15</span><span class="o">%</span> <span class="n">complete</span> <span class="k">for</span> <span class="n">SRR2584866</span><span class="o">.</span><span class="n">fastq</span>
+<span class="n">Approx</span> <span class="mi">20</span><span class="o">%</span> <span class="n">complete</span> <span class="k">for</span> <span class="n">SRR2584866</span><span class="o">.</span><span class="n">fastq</span>
+<span class="n">Approx</span> <span class="mi">25</span><span class="o">%</span> <span class="n">complete</span> <span class="k">for</span> <span class="n">SRR2584866</span><span class="o">.</span><span class="n">fastq</span>
+<span class="o">.</span>
+<span class="o">.</span>
+</pre></div>
+</div>
+<p>For each of your sample files, FastQC will ask if you want to replace the existing version with a new version. This is because we have already run FastQC on this samples files and generated all of the outputs. We are now doing this again using our scripts. Go ahead and select <code class="docutils literal notranslate"><span class="pre">A</span></code> each time this message appears. It will appear once per sample file (six times total).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>replace SRR2584866_fastqc/Icons/fastqc_icon.png? [y]es, [n]o, [A]ll, [N]one, [r]ename:
+</pre></div>
+</div>
+</div>
+<div class="section" id="automating-the-rest-of-our-variant-calling-workflow">
+<h1>Automating the Rest of our Variant Calling Workflow<a class="headerlink" href="#automating-the-rest-of-our-variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
+<p>We can extend these principles to the entire variant calling workflow. To do this, we will take all of the individual commands that we wrote before, put them into a single file, add variables so that the script knows to iterate through our input files and write to the appropriate output files. This is very similar to what we did with our <code class="docutils literal notranslate"><span class="pre">read_qc.sh</span></code> script, but will be a bit more complex.</p>
+<p>Download the script from <a class="reference external" href="https://raw.githubusercontent.com/datacarpentry/wrangling-genomics/gh-pages/files/run_variant_calling.sh">here</a>. Download to <code class="docutils literal notranslate"><span class="pre">~/dc_workshop/scripts</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">datacarpentry</span><span class="o">/</span><span class="n">wrangling</span><span class="o">-</span><span class="n">genomics</span><span class="o">/</span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">run_variant_calling</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Our variant calling workflow has the following steps:</p>
+<ol class="simple">
+<li>Index the reference genome for use by bwa and samtools</li>
+<li>Align reads to reference genome</li>
+<li>Convert the format of the alignment to sorted BAM, with some intermediate steps.</li>
+<li>Calculate the read coverage of positions in the genome</li>
+<li>Detect the single nucleotide polymorphisms (SNPs)</li>
+<li>Filter and report the SNP variants in VCF (variant calling format)</li>
+</ol>
+<p>Let’s look go through this script together:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/scripts
+$ less run_variant_calling.sh
+</pre></div>
+</div>
+<p>The script should look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set -e
+cd ~/dc_workshop/results
+
+genome=~/dc_workshop/data/ref_genome/ecoli_rel606.fasta
+
+bwa index $genome
+
+mkdir -p sam bam bcf vcf
+
+for fq1 in ~/dc_workshop/data/trimmed_fastq_small/*_1.trim.sub.fastq
+    do
+    echo &quot;working with file $fq1&quot;
+
+    base=$(basename $fq1 _1.trim.sub.fastq)
+    echo &quot;base name is $base&quot;
+
+    fq1=~/dc_workshop/data/trimmed_fastq_small/${base}_1.trim.sub.fastq
+    fq2=~/dc_workshop/data/trimmed_fastq_small/${base}_2.trim.sub.fastq
+    sam=~/dc_workshop/results/sam/${base}.aligned.sam
+    bam=~/dc_workshop/results/bam/${base}.aligned.bam
+    sorted_bam=~/dc_workshop/results/bam/${base}.aligned.sorted.bam
+    raw_bcf=~/dc_workshop/results/bcf/${base}_raw.bcf
+    variants=~/dc_workshop/results/bcf/${base}_variants.vcf
+    final_variants=~/dc_workshop/results/vcf/${base}_final_variants.vcf
+
+    bwa mem $genome $fq1 $fq2 &gt; $sam
+    samtools view -S -b $sam &gt; $bam
+    samtools sort -o $sorted_bam $bam
+    samtools index $sorted_bam
+    bcftools mpileup -O b -o $raw_bcf -f $genome $sorted_bam
+    bcftools call --ploidy 1 -m -v -o $variants $raw_bcf
+    vcfutils.pl varFilter $variants &gt; $final_variants
+
+    done
+</pre></div>
+</div>
+<p>Now, we’ll go through each line in the script before running it.</p>
+<p>First, notice that we change our working directory so that we can create new results sub-directories in the right location.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span>
+</pre></div>
+</div>
+<p>Next we tell our script where to find the reference genome by assigning the <code class="docutils literal notranslate"><span class="pre">genome</span></code> variable to the path to our reference genome:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">genome</span><span class="o">=~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">ref_genome</span><span class="o">/</span><span class="n">ecoli_rel606</span><span class="o">.</span><span class="n">fasta</span>
+</pre></div>
+</div>
+<p>Next we index our reference genome for BWA:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>bwa index $genome
+</pre></div>
+</div>
+<p>And create the directory structure to store our results in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="n">sam</span> <span class="n">bam</span> <span class="n">bcf</span> <span class="n">vcf</span>
+</pre></div>
+</div>
+<p>Then, we use a loop to run the variant calling workflow on each of our FASTQ files. The full list of commands within the loop will be executed once for each of the FASTQ files in the <code class="docutils literal notranslate"><span class="pre">data/trimmed_fastq/</span></code> directory. We will include a few <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements to give us status updates on our progress.</p>
+<p>The first thing we do is assign the name of the FASTQ file we’re currently working with to a variable called <code class="docutils literal notranslate"><span class="pre">fq1</span></code> and tell the script to <code class="docutils literal notranslate"><span class="pre">echo</span></code> the filename back to us so we can check which file we’re on.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">fq1</span> <span class="ow">in</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">trimmed_fastq_small</span><span class="o">/*</span><span class="n">_1</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">sub</span><span class="o">.</span><span class="n">fastq</span>
+    <span class="n">do</span>
+    <span class="n">echo</span> <span class="s2">&quot;working with file $fq1&quot;</span>
+</pre></div>
+</div>
+<p>We then extract the base name of the file (excluding the path and <code class="docutils literal notranslate"><span class="pre">.fastq</span></code> extension) and assign it to a new variable called <code class="docutils literal notranslate"><span class="pre">base</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    base=$(basename $fq1 _1.trim.sub.fastq)
+    echo &quot;base name is $base&quot;
+</pre></div>
+</div>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">base</span></code> variable to access both the <code class="docutils literal notranslate"><span class="pre">base_1.fastq</span></code> and <code class="docutils literal notranslate"><span class="pre">base_2.fastq</span></code> input files, and create variables to store the names of our output files. This makes the script easier to read because we don’t need to type out the full name of each of the files: instead, we use the <code class="docutils literal notranslate"><span class="pre">base</span></code> variable, but add a different extension (e.g. <code class="docutils literal notranslate"><span class="pre">.sam</span></code>, <code class="docutils literal notranslate"><span class="pre">.bam</span></code>) for each file produced by our workflow.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    #input fastq files
+    fq1=~/dc_workshop/data/trimmed_fastq_small/${base}_1.trim.sub.fastq
+    fq2=~/dc_workshop/data/trimmed_fastq_small/${base}_2.trim.sub.fastq
+
+    # output files
+    sam=~/dc_workshop/results/sam/${base}.aligned.sam
+    bam=~/dc_workshop/results/bam/${base}.aligned.bam
+    sorted_bam=~/dc_workshop/results/bam/${base}.aligned.sorted.bam
+    raw_bcf=~/dc_workshop/results/bcf/${base}_raw.bcf
+    variants=~/dc_workshop/results/bcf/${base}_variants.vcf
+    final_variants=~/dc_workshop/results/vcf/${base}_final_variants.vcf
+</pre></div>
+</div>
+<p>And finally, the actual workflow steps:</p>
+<ol class="simple">
+<li>align the reads to the reference genome and output a <code class="docutils literal notranslate"><span class="pre">.sam</span></code> file:</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>bwa mem $genome $fq1 $fq2 &gt; $sam
+</pre></div>
+</div>
+<ol class="simple">
+<li>convert the SAM file to BAM format:</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>samtools view -S -b $sam &gt; $bam
+</pre></div>
+</div>
+<ol class="simple">
+<li>sort the BAM file:</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>samtools sort -o $sorted_bam $bam
+</pre></div>
+</div>
+<ol class="simple">
+<li>index the BAM file for display purposes:</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>samtools index $sorted_bam
+</pre></div>
+</div>
+<ol class="simple">
+<li>calculate the read coverage of positions in the genome</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>bcftools mpileup -O b -o $raw_bcf -f $genome $sorted_bam
+</pre></div>
+</div>
+<ol class="simple">
+<li>call SNPs with bcftools:</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>bcftools call --ploidy 1 -m -v -o $variants $raw_bcf
+</pre></div>
+</div>
+<ol class="simple">
+<li>filter and report the SNP variants in variant calling format (VCF)</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>vcfutils.pl varFilter $variants  &gt; $final_variants
+</pre></div>
+</div>
+<blockquote>
+<div><strong>Exercise</strong>
+It’s a good idea to add comments to your code so that you (or a collaborator) can make sense of what you did later.
+Look through your existing script. Discuss with a neighbor where you should add comments. Add comments (anything following
+a <code class="docutils literal notranslate"><span class="pre">#</span></code> character will be interpreted as a comment, bash will not try to run these comments as code).</div></blockquote>
+<p>Now we can run our script:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ bash run_variant_calling.sh
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, Sateesh Peri. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
