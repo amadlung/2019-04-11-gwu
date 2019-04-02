@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-    <title>Automating a Variant Calling Workflow &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
+    <title>22. Automating a Variant Calling Workflow &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -25,6 +25,8 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="25. Advanced Topics" href="advanced_atmosphere.html" />
+    <link rel="prev" title="19. Variant Calling Workflow" href="variant_calling.html" />
   
    
 
@@ -35,6 +37,12 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="advanced_atmosphere.html" title="25. Advanced Topics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="variant_calling.html" title="19. Variant Calling Workflow"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
@@ -50,20 +58,24 @@
     <h2>Contents</h2>
     <div class="sidebar-localtoc">
       <ul>
-<li><a class="reference internal" href="#">Automating a Variant Calling Workflow</a><ul>
-<li><a class="reference internal" href="#creating-variables">Creating Variables</a></li>
+<li><a class="reference internal" href="#">22. Automating a Variant Calling Workflow</a><ul>
+<li><a class="reference internal" href="#what-is-a-shell-script">22.1. What is a shell script?</a></li>
+<li><a class="reference internal" href="#creating-variables">22.2. Creating Variables</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#analyzing-quality-with-fastqc">Analyzing Quality with FastQC</a><ul>
-<li><a class="reference internal" href="#using-echo-statements">Using <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#automating-the-rest-of-our-variant-calling-workflow">Automating the Rest of our Variant Calling Workflow</a></li>
+<li><a class="reference internal" href="#analyzing-quality-with-fastqc">23. Analyzing Quality with FastQC</a></li>
+<li><a class="reference internal" href="#automating-the-rest-of-our-variant-calling-workflow">24. Automating the Rest of our Variant Calling Workflow</a></li>
 </ul>
 
     </div>
   </div>
 </div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="variant_calling.html"
+                        title="previous chapter">19. Variant Calling Workflow</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="advanced_atmosphere.html"
+                        title="next chapter">25. Advanced Topics</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -93,14 +105,14 @@
             <ol class="breadcrumb">
               <li><a href="toc.html">Docs</a></li>
               
-              <li>Automating a Variant Calling Workflow</li>
+              <li>22. Automating a Variant Calling Workflow</li>
             </ol>
           </div>
           
           <div class="document clearer body">
             
   <div class="section" id="automating-a-variant-calling-workflow">
-<h1>Automating a Variant Calling Workflow<a class="headerlink" href="#automating-a-variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
+<h1>22. Automating a Variant Calling Workflow<a class="headerlink" href="#automating-a-variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
 <blockquote>
 <div><p>Keypoints:</p>
 <ul class="simple">
@@ -109,15 +121,15 @@
 </ul>
 </div></blockquote>
 <hr class="docutils" />
-<p>What is a shell script?</p>
+<div class="section" id="what-is-a-shell-script">
+<h2>22.1. What is a shell script?<a class="headerlink" href="#what-is-a-shell-script" title="Permalink to this headline">¶</a></h2>
 <p>You wrote a simple shell script in a <a class="reference external" href="http://www.datacarpentry.org/shell-genomics/05-writing-scripts/">previous lesson</a> that we used to extract bad reads from our FASTQ files and put them into a new file.</p>
 <p>Here’s the script you wrote:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grep</span> <span class="o">-</span><span class="n">B1</span> <span class="o">-</span><span class="n">A2</span> <span class="n">NNNNNNNNNN</span> <span class="o">*.</span><span class="n">fastq</span> <span class="o">&gt;</span> <span class="n">scripted_bad_reads</span><span class="o">.</span><span class="n">txt</span>
-
-<span class="n">echo</span> <span class="s2">&quot;Script finished!&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep -B1 -A2 NNNNNNNNNN *.fastq &gt; scripted_bad_reads.txt | echo &quot;Script finished!&quot;
 </pre></div>
 </div>
-<p>That script was only two lines long, but shell scripts can be much more complicated than that and can be used to perform a large number of operations on one or many files. This saves you the effort of having to type each of those commands over for each of your data files and makes your work less error-prone and more reproducible. For example, the variant calling workflow we just carried out had about eight steps where we had to type a command into our terminal. Most of these commands were pretty long. If we wanted to do this for all six of our data files, that would be forty-eight steps. If we had 50 samples (a more realistic number), it would be 400 steps! You can see why we want to automate this.</p>
+<blockquote>
+<div>That script was only two lines long, but shell scripts can be much more complicated than that and can be used to perform a large number of operations on one or many files. This saves you the effort of having to type each of those commands over for each of your data files and makes your work less error-prone and more reproducible. For example, the variant calling workflow we just carried out had about <strong>eight</strong> steps where we had to type a command into our terminal. Most of these commands were pretty long. If we wanted to do this for all six of our data files, that would be forty-eight steps. If we had 50 samples (a more realistic number), it would be 400 steps! You can see why we want to automate this.</div></blockquote>
 <p>We’ve also used <code class="docutils literal notranslate"><span class="pre">for</span></code> loops in previous lessons to iterate one or two commands over multiple input files. In these <code class="docutils literal notranslate"><span class="pre">for</span></code> loops, the filename was defined as a variable in the <code class="docutils literal notranslate"><span class="pre">for</span></code> statement, which enabled you to run the loop on multiple files. We will be using variable assignments like this in our new shell scripts.</p>
 <p>Here’s the <code class="docutils literal notranslate"><span class="pre">for</span></code> loop you wrote for unzipping <code class="docutils literal notranslate"><span class="pre">.zip</span></code> files:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ for filename in *.zip
@@ -138,60 +150,64 @@
 </pre></div>
 </div>
 <p>Notice that in this <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we used two variables, <code class="docutils literal notranslate"><span class="pre">infile</span></code>, which was defined in the <code class="docutils literal notranslate"><span class="pre">for</span></code> statement, and <code class="docutils literal notranslate"><span class="pre">base</span></code>, which was created from the filename during each iteration of the loop.</p>
+</div>
 <div class="section" id="creating-variables">
-<h2>Creating Variables<a class="headerlink" href="#creating-variables" title="Permalink to this headline">¶</a></h2>
+<h2>22.2. Creating Variables<a class="headerlink" href="#creating-variables" title="Permalink to this headline">¶</a></h2>
 <p>Within the Bash shell you can create variables at any time (as we did above, and during the ‘for’ loop lesson). Assign any name and the value using the assignment operator: ‘=’. You can check the current definition of your variable by typing into your script: echo $variable_name.</p>
 </div>
 <p>In this lesson, we’ll use two shell scripts to automate the variant calling analysis: one for FastQC analysis (including creating our summary file), and a second for the remaining variant calling. To write a script to run our FastQC analysis, we’ll take each of the commands we entered to run FastQC and process the output files and put them into a single file with a <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension. The <code class="docutils literal notranslate"><span class="pre">.sh</span></code> is not essential, but serves as a reminder to ourselves and to the computer that this is a shell script.</p>
 </div>
 <div class="section" id="analyzing-quality-with-fastqc">
-<h1>Analyzing Quality with FastQC<a class="headerlink" href="#analyzing-quality-with-fastqc" title="Permalink to this headline">¶</a></h1>
-<p>We will use the command <code class="docutils literal notranslate"><span class="pre">touch</span></code> to create a new file where we will write our shell script. We will create this script in a new
-directory called <code class="docutils literal notranslate"><span class="pre">scripts/</span></code>. Previously, we used
-<code class="docutils literal notranslate"><span class="pre">nano</span></code> to create and open a new file. The command <code class="docutils literal notranslate"><span class="pre">touch</span></code> allows us to create a new file without opening that file.</p>
+<h1>23. Analyzing Quality with FastQC<a class="headerlink" href="#analyzing-quality-with-fastqc" title="Permalink to this headline">¶</a></h1>
+<p>We will use the command <code class="docutils literal notranslate"><span class="pre">touch</span></code> to create a new file where we will write our shell script. We will create this script in a new directory called <code class="docutils literal notranslate"><span class="pre">scripts/</span></code>. Previously, we used <code class="docutils literal notranslate"><span class="pre">nano</span></code> to create and open a new file. The command <code class="docutils literal notranslate"><span class="pre">touch</span></code> allows us to create a new file without opening that file.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir -p ~/dc_workshop/scripts
 $ cd ~/dc_workshop/scripts
 $ touch read_qc.sh
-$ ls
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">read_qc</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>We now have an empty file called <code class="docutils literal notranslate"><span class="pre">read_qc.sh</span></code> in our <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory. We will now open this file in <code class="docutils literal notranslate"><span class="pre">nano</span></code> and start
-building our script.</p>
+<p>We now have an empty file called <code class="docutils literal notranslate"><span class="pre">read_qc.sh</span></code> in our <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> directory. We will now open this file in <code class="docutils literal notranslate"><span class="pre">nano</span></code> and start building our script.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nano read_qc.sh
 </pre></div>
 </div>
 <p><strong>Enter the following pieces of code into your shell script (not into your terminal prompt).</strong></p>
-<p>Our first line will ensure that our script will exit if an error occurs, and is a good idea to include at the beginning of your scripts. The second line will move us into the <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq/</span></code> directory when we run our script.</p>
+<ul class="simple">
+<li>Our first line will ensure that our script will exit if an error occurs, and is a good idea to include at the beginning of your scripts.</li>
+<li>The second line will move us into the <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq/</span></code> directory when we run our script.</li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="o">-</span><span class="n">e</span>
 <span class="n">cd</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">untrimmed_fastq</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>These next two lines will give us a status message to tell us that we are currently running FastQC, then will run FastQC
-on all of the files in our current directory with a <code class="docutils literal notranslate"><span class="pre">.fastq</span></code> extension.</p>
+<ul class="simple">
+<li>These next two lines will give us a status message to tell us that we are currently running FastQC, then will run FastQC on all of the files in our current directory with a <code class="docutils literal notranslate"><span class="pre">.fastq</span></code> extension.</li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;Running FastQC ...&quot;</span>
 <span class="o">~/</span><span class="n">FastQC</span><span class="o">/</span><span class="n">fastqc</span> <span class="o">*.</span><span class="n">fastq</span>
 </pre></div>
 </div>
-<p>Our next line will create a new directory to hold our FastQC output files. Here we are using the <code class="docutils literal notranslate"><span class="pre">-p</span></code> option for <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>. This option allows <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create the new directory, even if one of the parent directories doesn’t already exist. It also supresses errors if the directory already exists, without overwriting that directory. It is a good idea to use this option in your shell scripts to avoid running into errors if you don’t have the directory structure you think you do.</p>
+<ul class="simple">
+<li>Our next line will create a new directory to hold our FastQC output files. Here we are using the <code class="docutils literal notranslate"><span class="pre">-p</span></code> option for <code class="docutils literal notranslate"><span class="pre">mkdir</span></code>. This option allows <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> to create the new directory, even if one of the parent directories doesn’t already exist. It also suppresses errors if the directory already exists, without overwriting that directory. It is a good idea to use this option in your shell scripts to avoid running into errors if you don’t have the directory structure you think you do.</li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span>
 </pre></div>
 </div>
-<p>Our next three lines first give us a status message to tell us we are saving the results from FastQC, then moves all of the files
-with a <code class="docutils literal notranslate"><span class="pre">.zip</span></code> or a <code class="docutils literal notranslate"><span class="pre">.html</span></code> extension to the directory we just created for storing our FastQC results.</p>
+<ul class="simple">
+<li>Our next three lines first give us a status message to tell us we are saving the results from FastQC, then moves all of the files with a <code class="docutils literal notranslate"><span class="pre">.zip</span></code> or a <code class="docutils literal notranslate"><span class="pre">.html</span></code> extension to the directory we just created for storing our FastQC results.</li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;Saving FastQC results...&quot;</span>
 <span class="n">mv</span> <span class="o">*.</span><span class="n">zip</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span><span class="o">/</span>
 <span class="n">mv</span> <span class="o">*.</span><span class="n">html</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>The next line moves us to the results directory where we’ve stored our output.</p>
+<ul class="simple">
+<li>The next line moves us to the results directory where we’ve stored our output.</li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span><span class="o">/</span><span class="n">fastqc_untrimmed_reads</span><span class="o">/</span>
 </pre></div>
 </div>
-<p>The next five lines should look very familiar. First we give ourselves a status message to tell us that we’re unzipping our ZIP
-files. Then we run our for loop to unzip all of the <code class="docutils literal notranslate"><span class="pre">.zip</span></code> files in this directory.</p>
+<ul class="simple">
+<li>The next five lines should look very familiar. First we give ourselves a status message to tell us that we’re unzipping our ZIP files. Then we run our for loop to unzip all of the <code class="docutils literal notranslate"><span class="pre">.zip</span></code> files in this directory.</li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo &quot;Unzipping...&quot;
 for filename in *.zip
     do
@@ -199,17 +215,15 @@ for filename in *.zip
     done
 </pre></div>
 </div>
-<p>Next we concatenate all of our summary files into a single output file, with a status message to remind ourselves that this is
-what we’re doing.</p>
+<p>Next we concatenate all of our summary files into a single output file, with a status message to remind ourselves that this is what we’re doing.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="s2">&quot;Saving summary...&quot;</span>
 <span class="n">cat</span> <span class="o">*/</span><span class="n">summary</span><span class="o">.</span><span class="n">txt</span> <span class="o">&gt;</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">fastqc_summaries</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-<div class="section" id="using-echo-statements">
-<h2>Using <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements<a class="headerlink" href="#using-echo-statements" title="Permalink to this headline">¶</a></h2>
-<p>We’ve used <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements to add progress statements to our script. Our script will print these statements
-as it is running and therefore we will be able to see how far our script has progressed.</p>
-</div>
+<blockquote>
+<div><p><em>Using <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements</em></p>
+<p>We’ve used <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements to add progress statements to our script. Our script will print these statements as it is running and therefore we will be able to see how far our script has progressed.</p>
+</div></blockquote>
 <p>Your full shell script should now look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set -e
 cd ~/dc_workshop/data/untrimmed_fastq/
@@ -256,7 +270,7 @@ cat */summary.txt &gt; ~/dc_workshop/docs/fastqc_summaries.txt
 </div>
 </div>
 <div class="section" id="automating-the-rest-of-our-variant-calling-workflow">
-<h1>Automating the Rest of our Variant Calling Workflow<a class="headerlink" href="#automating-the-rest-of-our-variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
+<h1>24. Automating the Rest of our Variant Calling Workflow<a class="headerlink" href="#automating-the-rest-of-our-variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
 <p>We can extend these principles to the entire variant calling workflow. To do this, we will take all of the individual commands that we wrote before, put them into a single file, add variables so that the script knows to iterate through our input files and write to the appropriate output files. This is very similar to what we did with our <code class="docutils literal notranslate"><span class="pre">read_qc.sh</span></code> script, but will be a bit more complex.</p>
 <p>Download the script from <a class="reference external" href="https://raw.githubusercontent.com/datacarpentry/wrangling-genomics/gh-pages/files/run_variant_calling.sh">here</a>. Download to <code class="docutils literal notranslate"><span class="pre">~/dc_workshop/scripts</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">datacarpentry</span><span class="o">/</span><span class="n">wrangling</span><span class="o">-</span><span class="n">genomics</span><span class="o">/</span><span class="n">gh</span><span class="o">-</span><span class="n">pages</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">run_variant_calling</span><span class="o">.</span><span class="n">sh</span>
@@ -314,7 +328,8 @@ for fq1 in ~/dc_workshop/data/trimmed_fastq_small/*_1.trim.sub.fastq
 </pre></div>
 </div>
 <p>Now, we’ll go through each line in the script before running it.</p>
-<p>First, notice that we change our working directory so that we can create new results sub-directories in the right location.</p>
+<blockquote>
+<div><strong>Note: that we change our working directory so that we can create new results sub-directories in the right location.</strong></div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">dc_workshop</span><span class="o">/</span><span class="n">results</span>
 </pre></div>
 </div>
@@ -413,6 +428,18 @@ a <code class="docutils literal notranslate"><span class="pre">#</span></code> c
 
           </div>
             
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="variant_calling.html" title="previous chapter (use the left arrow)">19. Variant Calling Workflow</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="advanced_atmosphere.html" title="next chapter (use the right arrow)">25. Advanced Topics</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
         </div>
         <div class="clearfix"></div>
     </div>
@@ -422,6 +449,12 @@ a <code class="docutils literal notranslate"><span class="pre">#</span></code> c
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="advanced_atmosphere.html" title="25. Advanced Topics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="variant_calling.html" title="19. Variant Calling Workflow"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>
     </div>

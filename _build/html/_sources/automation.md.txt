@@ -6,19 +6,17 @@ Automating a Variant Calling Workflow
 > - "Use `echo` statements within your scripts to get an automated progress update."
 ---
 
-What is a shell script?
+## What is a shell script?
 
 You wrote a simple shell script in a [previous lesson](http://www.datacarpentry.org/shell-genomics/05-writing-scripts/) that we used to extract bad reads from our FASTQ files and put them into a new file.
 
 Here's the script you wrote:
 
 ~~~
-grep -B1 -A2 NNNNNNNNNN *.fastq > scripted_bad_reads.txt
-
-echo "Script finished!"
+$ grep -B1 -A2 NNNNNNNNNN *.fastq > scripted_bad_reads.txt | echo "Script finished!"
 ~~~
 
-That script was only two lines long, but shell scripts can be much more complicated than that and can be used to perform a large number of operations on one or many files. This saves you the effort of having to type each of those commands over for each of your data files and makes your work less error-prone and more reproducible. For example, the variant calling workflow we just carried out had about eight steps where we had to type a command into our terminal. Most of these commands were pretty long. If we wanted to do this for all six of our data files, that would be forty-eight steps. If we had 50 samples (a more realistic number), it would be 400 steps! You can see why we want to automate this.
+> That script was only two lines long, but shell scripts can be much more complicated than that and can be used to perform a large number of operations on one or many files. This saves you the effort of having to type each of those commands over for each of your data files and makes your work less error-prone and more reproducible. For example, the variant calling workflow we just carried out had about **eight** steps where we had to type a command into our terminal. Most of these commands were pretty long. If we wanted to do this for all six of our data files, that would be forty-eight steps. If we had 50 samples (a more realistic number), it would be 400 steps! You can see why we want to automate this.
 
 We've also used `for` loops in previous lessons to iterate one or two commands over multiple input files. In these `for` loops, the filename was defined as a variable in the `for` statement, which enabled you to run the loop on multiple files. We will be using variable assignments like this in our new shell scripts.
 
@@ -53,23 +51,15 @@ In this lesson, we'll use two shell scripts to automate the variant calling anal
 
 # Analyzing Quality with FastQC
 
-We will use the command `touch` to create a new file where we will write our shell script. We will create this script in a new
-directory called `scripts/`. Previously, we used
-`nano` to create and open a new file. The command `touch` allows us to create a new file without opening that file.
+We will use the command `touch` to create a new file where we will write our shell script. We will create this script in a new directory called `scripts/`. Previously, we used `nano` to create and open a new file. The command `touch` allows us to create a new file without opening that file.
 
 ~~~
 $ mkdir -p ~/dc_workshop/scripts
 $ cd ~/dc_workshop/scripts
 $ touch read_qc.sh
-$ ls
 ~~~
 
-~~~
-read_qc.sh
-~~~
-
-We now have an empty file called `read_qc.sh` in our `scripts/` directory. We will now open this file in `nano` and start
-building our script.
+We now have an empty file called `read_qc.sh` in our `scripts/` directory. We will now open this file in `nano` and start building our script.
 
 ~~~
 $ nano read_qc.sh
@@ -77,29 +67,28 @@ $ nano read_qc.sh
 
 **Enter the following pieces of code into your shell script (not into your terminal prompt).**
 
-Our first line will ensure that our script will exit if an error occurs, and is a good idea to include at the beginning of your scripts. The second line will move us into the `untrimmed_fastq/` directory when we run our script.
+- Our first line will ensure that our script will exit if an error occurs, and is a good idea to include at the beginning of your scripts.
+- The second line will move us into the `untrimmed_fastq/` directory when we run our script.
 
 ~~~
 set -e
 cd ~/dc_workshop/data/untrimmed_fastq/
 ~~~
 
-These next two lines will give us a status message to tell us that we are currently running FastQC, then will run FastQC
-on all of the files in our current directory with a `.fastq` extension.
+- These next two lines will give us a status message to tell us that we are currently running FastQC, then will run FastQC on all of the files in our current directory with a `.fastq` extension.
 
 ~~~
 echo "Running FastQC ..."
 ~/FastQC/fastqc *.fastq
 ~~~
 
-Our next line will create a new directory to hold our FastQC output files. Here we are using the `-p` option for `mkdir`. This option allows `mkdir` to create the new directory, even if one of the parent directories doesn't already exist. It also supresses errors if the directory already exists, without overwriting that directory. It is a good idea to use this option in your shell scripts to avoid running into errors if you don't have the directory structure you think you do.
+- Our next line will create a new directory to hold our FastQC output files. Here we are using the `-p` option for `mkdir`. This option allows `mkdir` to create the new directory, even if one of the parent directories doesn't already exist. It also suppresses errors if the directory already exists, without overwriting that directory. It is a good idea to use this option in your shell scripts to avoid running into errors if you don't have the directory structure you think you do.
 
 ~~~
 mkdir -p ~/dc_workshop/results/fastqc_untrimmed_reads
 ~~~
 
-Our next three lines first give us a status message to tell us we are saving the results from FastQC, then moves all of the files
-with a `.zip` or a `.html` extension to the directory we just created for storing our FastQC results.
+- Our next three lines first give us a status message to tell us we are saving the results from FastQC, then moves all of the files with a `.zip` or a `.html` extension to the directory we just created for storing our FastQC results.
 
 ~~~
 echo "Saving FastQC results..."
@@ -107,14 +96,13 @@ mv *.zip ~/dc_workshop/results/fastqc_untrimmed_reads/
 mv *.html ~/dc_workshop/results/fastqc_untrimmed_reads/
 ~~~
 
-The next line moves us to the results directory where we've stored our output.
+- The next line moves us to the results directory where we've stored our output.
 
 ~~~
 cd ~/dc_workshop/results/fastqc_untrimmed_reads/
 ~~~
 
-The next five lines should look very familiar. First we give ourselves a status message to tell us that we're unzipping our ZIP
-files. Then we run our for loop to unzip all of the `.zip` files in this directory.
+- The next five lines should look very familiar. First we give ourselves a status message to tell us that we're unzipping our ZIP files. Then we run our for loop to unzip all of the `.zip` files in this directory.
 
 ~~~
 echo "Unzipping..."
@@ -124,18 +112,16 @@ for filename in *.zip
     done
 ~~~
 
-Next we concatenate all of our summary files into a single output file, with a status message to remind ourselves that this is
-what we're doing.
+Next we concatenate all of our summary files into a single output file, with a status message to remind ourselves that this is what we're doing.
 
 ~~~
 echo "Saving summary..."
 cat */summary.txt > ~/dc_workshop/docs/fastqc_summaries.txt
 ~~~
 
-> ## Using `echo` statements
+> *Using `echo` statements*
 >
-> We've used `echo` statements to add progress statements to our script. Our script will print these statements
-> as it is running and therefore we will be able to see how far our script has progressed.
+> We've used `echo` statements to add progress statements to our script. Our script will print these statements as it is running and therefore we will be able to see how far our script has progressed.
 
 Your full shell script should now look like this:
 
@@ -255,7 +241,7 @@ for fq1 in ~/dc_workshop/data/trimmed_fastq_small/*_1.trim.sub.fastq
 
 Now, we'll go through each line in the script before running it.
 
-First, notice that we change our working directory so that we can create new results sub-directories in the right location.
+> **Note: that we change our working directory so that we can create new results sub-directories in the right location.**
 
 ~~~
 cd ~/dc_workshop/results

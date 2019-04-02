@@ -26,7 +26,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="19. Variant Calling Workflow" href="variant_calling.html" />
-    <link rel="prev" title="12. Assessing Read Quality" href="quality_control.html" />
+    <link rel="prev" title="14. Assessing Read Quality" href="quality_control.html" />
   
    
 
@@ -41,7 +41,7 @@
           <a href="variant_calling.html" title="19. Variant Calling Workflow"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="quality_control.html" title="12. Assessing Read Quality"
+          <a href="quality_control.html" title="14. Assessing Read Quality"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>
@@ -71,7 +71,7 @@
 </div>
   <h4>Previous topic</h4>
   <p class="topless"><a href="quality_control.html"
-                        title="previous chapter">12. Assessing Read Quality</a></p>
+                        title="previous chapter">14. Assessing Read Quality</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="variant_calling.html"
                         title="next chapter">19. Variant Calling Workflow</a></p>
@@ -131,9 +131,10 @@
 <hr class="docutils" />
 <div class="section" id="cleaning-reads">
 <h1>18. Cleaning Reads<a class="headerlink" href="#cleaning-reads" title="Permalink to this headline">¶</a></h1>
-<p>In the previous episode, we took a high-level look at the quality of each of our samples using FastQC. We vizualized per-base quality
+<blockquote>
+<div>In the previous episode, we took a high-level look at the quality of each of our samples using FastQC. We vizualized per-base quality
 graphs showing the distribution of read quality at each base across all reads in a sample and extracted information about which samples
-fail which quality checks. Some of our samples failed quite a few quality metrics used by FastQC. This doesn’t mean, though, that our samples should be thrown out! It’s very common to have some quality metrics fail, and this may or may not be a problem for your downstream application. For our variant callig workflow, we will be removing some of the low quality sequences to reduce our false positive rate due to sequencing error.</p>
+fail which quality checks. Some of our samples failed quite a few quality metrics used by FastQC. This doesn’t mean, though, that our samples should be thrown out! It’s very common to have some quality metrics fail, and this may or may not be a problem for your downstream application. For our variant callig workflow, we will be removing some of the low quality sequences to reduce our false positive rate due to sequencing error.</div></blockquote>
 <p>We will use a program called <a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">Trimmomatic</a> to filter poor quality reads and trim poor quality bases from our samples.</p>
 <div class="section" id="trimmomatic-options">
 <h2>18.1. Trimmomatic Options<a class="headerlink" href="#trimmomatic-options" title="Permalink to this headline">¶</a></h2>
@@ -172,7 +173,7 @@ output files. These files are described below.</p>
 <li><code class="docutils literal notranslate"><span class="pre">TOPHRED64</span></code> :  Convert quality scores to Phred-64</li>
 </ul>
 <p>We will use only a few of these options and trimming steps in our analysis. It is important to understand the steps you are using to
-clean your data. For more information about the Trimmomatic arguments and options, see <a class="reference external" href="http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf">the Trimmomatic manual</a>.</p>
+clean your data. For more information about the Trimmomatic arguments and options, see the <a class="reference external" href="http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf">Trimmomatic manual</a>.</p>
 <p>However, a complete command for Trimmomatic will look something like the command below. This command is an example and will not work as we do not have the files it refers to:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ trimmomatic PE -threads 4 SRR_1056_1.fastq SRR_1056_2.fastq  \
               SRR_1056_1.trimmed.fastq SRR_1056_1un.trimmed.fastq \
@@ -180,7 +181,8 @@ clean your data. For more information about the Trimmomatic arguments and option
               ILLUMINACLIP:SRR_adapters.fa SLIDINGWINDOW:4:20
 </pre></div>
 </div>
-<p>In this example, we’ve told Trimmomatic:</p>
+<blockquote>
+<div>In this example, we’ve told Trimmomatic:</div></blockquote>
 <ul class="simple">
 <li><code class="docutils literal notranslate"><span class="pre">PE</span></code> : that it will be taking a single end file as input</li>
 <li><code class="docutils literal notranslate"><span class="pre">-threads</span> <span class="pre">4</span></code> : to use four computing threads to run (this will spead up our run)</li>
@@ -190,8 +192,8 @@ clean your data. For more information about the Trimmomatic arguments and option
 <li><code class="docutils literal notranslate"><span class="pre">SRR_1056_1un.trimmed.fastq</span></code> : the output file for orphaned reads from the <code class="docutils literal notranslate"><span class="pre">_1</span></code> file</li>
 <li><code class="docutils literal notranslate"><span class="pre">SRR_1056_2.trimmed.fastq</span></code> : the output file for surviving pairs from the <code class="docutils literal notranslate"><span class="pre">_2</span></code> file</li>
 <li><code class="docutils literal notranslate"><span class="pre">SRR_1056_2un.trimmed.fastq</span></code> : the output file for orphaned reads from the <code class="docutils literal notranslate"><span class="pre">_2</span></code> file</li>
-<li><code class="docutils literal notranslate"><span class="pre">ILLUMINACLIP:SRR_adapters.fa</span></code>: to clip the Illumina adapters from the input file using the adapter sequences listed in <code class="docutils literal notranslate"><span class="pre">SRR_adapters.fa</span></code>
--<code class="docutils literal notranslate"><span class="pre">SLIDINGWINDOW:4:20</span></code> : to use a sliding window of size 4 that will remove bases if their phred score is below 20</li>
+<li><code class="docutils literal notranslate"><span class="pre">ILLUMINACLIP:SRR_adapters.fa</span></code>: to clip the Illumina adapters from the input file using the adapter sequences listed in <code class="docutils literal notranslate"><span class="pre">SRR_adapters.fa</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">SLIDINGWINDOW:4:20</span></code> : to use a sliding window of size 4 that will remove bases if their phred score is below 20</li>
 </ul>
 </div>
 <div class="section" id="running-trimmomatic">
@@ -263,7 +265,7 @@ following questions.</p>
 <span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">dcuser</span> <span class="n">dcuser</span> <span class="mi">271</span><span class="n">K</span> <span class="n">Jul</span>  <span class="mi">6</span> <span class="mi">22</span><span class="p">:</span><span class="mi">33</span> <span class="n">SRR2589044_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
-<p>We’ve just successfully run Trimmomatic on one of our FASTQ files! However, there is some bad news. Trimmomatic can only operate on
+<p>We’ve just successfully executed Trimmomatic on one of our FASTQ files! However, there is some bad news. Trimmomatic can only operate on
 one sample at a time and we have more than one sample. The good news is that we can use a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to iterate through our sample files
 quickly!</p>
 <p>We unzipped one of our files before to work with it, let’s compress it again before we run our for loop.</p>
@@ -271,13 +273,13 @@ quickly!</p>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ for infile in *_1.fastq.gz
-&gt; do
-&gt;   base=$(basename ${infile} _1.fastq.gz)
-&gt;   trimmomatic PE ${infile} ${base}_2.fastq.gz \
-&gt;                ${base}_1.trim.fastq.gz ${base}_1un.trim.fastq.gz \
-&gt;                ${base}_2.trim.fastq.gz ${base}_2un.trim.fastq.gz \
-&gt;                SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:NexteraPE-PE.fa:2:40:15
-&gt; done
+do
+base=$(basename ${infile} _1.fastq.gz)
+trimmomatic PE ${infile} ${base}_2.fastq.gz \
+${base}_1.trim.fastq.gz ${base}_1un.trim.fastq.gz \
+${base}_2.trim.fastq.gz ${base}_2un.trim.fastq.gz \
+SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:NexteraPE-PE.fa:2:40:15
+done
 </pre></div>
 </div>
 <p>Go ahead and run the for loop. It should take a few minutes for Trimmomatic to run for each of our six input files. Once it’s done running, take a look at your directory contents. You’ll notice that even though we ran Trimmomatic on file <code class="docutils literal notranslate"><span class="pre">SRR2589044</span></code> before running the for loop, there is only one set of files for it. Because of we matched the ending <code class="docutils literal notranslate"><span class="pre">_1.fastq.gz</span></code>, we re-ran Trimmomatic on this file, overwriting our first results. That’s ok, but it’s good to be aware that it happened.</p>
@@ -293,22 +295,6 @@ quickly!</p>
 <span class="n">SRR2584863_2un</span><span class="o">.</span><span class="n">trim</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>  <span class="n">SRR2589044_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span>
 </pre></div>
 </div>
-<blockquote>
-<div><p><strong>Exercise</strong>
-We trimmed our fastq files with Nextera adapters,
-but there are other adapters that are commonly used.
-What other adapter files came with Trimmomatic?</p>
-<blockquote>
-<div><p><em>Solution</em></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls ~/miniconda3/pkgs/trimmomatic-0.38-0/share/trimmomatic-0.38-0/adapters/
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NexteraPE</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span>  <span class="n">TruSeq2</span><span class="o">-</span><span class="n">SE</span><span class="o">.</span><span class="n">fa</span>    <span class="n">TruSeq3</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span>
-<span class="n">TruSeq2</span><span class="o">-</span><span class="n">PE</span><span class="o">.</span><span class="n">fa</span>    <span class="n">TruSeq3</span><span class="o">-</span><span class="n">PE</span><span class="o">-</span><span class="mf">2.</span><span class="n">fa</span>  <span class="n">TruSeq3</span><span class="o">-</span><span class="n">SE</span><span class="o">.</span><span class="n">fa</span>
-</pre></div>
-</div>
-</div></blockquote>
-</div></blockquote>
 <p>We’ve now completed the trimming and filtering steps of our quality control process! Before we move on, let’s move our trimmed FASTQ files
 to a new subdirectory within our <code class="docutils literal notranslate"><span class="pre">data/</span></code> directory. We can also remove our extra, double-trimmed file for the <code class="docutils literal notranslate"><span class="pre">SRR098283</span></code> sample.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/data/untrimmed_fastq
@@ -326,14 +312,10 @@ $ ls
 </div>
 <blockquote>
 <div><p><strong>Bonus Exercise (Advanced)</strong></p>
-<p>Now that we’ve quality controled our samples, they should perform
-better on the quality tests run by FastQC. Go ahead and re-run
-FastQC on your trimmed FASTQ files and visualize the HTML files
-to see whether your per base sequence quality is higher after
-trimming.</p>
+<p>Now that we’ve quality controled our samples, they should perform better on the quality tests run by FastQC. Go ahead and re-run FastQC on your trimmed FASTQ files and visualize the HTML files to see whether your per base sequence quality is higher after trimming.</p>
 <blockquote>
 <div><p><em>Solution</em></p>
-<p>In your AWS terminal window do:</p>
+<p>In your terminal window do:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ fastqc ~/dc_workshop/data/trimmed_fastq
 </pre></div>
 </div>
@@ -355,7 +337,7 @@ $ open ~/Desktop/fastqc_html/trimmed/*.html
   <div class="footer-relations">
     
       <div class="pull-left">
-        <a class="btn btn-default" href="quality_control.html" title="previous chapter (use the left arrow)">12. Assessing Read Quality</a>
+        <a class="btn btn-default" href="quality_control.html" title="previous chapter (use the left arrow)">14. Assessing Read Quality</a>
       </div>
     
       <div class="pull-right">
@@ -377,7 +359,7 @@ $ open ~/Desktop/fastqc_html/trimmed/*.html
           <a href="variant_calling.html" title="19. Variant Calling Workflow"
              >next</a> |</li>
         <li class="right" >
-          <a href="quality_control.html" title="12. Assessing Read Quality"
+          <a href="quality_control.html" title="14. Assessing Read Quality"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
       </ul>

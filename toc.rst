@@ -24,4 +24,6 @@
 
    variant_calling.md
 
+   automation.md
+
    advanced_atmosphere.md

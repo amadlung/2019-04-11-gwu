@@ -16,10 +16,14 @@
 
    bioconda_lesson.md
 
+   workflow_overview.md
+
    quality_control.md
 
    trimming.md
 
    variant_calling.md
+
+   automation.md
 
    advanced_atmosphere.md
