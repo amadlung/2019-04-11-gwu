@@ -18,10 +18,7 @@ We mentioned before that we are working with files from a long-term evolution st
 
 ![](/img/variant_calling_workflow_align.png)
 
-We perform read alignment or mapping to determine where in the genome our reads originated from. There are a number of tools to
-choose from and, while there is no gold standard, there are some tools that are better suited for particular NGS analyses. We will be
-using the [Burrows Wheeler Aligner (BWA)](http://bio-bwa.sourceforge.net/), which is a software package for mapping low-divergent
-sequences against a large reference genome.
+We perform read alignment or mapping to determine where in the genome our reads originated from. There are a number of tools to choose from and, while there is no gold standard, there are some tools that are better suited for particular NGS analyses. We will be using the [Burrows Wheeler Aligner (BWA)](http://bio-bwa.sourceforge.net/), which is a software package for mapping low-divergent sequences against a large reference genome.
 
 The alignment process consists of two steps:
 
@@ -56,13 +53,14 @@ $ gunzip data/ref_genome/ecoli_rel606.fasta.gz
 We will also download a set of trimmed FASTQ files to work with. These are small subsets of our real trimmed data, and will enable us to run our variant calling workflow quite quickly.
 
 ~~~
+$ mkdir data/trimmed_fastq_small
 $ curl -L -o sub.tar.gz https://ndownloader.figshare.com/files/14418248
 $ tar xvf sub.tar.gz
 $ mv sub/ ~/dc_workshop/data/trimmed_fastq_small
+$ rm sub.tar.gz
 ~~~
 
-You will also need to create directories for the results that will be generated as part of this workflow. We can do this in a single
-line of code because `mkdir` can accept multiple new directory names as input.
+You will also need to create new directories for the results that will be generated as part of this workflow. We can do this in a single line of code because `mkdir` can accept multiple new directory names as input.
 
 ~~~
 $ mkdir -p results/sam results/bam results/bcf results/vcf
@@ -78,15 +76,15 @@ $ bwa index data/ref_genome/ecoli_rel606.fasta
 While the index is created, you will see output something like this:
 
 ~~~
-[bwa_index] Pack FASTA... 0.04 sec
+[bwa_index] Pack FASTA... 0.08 sec
 [bwa_index] Construct BWT for the packed sequence...
-[bwa_index] 1.05 seconds elapse.
+[bwa_index] 1.75 seconds elapse.
 [bwa_index] Update BWT... 0.03 sec
-[bwa_index] Pack forward-only FASTA... 0.02 sec
-[bwa_index] Construct SA from BWT and Occ... 0.57 sec
+[bwa_index] Pack forward-only FASTA... 0.05 sec
+[bwa_index] Construct SA from BWT and Occ... 0.60 sec
 [main] Version: 0.7.17-r1188
 [main] CMD: bwa index data/ref_genome/ecoli_rel606.fasta
-[main] Real time: 1.765 sec; CPU: 1.715 sec
+[main] Real time: 2.551 sec; CPU: 2.512 sec
 ~~~
 
 ### Align reads to reference genome
@@ -95,9 +93,8 @@ The alignment process consists of choosing an appropriate reference genome to ma
 
 An example of what a `bwa` command looks like is below. This command will not run, as we do not have the files `ref_genome.fa`, `input_file_R1.fastq`, or `input_file_R2.fastq`.
 
-~~~
-$ bwa mem ref_genome.fasta input_file_R1.fastq input_file_R2.fastq > output.sam
-~~~
+> $ bwa mem ref_genome.fasta input_file_R1.fastq input_file_R2.fastq > output.sam
+
 
 Have a look at the [bwa options page](http://bio-bwa.sourceforge.net/bwa.shtml). While we are running bwa with the default parameters here, your use case might require a change of parameters. *NOTE: Always read the manual page for any tool before using and make sure the options you use are appropriate for your data.*
 
@@ -118,8 +115,13 @@ You will see output that starts like this:
 [M::mem_pestat] (25, 50, 75) percentile: (420, 660, 1774)
 [M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 4482)
 [M::mem_pestat] mean and std.dev: (784.68, 700.87)
-[M::mem_pestat] low and high boundaries for proper pairs: (1, 5836)
-[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 45746 reads in 2.390 CPU sec, 2.284 real sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa mem data/ref_genome/ecoli_rel606.fasta data/trimmed_fastq_small/SRR2584866_1.trim.sub.fastq data/trimmed_fastq_small/SRR2584866_2.trim.sub.fastq
+[main] Real time: 17.501 sec; CPU: 18.313 sec
 ~~~
 
 #### SAM/BAM format
@@ -128,11 +130,7 @@ The [SAM file](https://github.com/adamfreedman/knowyourdata-genomics/blob/gh-pag
 
 **The compressed binary version of SAM is called a BAM file.** We use this version to reduce size and to allow for *indexing*, which enables efficient random access of the data contained within the file.
 
-The file begins with a **header**, which is optional. The header is used to describe source of data, reference sequence, method of
-alignment, etc., this will change depending on the aligner being used. Following the header is the **alignment section**. Each line
-that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields** for essential
-mapping information and a variable number of other fields for aligner specific information. An example entry from a SAM file is
-displayed below with the different fields highlighted.
+The file begins with a **header**, which is optional. The header is used to describe source of data, reference sequence, method of alignment, etc., this will change depending on the aligner being used. Following the header is the **alignment section**. Each line that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields** for essential mapping information and a variable number of other fields for aligner specific information. An example entry from a SAM file is displayed below with the different fields highlighted.
 
 ![](/img/sam_bam.png)
 
@@ -167,7 +165,7 @@ SAM/BAM files can be sorted in multiple ways, e.g. by location of alignment on t
 You can use samtools to learn more about this bam file as well.
 
 ~~~
-samtools flagstat results/bam/SRR2584866.aligned.sorted.bam
+$ samtools flagstat results/bam/SRR2584866.aligned.sorted.bam
 ~~~
 
 This will give you the following statistics about your sorted bam file:
@@ -236,8 +234,8 @@ You will see the header (which describes the format), the time and date the file
 ~~~
 ##fileformat=VCFv4.2
 ##FILTER=<ID=PASS,Description="All filters passed">
-##bcftoolsVersion=1.8+htslib-1.8
-##bcftoolsCommand=mpileup -O b -o results/bcf/SRR2584866_raw.bcf -f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorted.bam
+##bcftoolsVersion=1.9+htslib-1.9
+##bcftoolsCommand=mpileup -O b -o results/bcf/SRR2584866_raw.bcf -f data/ref_genome/ecoli_rel606.fasta results/bam/SRR2584866.aligned.sorte
 ##reference=file://data/ref_genome/ecoli_rel606.fasta
 ##contig=<ID=CP000819.1,length=4629812>
 ##ALT=<ID=*,Description="Represents allele(s) other than observed.">
@@ -245,7 +243,7 @@ You will see the header (which describes the format), the time and date the file
 ##INFO=<ID=IDV,Number=1,Type=Integer,Description="Maximum number of reads supporting an indel">
 ##INFO=<ID=IMF,Number=1,Type=Float,Description="Maximum fraction of reads supporting an indel">
 ##INFO=<ID=DP,Number=1,Type=Integer,Description="Raw read depth">
-##INFO=<ID=VDB,Number=1,Type=Float,Description="Variant Distance Bias for filtering splice-site artefacts in RNA-seq data (bigger is better)",Version=
+##INFO=<ID=VDB,Number=1,Type=Float,Description="Variant Distance Bias for filtering splice-site artefacts in RNA-seq data (bigger is better
 ##INFO=<ID=RPB,Number=1,Type=Float,Description="Mann-Whitney U test of Read Position Bias (bigger is better)">
 ##INFO=<ID=MQB,Number=1,Type=Float,Description="Mann-Whitney U test of Mapping Quality Bias (bigger is better)">
 ##INFO=<ID=BQB,Number=1,Type=Float,Description="Mann-Whitney U test of Base Quality Bias (bigger is better)">
@@ -260,8 +258,8 @@ You will see the header (which describes the format), the time and date the file
 ##INFO=<ID=AN,Number=1,Type=Integer,Description="Total number of alleles in called genotypes">
 ##INFO=<ID=DP4,Number=4,Type=Integer,Description="Number of high-quality ref-forward , ref-reverse, alt-forward and alt-reverse bases">
 ##INFO=<ID=MQ,Number=1,Type=Integer,Description="Average mapping quality">
-##bcftools_callVersion=1.8+htslib-1.8
-##bcftools_callCommand=call --ploidy 1 -m -v -o results/bcf/SRR2584866_variants.vcf results/bcf/SRR2584866_raw.bcf; Date=Tue Oct  9 18:48:10 2018
+##bcftools_callVersion=1.9+htslib-1.9
+##bcftools_callCommand=call --ploidy 1 -m -v -o results/bcf/SRR2584866_variants.vcf results/bcf/SRR2584866_raw.bcf; Date=Mon Apr  1 20:31:4
 ~~~
 
 Followed by information on each of the variations observed:
@@ -284,15 +282,14 @@ CP000819.1      64042   .       G       A       225     .       DP=18;VDB=0.4513
 
 This is a lot of information, so let's take some time to make sure we understand our output.
 
-The first few columns represent the information we have about a predicted variation.
-
-- CHROM : contig location where the variation occurs
-- POS : position within the contig where the variation occurs
-- ID : a `.` until we add annotation information
-- REF : reference genotype (forward strand)
-- ALT : sample genotype (forward strand)
-- QUAL : Phred-scaled probablity that the observed variant exists at this site (higher is better)
-- FILTER : a `.` if no quality filters have been applied, PASS if a filter is passed, or the name of the filters this variant failed
+The first few columns represent the information we have about a predicted variation:
+- **CHROM** : contig location where the variation occurs
+- **POS** : position within the contig where the variation occurs
+- **ID** : a `.` until we add annotation information
+- **REF** : reference genotype (forward strand)
+- **ALT** : sample genotype (forward strand)
+- **QUAL** : Phred-scaled probablity that the observed variant exists at this site (higher is better)
+- **FILTER** : a `.` if no quality filters have been applied, PASS if a filter is passed, or the name of the filters this variant failed
 
 In an ideal world, the information in the `QUAL` column would be all we needed to filter out bad variant calls. However, in reality we need to filter on multiple other metrics.
 
@@ -300,7 +297,7 @@ The last two columns contain the genotypes and can be tricky to decode:
 - FORMAT : lists in order the metrics presented in the final column
 - Results : lists the values associated with those metrics in order
 
->For our file, the metrics presented are GT:PL:GQ.
+> For our file, the metrics presented are GT:PL:GQ.
 > - GT : the genotype of this sample which for a diploid genome is encoded with a 0 for the REF allele, 1 for the first ALT allele, 2 for the second and so on. So 0/0 means homozygous reference, 0/1 is heterozygous, and 1/1 is homozygous for the alternate allele. For a diploid organism, the GT field indicates the two alleles carried by the sample, encoded by a 0 for the REF allele, 1 for the first ALT allele, 2 for the second ALT allele, etc.
 > - PL : the likelihoods of the given genotypes
 > - GQ : the Phred-scaled confidence for the genotype
@@ -371,21 +368,13 @@ AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGCTTCTGAACTG
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,  ............................ ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ~~~
 
-The first line of output shows the genome coordinates in our reference genome. The second line shows the reference
-genome sequence. The third lines shows the consensus sequence determined from the sequence reads. A `.` indicates
-a match to the reference sequence, so we can see that the consensus from our sample matches the reference in most
-locations. That is good! If that wasn't the case, we should probably reconsider our choice of reference.
+The first line of output shows the genome coordinates in our reference genome. The second line shows the reference genome sequence. The third lines shows the consensus sequence determined from the sequence reads. A `.` indicates a match to the reference sequence, so we can see that the consensus from our sample matches the reference in most locations. That is good! If that wasn't the case, we should probably reconsider our choice of reference.
 
-Below the horizontal line, we can see all of the reads in our sample aligned with the reference genome. Only
-positions where the called base differs from the reference are shown. You can use the arrow keys on your keyboard
-to scroll or type `?` for a help menu. To navigate to a specific position, type `g`. A dialogue box will appear. In
-this box, type the name of the "chromosome" followed by a colon and the position of the variant you would like to view
-(e.g. for this sample, type `CP000819.1:50` to view the 50th base. Type `Ctrl^C` or `q` to exit `tview`.
+Below the horizontal line, we can see all of the reads in our sample aligned with the reference genome. Only positions where the called base differs from the reference are shown. You can use the arrow keys on your keyboard to scroll or type `?` for a help menu. To navigate to a specific position, type `g`. A dialogue box will appear. In this box, type the name of the "chromosome" followed by a colon and the position of the variant you would like to view (e.g. for this sample, type `CP000819.1:50` to view the 50th base. Type `Ctrl^C` or `q` to exit `tview`.
 
 > **Exercise**
 >
-> Visualize the alignment of the reads for our `SRR2584866` sample. What variant is present at
-> position 4377265? What is the canonical nucleotide in that position?
+> Visualize the alignment of the reads for our `SRR2584866` sample. What variant is present at position 4377265? What is the canonical nucleotide in that position?
 >
 >> *Solution*
 >>
@@ -393,15 +382,15 @@ this box, type the name of the "chromosome" followed by a colon and the position
 >> $ samtools tview ~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/dc_workshop/data/ref_genome/ecoli_rel606.fasta
 >> ~~~
 >>
->> Then type `g`. In the dialogue box, type `CP000819.1:4377265`.
->> `G` is the variant. `A` is canonical. This variant possibly changes the phenotype of this sample to hypermutable. It occurs
->> in the gene *mutL*, which controls DNA mismatch repair.
+>> Then type `g`. In the dialogue box, type `CP000819.1:4377265`. `G` is the variant. `A` is canonical. This variant possibly changes the phenotype of this sample to hypermutable. It occurs in the gene *mutL*, which controls DNA mismatch repair.
+
+---
 
 ### Viewing with IGV
 
 [IGV](http://www.broadinstitute.org/igv/) is a stand-alone browser, which has the advantage of being installed locally and providing fast access. Web-based genome browsers, like [Ensembl](http://www.ensembl.org/index.html) or the [UCSC browser](https://genome.ucsc.edu/), are slower, but provide more functionality. They not only allow for more polished and flexible visualisation, but also provide easy access to a wealth of annotations and external data sources. This makes it straightforward to relate your data with information about repeat regions, known genes, epigenetic features or areas of cross-species conservation, to name just a few.
 
-In order to use IGV, we will need to transfer some files to our local machine. We know how to do this with `scp`. Open a new tab in your terminal window and create a new folder. We'll put this folder on our Desktop for demonstration purposes, but in general you should avoide proliferating folders and files on your Desktop and instead organize files within a directory structure like we've been using in our `dc_workshop` directory.
+In order to use IGV, we will need to transfer some files to our local machine. We know how to do this with `scp`. Open a new tab in your terminal window and create a new folder. We'll put this folder on our Desktop for demonstration purposes, but in general you should avoid proliferating folders and files on your Desktop and instead organize files within a directory structure like we've been using in our `dc_workshop` directory.
 
 ~~~
 $ mkdir ~/Desktop/files_for_igv

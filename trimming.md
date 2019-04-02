@@ -163,7 +163,7 @@ $ ls SRR2589044* -l -h
 -rw-rw-r-- 1 dcuser dcuser 271K Jul  6 22:33 SRR2589044_2un.trim.fastq.gz
 ~~~
 
-We've just successfully run Trimmomatic on one of our FASTQ files! However, there is some bad news. Trimmomatic can only operate on
+We've just successfully executed Trimmomatic on one of our FASTQ files! However, there is some bad news. Trimmomatic can only operate on
 one sample at a time and we have more than one sample. The good news is that we can use a `for` loop to iterate through our sample files
 quickly!
 
@@ -175,13 +175,13 @@ gzip SRR2584863_1.fastq
 
 ~~~
 $ for infile in *_1.fastq.gz
-> do
->   base=$(basename ${infile} _1.fastq.gz)
->   trimmomatic PE ${infile} ${base}_2.fastq.gz \
->                ${base}_1.trim.fastq.gz ${base}_1un.trim.fastq.gz \
->                ${base}_2.trim.fastq.gz ${base}_2un.trim.fastq.gz \
->                SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:NexteraPE-PE.fa:2:40:15
-> done
+do
+base=$(basename ${infile} _1.fastq.gz)
+trimmomatic PE ${infile} ${base}_2.fastq.gz \
+${base}_1.trim.fastq.gz ${base}_1un.trim.fastq.gz \
+${base}_2.trim.fastq.gz ${base}_2un.trim.fastq.gz \
+SLIDINGWINDOW:4:20 MINLEN:25 ILLUMINACLIP:NexteraPE-PE.fa:2:40:15
+done
 ~~~
 
 Go ahead and run the for loop. It should take a few minutes for Trimmomatic to run for each of our six input files. Once it's done running, take a look at your directory contents. You'll notice that even though we ran Trimmomatic on file `SRR2589044` before running the for loop, there is only one set of files for it. Because of we matched the ending `_1.fastq.gz`, we re-ran Trimmomatic on this file, overwriting our first results. That's ok, but it's good to be aware that it happened.
