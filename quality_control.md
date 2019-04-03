@@ -1,6 +1,9 @@
 Assessing Read Quality
 ===
 
+> Questions:
+> > - How can I describe the quality of my data?
+
 > Objectives:
 > > - "Explain how a FASTQ file encodes per-base quality scores."
 > > - "Interpret a FastQC plot summarizing per-base quality across all reads."

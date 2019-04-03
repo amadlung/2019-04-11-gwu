@@ -1,9 +1,12 @@
 Automating a Variant Calling Workflow
 ===
 
+> Questions:
+> > - How can I make my workflow more efficient and less error-prone?
+
 > Keypoints:
-> - "We can combine multiple commands into a shell script to automate a workflow."
-> - "Use `echo` statements within your scripts to get an automated progress update."
+> > - "We can combine multiple commands into a shell script to automate a workflow."
+> > - "Use `echo` statements within your scripts to get an automated progress update."
 ---
 
 ## What is a shell script?
@@ -44,7 +47,7 @@ $ for infile in *_1.fastq.gz
 
 Notice that in this `for` loop, we used two variables, `infile`, which was defined in the `for` statement, and `base`, which was created from the filename during each iteration of the loop.
 
-> ## Creating Variables
+> **Creating Variables**
 > Within the Bash shell you can create variables at any time (as we did above, and during the 'for' loop lesson). Assign any name and the value using the assignment operator: '='. You can check the current definition of your variable by typing into your script: echo $variable_name.
 
 In this lesson, we'll use two shell scripts to automate the variant calling analysis: one for FastQC analysis (including creating our summary file), and a second for the remaining variant calling. To write a script to run our FastQC analysis, we'll take each of the commands we entered to run FastQC and process the output files and put them into a single file with a `.sh` extension. The `.sh` is not essential, but serves as a reminder to ourselves and to the computer that this is a shell script.
