@@ -321,7 +321,6 @@ The Broad Institute's [VCF guide](https://www.broadinstitute.org/gatk/guide/arti
 >> ~~~
 >> 766
 >> ~~~
->>
 >> There are 766 variants in this file.
 
 ## Assess the alignment (visualization) - optional step
@@ -375,20 +374,6 @@ The first line of output shows the genome coordinates in our reference genome. T
 
 Below the horizontal line, we can see all of the reads in our sample aligned with the reference genome. Only positions where the called base differs from the reference are shown. You can use the arrow keys on your keyboard to scroll or type `?` for a help menu. To navigate to a specific position, type `g`. A dialogue box will appear. In this box, type the name of the "chromosome" followed by a colon and the position of the variant you would like to view (e.g. for this sample, type `CP000819.1:50` to view the 50th base. Type `Ctrl^C` or `q` to exit `tview`.
 
-> **Exercise**
->
-> Visualize the alignment of the reads for our `SRR2584866` sample. What variant is present at position 4377265? What is the canonical nucleotide in that position?
->
->> *Solution*
->>
->> ~~~
->> $ samtools tview ~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/dc_workshop/data/ref_genome/ecoli_rel606.fasta
->> ~~~
->>
->> Then type `g`. In the dialogue box, type `CP000819.1:4377265`. `G` is the variant. `A` is canonical. This variant possibly changes the phenotype of this sample to hypermutable. It occurs in the gene *mutL*, which controls DNA mismatch repair.
-
----
-
 ### Viewing with IGV
 
 [IGV](http://www.broadinstitute.org/igv/) is a stand-alone browser, which has the advantage of being installed locally and providing fast access. Web-based genome browsers, like [Ensembl](http://www.ensembl.org/index.html) or the [UCSC browser](https://genome.ucsc.edu/), are slower, but provide more functionality. They not only allow for more polished and flexible visualisation, but also provide easy access to a wealth of annotations and external data sources. This makes it straightforward to relate your data with information about repeat regions, known genes, epigenetic features or areas of cross-species conservation, to name just a few.
@@ -403,10 +388,10 @@ $ cd ~/Desktop/files_for_igv
 Now we will transfer our files to that new directory. Remember to replace the text between the `@` and the `:` with your instance. The commands to `scp` always go in the terminal window that is connected to your local computer (not your AWS instance).
 
 ~~~
-$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/Desktop/files_for_igv
-$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam.bai ~/Desktop/files_for_igv
-$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/ref_genome/ecoli_rel606.fasta ~/Desktop/files_for_igv
-$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/vcf/SRR2584866_final_variants.vcf ~/Desktop/files_for_igv
+$ scp sateeshp@128.196.142.26:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/Desktop/files_for_igv
+$ scp sateeshp@128.196.142.26:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam.bai ~/Desktop/files_for_igv
+$ scp sateeshp@128.196.142.26:~/dc_workshop/data/ref_genome/ecoli_rel606.fasta ~/Desktop/files_for_igv
+$ scp sateeshp@128.196.142.26:~/dc_workshop/results/vcf/SRR2584866_final_variants.vcf ~/Desktop/files_for_igv
 ~~~
 
 You will need to type the password for your AWS instance each time you call `scp`.

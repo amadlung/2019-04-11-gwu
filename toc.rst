@@ -6,8 +6,6 @@
 
    code_of_conduct.md
 
-   introduction.md
-
    atmosphere_cloud.md
 
    bash_lesson_1.md
