@@ -42,7 +42,7 @@ Accessing The Atmosphere Cloud
 
 **You will be presented with options to choose and configure your virtual machine here:
 
-	+ Instance Name: e.x., "Smake-Tutorial" or you can leave it default which is the image name.
+	+ Instance Name: e.x., "DC_Workshop" or you can leave it default which is the image name.
 
 	+	Base Image Version: "1.0"
 
@@ -52,7 +52,7 @@ Accessing The Atmosphere Cloud
 
 	+	Provider: "CyVerse Cloud - Marana"
 
-	+ Instance size: We recommend ""tiny1" (CPU: 1, Mem: 4GB, Disk: 30GB)"for this tutorial; Though  depending on your allocations, choose most suitable one. [Click here](https://wiki.cyverse.org/wiki/display/atmman/Requesting+More+Atmosphere+Resources) to read more about allocations.**
+	+ Instance size: We recommend ""medium2" (CPU: 4, Mem: 16GB, Disk: 160GB)"for this tutorial; Though  depending on your allocations, choose most suitable one. [Click here](https://wiki.cyverse.org/wiki/display/atmman/Requesting+More+Atmosphere+Resources) to read more about allocations.**
 
 ![](/img/atmosphere/login8.png)
 
