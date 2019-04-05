@@ -1,17 +1,23 @@
 Bash lesson 2
 ===
 
+> Questions:
+> > - How can I view and search file contents?
+> > - How can I create, copy and delete files and directories?
+> > - How can I control who has permission to modify a file?
+> > - How can I repeat recently used commands?
+
 > Objectives:
-> - View, search within, copy, move, and rename files. Create new directories.
-> - Use wild cards (`*`) to perform operations on multiple files.
-> - Make a file read only
-> - Use the `history` command to view and repeat recently used commands.
+> > - View, search within, copy, move, and rename files. Create new directories.
+> > - Use wild cards (`*`) to perform operations on multiple files.
+> > - Make a file read only
+> > - Use the `history` command to view and repeat recently used commands.
 
 > Keypoints:
-> - "You can view file contents using `less`, `cat`, `head` or `tail`."
-> - "The commands `cp`, `mv`, and `mkdir` are useful for manipulating existing files and creating new directories."
-> - "You can view file permissions using `ls -l` and change permissions using `chmod`."
-> - "The `history` command and the up arrow on your keyboard can be used to repeat recently used commands."
+> > - "You can view file contents using `less`, `cat`, `head` or `tail`."
+> > - "The commands `cp`, `mv`, and `mkdir` are useful for manipulating existing files and creating new directories."
+> > - "You can view file permissions using `ls -l` and change permissions using `chmod`."
+> > - "The `history` command and the up arrow on your keyboard can be used to repeat recently used commands."
 
 ## Working with Files
 
@@ -77,18 +83,10 @@ Lists every file in `/usr/bin` that ends in the characters `.sh`.
 
 > **Home vs. Root**
 >
-> The `/` character is another navigational shortcut and refers to your root directory.
-> The root directory is the highest level directory in your file system and contains
-> files that are important for your computer to perform its daily work, but which you usually won't
-> have to interact with directly. In our case,
-> the root directory is two levels above our home directory, so `cd` or `cd ~` will take you to `/home/dcuser`
-> and `cd /` will take you to `/`, which is equivalent to `~/../../`. Try not to worry if this is confusing,
-> it will all become clearer with practice.
+> The `/` character is another navigational shortcut and refers to your root directory. The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work, but which you usually won't
+> have to interact with directly. In our case, the root directory is two levels above our home directory, so `cd` or `cd ~` will take you to `/home/dcuser` and `cd /` will take you to `/`, which is equivalent to `~/../../`. Try not to worry if this is confusing, it will all become clearer with practice.
 >
-> While you will be using the root at the beginning of your absolute paths, it is important that you avoid
-> working with data in these higher-level directories, as your commands can permanently alter files that the
-> operating system needs to function. In many cases, trying to run commands in root directories will require
-> special permissions which are not discussed here, so it's best to avoid it and work within your home directory.
+> While you will be using the root at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in root directories will require special permissions which are not discussed here, so it's best to avoid it and work within your home directory.
 
 > **Exercise**
 > Do each of the following tasks from your current directory using a single
@@ -98,12 +96,10 @@ Lists every file in `/usr/bin` that ends in the characters `.sh`.
 > 2.  List all of the files in `/usr/bin` that contain the letter 'a'.
 > 3.  List all of the files in `/usr/bin` that end with the letter 'o'.
 >
-> Bonus: List all of the files in `/usr/bin` that contain the letter 'a' or the
+> *Bonus:* List all of the files in `/usr/bin` that contain the letter 'a' or the
 > letter 'c'.
 >
-> Hint: The bonus question requires a Unix wildcard that we haven't talked about
-> yet. Trying searching the internet for information about Unix wildcards to find
-> what you need to solve the bonus problem.
+> *Hint:* The bonus question requires a Unix wildcard that we haven't talked about yet. Trying searching the internet for information about Unix wildcards to find what you need to solve the bonus problem.
 >
 > > *Solution*
 > > 1. `ls /usr/bin/c*`
@@ -471,11 +467,8 @@ Let's give it a try!
 
 > **Nucleotide abbreviations**
 >
-> The four nucleotides that appear in DNA are abbreviated `A`, `C`, `T` and `G`.
-> Unknown nucleotides are represented with the letter `N`. An `N` appearing
-> in a sequencing file represents a position where the sequencing machine was not able to
-> confidently determine the nucleotide in that position. You can think of an `N` as a `NULL` value
-> within a DNA sequence.
+> The four nucleotides that appear in DNA are abbreviated `A`, `C`, `T` and `G`. Unknown nucleotides are represented with the letter `N`. An `N` appearing
+> in a sequencing file represents a position where the sequencing machine was not able to confidently determine the nucleotide in that position. You can think of an `N` as a `NULL` value within a DNA sequence.
 
 We'll search for strings inside of our fastq files. Let's first make sure we are in the correct directory.
 
@@ -487,11 +480,7 @@ Suppose we want to see how many reads in our file have really bad segments conta
 
 > **Determining quality**
 >
-> In this lesson, we're going to be manually searching for strings of `N`s within our sequence
-> results to illustrate some principles of file searching. It can be really useful to do this
-> type of searching to get a feel for the quality of your sequencing results, however, in you
-> research you will most likely use a bioinformatics tool that has a built-in program for
-> filtering out low-quality reads. You'll learn how to use one such tool in
+> In this lesson, we're going to be manually searching for strings of `N`s within our sequence results to illustrate some principles of file searching. It can be really useful to do this type of searching to get a feel for the quality of your sequencing results, however, in you research you will most likely use a bioinformatics tool that has a built-in program for filtering out low-quality reads. You'll learn how to use one such tool in
 > [a later lesson](http://www.datacarpentry.org/wrangling-genomics/00-readQC/).
 
 ```

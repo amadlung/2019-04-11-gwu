@@ -24,4 +24,6 @@
 
    automation.md
 
+   snakemake_basic.md
+
    advanced_atmosphere.md

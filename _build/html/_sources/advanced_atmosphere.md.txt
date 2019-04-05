@@ -5,7 +5,7 @@ Advanced Topics
 
 **An Atmosphere instance only contains data that were included in the original image that was used to make that instance. You can transfer data to/from the CyVerse Data Store, an Atmosphere Volume, a sever, or your local machine.**
 
-### **Transferring Data using iCommands**
+### Transferring Data using iCommands
 
 - [**iCommands Guide:**](https://cyverse-data-store-guide.readthedocs-hosted.com/en/latest/step2.html)
 - [**iCommands Download:**](https://wiki.cyverse.org/wiki/display/DS/Setting+Up+iCommands)

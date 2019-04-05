@@ -9,16 +9,16 @@ Working with Bioconda.
 
 ## What is bioconda?
 
-See [the bioconda paper](https://www.biorxiv.org/content/early/2017/10/27/207092) and the [bioconda web site](http://bioconda.github.io).
-
 Bioconda is a community-enabled repository of 3,000+ bioinformatics packages, installable via the `conda` package
 manager.  It consists of a set of recipes, [like this one, for sourmash](https://github.com/bioconda/bioconda-recipes/blob/master/recipes/sourmash/meta.yaml), that are maintained by the community.
+
+See [the bioconda paper](https://www.biorxiv.org/content/early/2017/10/27/207092) and the [bioconda web site](http://bioconda.github.io).
 
 It just works, and it's effin' magic!!
 
 ## What problems does conda (and therefore bioconda) solve?
 
-![soft_prob](/img/soft_prob.png)
+![](/img/soft_prob.png)
 
 Conda tracks installed packages and their versions.
 

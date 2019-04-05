@@ -24,7 +24,7 @@
 - Laptop with a Mac, Linux, or Windows operating system (not a tablet, Chromebook, etc.) and administrative privileges.
   > No prior-software installation required. Windows users can install [mobaxterm](http://mobaxterm.mobatek.net/download-home-edition.html) for a UNIX terminal.
 
-- Register for a free account on CyVerse [**Here**](https://user.cyverse.org/register)
+- Register for a free account on CyVerse [**Here**](https://user.cyverse.org/workshops/30/overview)
 
 - Complete [**Pre-Workshop survey**](https://www.surveymonkey.com/r/dcpreworkshopassessment?workshop_id=2019-04-11-gwu). *We use this to calibrate the pace of the workshop and, together with a post-workshop survey, to assess how it went.*
 
@@ -80,11 +80,11 @@
 
 11:00-11:15am : Coffee/Tea break
 
-11:15-12:30pm : Building Reproducible Workflows
+11:15-12:30pm : [Automating the workflow using shell scripts](https://gwu-omics2019.readthedocs.io/en/latest/automation.html)
 
 12:30-01:30pm : Lunch Break
 
-01:30-04:30pm : Workflows-continued
+01:30-04:30pm : [Building Reproducible Workflows with Snakemake](https://gwu-omics2019.readthedocs.io/en/latest/snakemake_basic.html)
 
 02:30-03:00pm : Coffee/Tea Break
 

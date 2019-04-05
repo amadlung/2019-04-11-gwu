@@ -1,0 +1,1077 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>25. Snakemake Basic Tutorial &#8212; 2019-04-11-gwu 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="37. Advanced Topics" href="advanced_atmosphere.html" />
+    <link rel="prev" title="22. Automating a Variant Calling Workflow" href="automation.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="advanced_atmosphere.html" title="37. Advanced Topics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="automation.html" title="22. Automating a Variant Calling Workflow"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">25. Snakemake Basic Tutorial</a></li>
+<li><a class="reference internal" href="#open-rstudio">26. Open Rstudio</a></li>
+<li><a class="reference internal" href="#getting-started-your-first-snakefile">27. Getting started - your first Snakefile</a><ul>
+<li><a class="reference internal" href="#updating-the-snakefile-to-track-inputs-and-outputs">27.1. Updating the Snakefile to track inputs and outputs</a></li>
+<li><a class="reference internal" href="#forcibly-re-running-things">27.2. Forcibly re-running things</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multiple-rules">28. Multiple rules</a></li>
+<li><a class="reference internal" href="#a-first-refactoring-adding-a-better-default-rule">29. A first refactoring: adding a better default rule</a></li>
+<li><a class="reference internal" href="#a-second-refactoring-doing-a-bit-of-templating">30. A second refactoring: doing a bit of templating</a></li>
+<li><a class="reference internal" href="#refactoring-3-templating-output-files-too">31. Refactoring 3: templating output files, too</a><ul>
+<li><a class="reference internal" href="#adding-some-more-files">31.1. Adding some more files</a></li>
+<li><a class="reference internal" href="#rerunning-snakemake">31.2. Rerunning snakemake</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building-out-the-workflow">32. Building out the workflow</a><ul>
+<li><a class="reference internal" href="#providing-input-files-explicitly-to-the-multiqc-rule">32.1. Providing input files explicitly to the multiqc rule</a></li>
+<li><a class="reference internal" href="#refactoring-this-to-make-it-slightly-more-concise">32.2. Refactoring this to make it slightly more concise –</a></li>
+<li><a class="reference internal" href="#digression-what-files-does-snakemake-check-in-order-to-decide-about-rerunning">32.3. Digression: what files does snakemake check in order to decide about rerunning?</a></li>
+<li><a class="reference internal" href="#making-a-clean-rule">32.4. Making a <code class="docutils literal notranslate"><span class="pre">clean</span></code> rule</a></li>
+<li><a class="reference internal" href="#digression-running-things-in-parallel">32.5. Digression: running things in parallel</a></li>
+<li><a class="reference internal" href="#doing-more-things-in-our-workflow">32.6. Doing more things in our workflow.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#more-advanced-snakemake">33. More advanced snakemake</a><ul>
+<li><a class="reference internal" href="#dry-run">33.1. Dry run</a></li>
+<li><a class="reference internal" href="#running-things-in-parallel-revisited">33.2. Running things in parallel, revisited</a></li>
+<li><a class="reference internal" href="#specifying-software-required-for-a-rule">33.3. Specifying software required for a rule</a></li>
+<li><a class="reference internal" href="#outputting-the-entire-workflow-diagram">33.4. Outputting the entire workflow diagram</a></li>
+<li><a class="reference internal" href="#snakemake-report">33.5. Snakemake Report</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#final-thoughts-writing-your-own-snakefile">34. Final thoughts - writing your own snakefile</a><ul>
+<li><a class="reference internal" href="#dealing-with-complexity">34.1. Dealing with complexity</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#thinking-about-workflows-a-strong-er-argument">35. Thinking about workflows - a strong(er) argument</a></li>
+<li><a class="reference internal" href="#go-forth-and-workflow">36. Go forth and Workflow!</a></li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="automation.html"
+                        title="previous chapter">22. Automating a Variant Calling Workflow</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="advanced_atmosphere.html"
+                        title="next chapter">37. Advanced Topics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/snakemake_basic.md.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="toc.html">Docs</a></li>
+              
+              <li>25. Snakemake Basic Tutorial</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="snakemake-basic-tutorial">
+<h1>25. Snakemake Basic Tutorial<a class="headerlink" href="#snakemake-basic-tutorial" title="Permalink to this headline">¶</a></h1>
+</div>
+<div class="section" id="open-rstudio">
+<h1>26. Open Rstudio<a class="headerlink" href="#open-rstudio" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Type the following in your terminal to display a link to Rstudio web-server for your instance’s $(hostname)</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>echo http://$(hostname):8787/
+</pre></div>
+</div>
+<blockquote>
+<div>click on the link generated to open Rstudio in your browser and login with your CyVerse credentials.</div></blockquote>
+<ul class="simple">
+<li>We’re mostly going to work in the file editor and the terminal of Rstudio; to get started, open the terminal, and execute following to to get a shorter terminal prompt.</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ PS1=&#39;$ &#39;
+</pre></div>
+</div>
+<p><img alt="_images/rstudio_interface.png" src="_images/rstudio_interface.png" /></p>
+</div>
+<div class="section" id="getting-started-your-first-snakefile">
+<h1>27. Getting started - your first Snakefile<a class="headerlink" href="#getting-started-your-first-snakefile" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Create a new text file (<code class="docutils literal notranslate"><span class="pre">File</span></code>, <code class="docutils literal notranslate"><span class="pre">New</span> <span class="pre">File</span></code>, <code class="docutils literal notranslate"><span class="pre">Text</span> <span class="pre">file</span></code>) and write:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+</pre></div>
+</div>
+<p><em>(I suggest copy/pasting this into RStudio.)</em></p>
+<ul class="simple">
+<li>Then save it as a file named <code class="docutils literal notranslate"><span class="pre">Snakefile</span></code>.</li>
+<li>Now, run snakemake:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake
+</pre></div>
+</div>
+<ul class="simple">
+<li>and you should see-</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<blockquote>
+<div>Upon execution there will be two new files, ‘.html’ &amp; ‘.zip’</div></blockquote>
+<blockquote>
+<div>Note: snakemake configuration file is by default called <code class="docutils literal notranslate"><span class="pre">Snakefile</span></code></div></blockquote>
+<div class="section" id="updating-the-snakefile-to-track-inputs-and-outputs">
+<h2>27.1. Updating the Snakefile to track inputs and outputs<a class="headerlink" href="#updating-the-snakefile-to-track-inputs-and-outputs" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>At the moment this is basically just a shell script with extra syntax… what’s the point?</div></blockquote>
+<blockquote>
+<div>Well, <strong>shell scripts - and this snakefile, too - will rerun the command every time you run the file, even if there’s no reason to do so because the file hasn’t changed.</strong></div></blockquote>
+<blockquote>
+<div><strong>Digression:</strong> This is particularly important for large or long workflows, where you’re dealing with 10s to 100s of files that may take hours to days to process! It can be hard to figure out which files to rerun, but (spoiler alert) snakemake can really help you do this!</div></blockquote>
+<blockquote>
+<div><strong>It’s hard to track this kind of thing in a shell script - I usually just comment out the lines I don’t want run, or break my commands up into multiple shell scripts so they don’t take so long - but with snakemake, you can annotate the rule with input and output files!</strong></div></blockquote>
+<ul class="simple">
+<li>Change your snakefile to look like this:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>here, we’ve annotated the rule with the required <strong>input</strong> file, as well as the expected <strong>output</strong> files.</div></blockquote>
+<blockquote>
+<div>Question: how do we know what the output files are?</div></blockquote>
+<ul class="simple">
+<li>Now run:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake
+</pre></div>
+</div>
+<p>and you should see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>What happened??</strong></p>
+<blockquote>
+<div>snakemake looked at the file, saw that the output files existed, and figured out that it didn’t need to do anything!</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="forcibly-re-running-things">
+<h2>27.2. Forcibly re-running things<a class="headerlink" href="#forcibly-re-running-things" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>You can tell snakemake to run the rule no matter what with <code class="docutils literal notranslate"><span class="pre">-f</span></code>:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake -f
+</pre></div>
+</div>
+<ul class="simple">
+<li>You can also remove an output file and it will automatically re-run:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rm -fr multiqc_report.html multiqc_data/
+$ snakemake
+</pre></div>
+</div>
+<blockquote>
+<div><strong>Note that you don’t need to remove <em>all</em> the output files to rerun a command - just remove <em>one</em> of them.</strong></div></blockquote>
+<ul class="simple">
+<li>You can <em>also</em> update the timestamp on an <em>input</em> file, and snakemake will figure out that the output file is older than the input file, and rerun things.</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ touch dc_workshop/untrimmed_fastq/*.fastq.gz
+$ snakemake
+</pre></div>
+</div>
+<blockquote>
+<div>This will become important later :)</div></blockquote>
+</div>
+</div>
+<div class="section" id="multiple-rules">
+<h1>28. Multiple rules<a class="headerlink" href="#multiple-rules" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Let’s add a rule to run fastqc on a second file:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file2</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>Now, if you run this, the Right Thing won’t happen: snakemake will do nothing.  Why?</div></blockquote>
+<ul class="simple">
+<li>Well, <strong>snakemake only runs the <em>first</em> rule in a Snakefile, by default. You can give a rule name on the command line, if you like, or you can tell snakemake what output file(s) you want</strong>. Let’s do the latter:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ snakemake fastqc_a_file2
+</pre></div>
+</div>
+<blockquote>
+<div>and now you should see the second fastqc command run, with the appropriate output files!</div></blockquote>
+<blockquote>
+<div><strong>Note that snakemake only runs the second rule, because it looks at the output files and sees that the first file you wanted, <code class="docutils literal notranslate"><span class="pre">0Hour_001_1_fastqc.html</span></code> already exists!</strong></div></blockquote>
+<blockquote>
+<div>Points to note:</div></blockquote>
+<ul class="simple">
+<li>this Snakefile is pretty long compared to the same shell script…</li>
+<li>specifying which file or rule you want to run explicitly is kind of annoying…</li>
+</ul>
+</div>
+<div class="section" id="a-first-refactoring-adding-a-better-default-rule">
+<h1>29. A first refactoring: adding a better default rule<a class="headerlink" href="#a-first-refactoring-adding-a-better-default-rule" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>Let’s start refactoring (cleaning up) this Snakefile.</div></blockquote>
+<ul class="simple">
+<li>First, let’s add a rule at the top:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file2</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><strong>this rule, by convention called <code class="docutils literal notranslate"><span class="pre">all</span></code>, is a default rule that produces all the output files. But it’s a bit weird! It’s all input, and no output!</strong></div></blockquote>
+<blockquote>
+<div><p><strong>This is a blank rule that gathers together all of the various files you want produced, and says “hey, snakemake, I depend on all of these files for my input - make them for me!” And then, once those files are all there, it …does nothing.</strong></p>
+<blockquote>
+<div><em>Yep, this is perfectly legal in snakemake, and it’s one way to make your life easier.</em></div></blockquote>
+</div></blockquote>
+<ul class="simple">
+<li>Note that <code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">-f</span></code> no longer works properly, because <code class="docutils literal notranslate"><span class="pre">-f</span></code> only forces rerunning a single rule. To rerun everything, you can run <code class="docutils literal notranslate"><span class="pre">touch</span> <span class="pre">data/*.fq.gz</span></code> to make all the output files stale; or <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">data/*.html</span></code> to remove some of the output files.</li>
+</ul>
+</div>
+<div class="section" id="a-second-refactoring-doing-a-bit-of-templating">
+<h1>30. A second refactoring: doing a bit of templating<a class="headerlink" href="#a-second-refactoring-doing-a-bit-of-templating" title="Permalink to this headline">¶</a></h1>
+<p><strong>There’s a lot of repetition in each of these rules. Let’s collapse it down a little bit by replacing the filename in the fastqc command with a magic variable, <code class="docutils literal notranslate"><span class="pre">{input}</span></code>.</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file2</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><strong>This all works as before, but now the rule is a bit more generic and will work with any input file. Sort of.</strong></div></blockquote>
+</div>
+<div class="section" id="refactoring-3-templating-output-files-too">
+<h1>31. Refactoring 3: templating output files, too<a class="headerlink" href="#refactoring-3-templating-output-files-too" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>What do I mean, sort of?</div></blockquote>
+<blockquote>
+<div>Well, the output <strong>filenames ALSO depend on the input file names in some way - specifically, fastqc replace part of the filename with <code class="docutils literal notranslate"><span class="pre">_fastqc.html</span></code> and <code class="docutils literal notranslate"><span class="pre">_fastqc.zip</span></code> to make its two output files.</strong></div></blockquote>
+<ul class="simple">
+<li>Let’s rewrite the rule using some <strong>snakemake pattern matching</strong>:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file2</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><strong>What we’ve done here is tell snakemake that anytime we say we <em>want</em> a file that ends with <code class="docutils literal notranslate"><span class="pre">_fastqc.html</span></code>, it should look for a file that ends in <code class="docutils literal notranslate"><span class="pre">.fq.gz</span></code> and then run <code class="docutils literal notranslate"><span class="pre">fastqc</span></code> on it.</strong></div></blockquote>
+<ul class="simple">
+<li>Try running this:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake
+</pre></div>
+</div>
+<blockquote>
+<div><strong>Oh no! We get a <code class="docutils literal notranslate"><span class="pre">AmbiguousRuleException:</span></code>! What’s going on?</strong></div></blockquote>
+<blockquote>
+<div><strong>Well, if you look at the rule above, we’ve given snakemake two different rules to produce the same file(s)! <code class="docutils literal notranslate"><span class="pre">fastqc_a_file</span></code> and <code class="docutils literal notranslate"><span class="pre">fastqc_a_file2</span></code> are now identical rules! snakemake doesn’t like that.</strong></div></blockquote>
+<ul class="simple">
+<li>Let’s remove one, to get a trimmer, leaner, and above all <em>functional</em> snakefile:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>and THAT should now work just fine!</div></blockquote>
+<div class="section" id="adding-some-more-files">
+<h2>31.1. Adding some more files<a class="headerlink" href="#adding-some-more-files" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Now here’s the fun bit – if you look in the data directory, you’ll see that there are actually 8 files in there. Let’s modify the snakefile to run fastqc on all of them!</div></blockquote>
+<ul class="simple">
+<li>How should we do that? (Give it a try!)</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{bazinga}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{bazinga}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{bazinga}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rerunning-snakemake">
+<h2>31.2. Rerunning snakemake<a class="headerlink" href="#rerunning-snakemake" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Note you can just run snakemake whenever you want. It won’t do anything unless something’s changed.</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="building-out-the-workflow">
+<h1>32. Building out the workflow<a class="headerlink" href="#building-out-the-workflow" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>So, we’ve gotten fastqc sorted out. What’s next?</li>
+</ul>
+<p><strong>Let’s add in a new rule - multiqc, to summarize our fastqc results.</strong></p>
+<ul class="simple">
+<li>multiqc takes a directory name under which there are one or more fastqc reports, and then summarizes them.</li>
+<li>Running it on the command line,</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ multiqc data
+</pre></div>
+</div>
+<p><strong>you can see that it creates two outputs, <code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> and the directory <code class="docutils literal notranslate"><span class="pre">multiqc_data/</span></code> which contains a bunch of files. Let’s create a snakemake rule for this; add:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div><strong>to the bottom of the file. (Note, you need to tell snakemake if an output is a directory.)</strong></div></blockquote>
+<ul class="simple">
+<li>Now run it:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake run_multiqc
+</pre></div>
+</div>
+<blockquote>
+<div>This …doesn’t really do what we want, for a few reasons.</div></blockquote>
+<ol class="simple">
+<li>you have to specify the rule name or else snakemake doesn’t run anything. How do we fix this??</li>
+<li><code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> already exists, so snakemake doesn’t run the rule. How do we actually test the rule??</li>
+<li>the multiqc rule has no input dependencies. How do we specify them??</li>
+</ol>
+<ul class="simple">
+<li>Let’s fix the first two things first:<ul>
+<li>add <code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> to the inputs for the first all.</li>
+<li>then remove <code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> and re-run snakemake.</li>
+</ul>
+</li>
+<li>Your snakefile should look like:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+</pre></div>
+</div>
+<blockquote>
+<div>Yay, that seems to work!</div></blockquote>
+<blockquote>
+<div>Points to note:</div></blockquote>
+<ul class="simple">
+<li>other than the first rule, rules can be in any order</li>
+<li>the rule name doesn’t really matter, it’s mostly for debugging. It just needs to be “boring” (text, underscores, etc. only)</li>
+</ul>
+<div class="section" id="providing-input-files-explicitly-to-the-multiqc-rule">
+<h2>32.1. Providing input files explicitly to the multiqc rule<a class="headerlink" href="#providing-input-files-explicitly-to-the-multiqc-rule" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><strong>The third problem, that multiqc doesn’t have any input dependencies, is a bit harder to fix.</strong></div></blockquote>
+<p><strong>(Why do we want to fix this? Well, this is how snakemake tracks “out of date” files - if we don’t specify input dependencies, then we may update one of the fastqc results that multiqc uses, but snakemake won’t re-run multiqc on it, and our multiqc results will be out of date.)</strong></p>
+<p>Basically we need to tell snakemake <em>all</em> of the files that we want. On the face of it, that’s easy – change the rule like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+</pre></div>
+</div>
+<p>This will work, but there are two reasons this is not great.</p>
+<p><strong>First, we’re repeating ourselves. Those input files are in the <code class="docutils literal notranslate"><span class="pre">all</span></code> rule above, and also in this rule. If you are as forgetful as I am, this means that you run the risk of updating one rule and not the other, and getting out of sync.</strong></p>
+<p><strong>Second, we’re explicitly listing out the files that we want produced. That’s not super great because it makes it annoying to add files.</strong></p>
+<p><strong>We can fix the first issue by using “variables”. The second issue requires a bit more advanced programming, and we’ll leave it to the very end.</strong></p>
+<p>To use variables, let’s make a Python list at the very top, containing all of our expected output files from fastqc:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>and modify the <code class="docutils literal notranslate"><span class="pre">all</span></code> and <code class="docutils literal notranslate"><span class="pre">multiqc</span></code> rules to contain this list. The final snakefile looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
+
+<span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">fastqc_output</span><span class="p">,</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">fastqc_output</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>Points to note:</strong><ul>
+<li>quoted strings are …strings (filename, usually)</li>
+<li>you can also use Python to create, manipulate, etc. filenames or lists of them, and it will work fine!</li>
+<li>this includes loading in filenames from spreadsheets, etc. - more on that later.**</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="refactoring-this-to-make-it-slightly-more-concise">
+<h2>32.2. Refactoring this to make it slightly more concise –<a class="headerlink" href="#refactoring-this-to-make-it-slightly-more-concise" title="Permalink to this headline">¶</a></h2>
+<p>We’ve got one more redundancy in this file - the <code class="docutils literal notranslate"><span class="pre">fastqc_output</span></code> is listed in the <code class="docutils literal notranslate"><span class="pre">all</span></code> rule, but you don’t need it there! Why?</p>
+<p>Well, <code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> is already in the all rule, and the multiqc rule depends on <code class="docutils literal notranslate"><span class="pre">fastqc_output</span></code>, so <code class="docutils literal notranslate"><span class="pre">fastqc_output</span></code> already needs to be created to satisfy the all rule, so… specifying it in the all rule is redundant! And you can remove it!</p>
+<p>(It’s not a big deal and I usually leave it in. But I wanted to talk about dependencies!)</p>
+<p>The Snakefile now looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
+
+<span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">fastqc_output</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+</pre></div>
+</div>
+<p>and we can rerun it from scratch by doing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ rm -fr multiqc_report.html multiqc_data/
+$ snakemake
+</pre></div>
+</div>
+</div>
+<div class="section" id="digression-what-files-does-snakemake-check-in-order-to-decide-about-rerunning">
+<h2>32.3. Digression: what files does snakemake check in order to decide about rerunning?<a class="headerlink" href="#digression-what-files-does-snakemake-check-in-order-to-decide-about-rerunning" title="Permalink to this headline">¶</a></h2>
+<p><strong>snakemake will compare only at the very initial input files, and the specific output file(s) you are requesting, to decide if it needs to
+rerun the workflow.</strong></p>
+<p><strong>In practical terms, this means that if you just delete the <code class="docutils literal notranslate"><span class="pre">data/*.html</span></code> files above but leave <code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> around, snakemake won’t rerun anything. You have to delete both the intermediaries <em>and</em> the end output files (as we do in the previous section), <em>or</em> update the raw input files, in order to force rerunning.</strong></p>
+<p><strong>(<a class="reference external" href="https://bitbucket.org/snakemake/snakemake/issues/885/snakemake-sometimes-doesnt-run-rule-when">This is a feature, not a bug</a> - it helps deal with data-intensive pipelines where the intermediate files are really big.)</strong></p>
+</div>
+<div class="section" id="making-a-clean-rule">
+<h2>32.4. Making a <code class="docutils literal notranslate"><span class="pre">clean</span></code> rule<a class="headerlink" href="#making-a-clean-rule" title="Permalink to this headline">¶</a></h2>
+<p>It’s kind of annoying to have to delete things explicitly. Snakemake should take care of that for us. Let’s add a new rule, <code class="docutils literal notranslate"><span class="pre">clean</span></code>, that forces rerunning of things –</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">clean</span><span class="p">:</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;rm -fr multiqc_report.html multiqc_data/&quot;</span>
+</pre></div>
+</div>
+<p>and now try re-running things:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ snakemake -p clean
+$ snakemake
+</pre></div>
+</div>
+<ul class="simple">
+<li>A few things to point out:<ul>
+<li>Here we see the use of variables inside a shell command, again - <code class="docutils literal notranslate"><span class="pre">{fastqc_output}</span></code> means “replace the thing in the curly quotes with the Python values in <code class="docutils literal notranslate"><span class="pre">fastqc_output</span></code>.</li>
+<li>We’re using <code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">-p</span></code> to get a printout of the commands that are run.**</li>
+</ul>
+</li>
+</ul>
+<p>What’s particularly nice about the <code class="docutils literal notranslate"><span class="pre">clean</span></code> rule (the name is a convention, not a requirement) is that you only need to keep track of the expected output files in one or two places - the all rule, and the clean rule.</p>
+</div>
+<div class="section" id="digression-running-things-in-parallel">
+<h2>32.5. Digression: running things in parallel<a class="headerlink" href="#digression-running-things-in-parallel" title="Permalink to this headline">¶</a></h2>
+<p>So, we’ve put all this work into making this snakefile with its input rules and its output rules… and there are a lot of advantages to our current approach already! Let’s list a few of them –</p>
+<ul class="simple">
+<li>we’ve completely automated our analysis!</li>
+<li>we can easily add new data files into fastqc and multiqc!</li>
+<li>we can rerun things easily, and (even better) by default only things that <em>need</em> to be run will be run.</li>
+<li>the snakefile is actually pretty reusable - we could drop this into a new project, and, with little effort, run all of these things on new data!</li>
+</ul>
+<p><strong>but there’s even more practical value in this, too – because we’ve given snakemake a recipe, rather than a script, we can now run these commands in parallel, too!</strong></p>
+<p>Try:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ snakemake clean
+$ snakemake -j <span class="m">4</span>
+</pre></div>
+</div>
+<p>this will run up to four things in parallel!</p>
+</div>
+<div class="section" id="doing-more-things-in-our-workflow">
+<h2>32.6. Doing more things in our workflow.<a class="headerlink" href="#doing-more-things-in-our-workflow" title="Permalink to this headline">¶</a></h2>
+<p>Let’s add some trimming!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">trim_reads</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.se.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.se.qc.fastq.gz&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;trimmomatic PE </span><span class="si">{input}</span><span class="s2"> </span><span class="si">{output}</span><span class="s2"> </span><span class="se">\</span>
+<span class="s2">     SLIDINGWINDOW:4:20 MINLEN:25 </span><span class="se">\</span>
+<span class="s2">     ILLUMINACLIP:NexteraPE-PE.fa:2:40:15&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Points to make:<ul>
+<li>I’m being really careful about input and output filenames to make sure that the wildcards work properly, and that we can fastqc things properly!</li>
+<li>the order of files in <code class="docutils literal notranslate"><span class="pre">{input}</span></code> and <code class="docutils literal notranslate"><span class="pre">{output}</span></code> matter - they’re passed in that order to snakemake! (See the output of <code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">-p</span></code>.)</li>
+</ul>
+</li>
+</ul>
+<p>Now add the appropriate files into the fastc output list too – change it to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2.pe.qc_fastqc.html&quot;</span><span class="p">]</span>
+
+<span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">fastqc_output</span><span class="p">,</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">fastqc_output</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+
+<span class="n">rule</span> <span class="n">trim_reads</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.se.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.se.qc.fastq.gz&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;trimmomatic PE </span><span class="si">{input}</span><span class="s2"> </span><span class="si">{output}</span><span class="s2"> </span><span class="se">\</span>
+<span class="s2">     SLIDINGWINDOW:4:20 MINLEN:25 </span><span class="se">\</span>
+<span class="s2">     ILLUMINACLIP:NexteraPE-PE.fa:2:40:15&quot;</span>
+
+<span class="n">rule</span> <span class="n">clean</span><span class="p">:</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;rm -fr multiqc_report.html multiqc_data/&quot;</span>
+</pre></div>
+</div>
+<p>and re-run everything:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ snakemake clean
+$ snakemake -j <span class="m">4</span>
+</pre></div>
+</div>
+<p>and voila - you’ve got a pile of trimmed output files, and a nice multiqc report on pre- and post- quality!</p>
+<p><strong>One other point to make: by naming the files “right”, i.e. by making the trimmed files meet the input requirements for the fastqc rule, we could automatically take advantage of that rule to run fastqc on them. A lot of snakemake seems to boil down to file naming, for better or for worse… :)</strong></p>
+</div>
+</div>
+<div class="section" id="more-advanced-snakemake">
+<h1>33. More advanced snakemake<a class="headerlink" href="#more-advanced-snakemake" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dry-run">
+<h2>33.1. Dry run<a class="headerlink" href="#dry-run" title="Permalink to this headline">¶</a></h2>
+<p><strong>You can use <code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">-n</span></code> to see what <em>would</em> be run, without actually running it! This is called a “dry run”. This is useful when you have really big compute.</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ snakemake clean
+$ snakemake -n
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-things-in-parallel-revisited">
+<h2>33.2. Running things in parallel, revisited<a class="headerlink" href="#running-things-in-parallel-revisited" title="Permalink to this headline">¶</a></h2>
+<p>Above, we saw that you can use <code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">-j</span> <span class="pre">4</span></code> to run four jobs in parallel. Here are some other</p>
+<ul class="simple">
+<li>all the output is sort of smushed together… if a rule fails, it may be hard to figure out what happened. You can always just rerun snakemake.</li>
+<li>still need to be careful about how much memory and processor you’re using!</li>
+<li>can be used on a cluster, to distribute jobs across multiple compute nodes. (This requires more work; also see, Specifying required software.)</li>
+</ul>
+</div>
+<div class="section" id="specifying-software-required-for-a-rule">
+<h2>33.3. Specifying software required for a rule<a class="headerlink" href="#specifying-software-required-for-a-rule" title="Permalink to this headline">¶</a></h2>
+<p><strong>You can specify software on a per-rule basis! This is really helpful when you have incompatible software requirements for different rules, or want to run on a cluster, or just want to pin your snakemake workflow to a specific version.</strong></p>
+<p>For example, if you create a file <code class="docutils literal notranslate"><span class="pre">env_fastqc.yml</span></code> with the following content,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">channels</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">bioconda</span>
+  <span class="o">-</span> <span class="n">defaults</span>
+  <span class="o">-</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span>
+<span class="n">dependencies</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">fastqc</span><span class="o">==</span><span class="mf">0.11</span><span class="o">.</span><span class="mi">8</span>
+</pre></div>
+</div>
+<p>and then change the fastqc rule to look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;{filename}.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;{filename}_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;{filename}_fastqc.zip&quot;</span>
+  <span class="n">conda</span><span class="p">:</span>
+    <span class="s2">&quot;env_fastqc.yml&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc {input}&quot;</span>
+</pre></div>
+</div>
+<p>you can now run snakemake like so,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ snakemake --use-conda
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>and for that rule, snakemake will install just that software, with the specified version.</strong></li>
+<li><strong>This aids in reproducibility, in addition to the practical advantages of isolating software installs from each other.</strong></li>
+</ul>
+</div>
+<div class="section" id="outputting-the-entire-workflow-diagram">
+<h2>33.4. Outputting the entire workflow diagram<a class="headerlink" href="#outputting-the-entire-workflow-diagram" title="Permalink to this headline">¶</a></h2>
+<p><strong>You can visualize your workflow like so!</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake --dag | dot -Tpng &gt; dag.png
+</pre></div>
+</div>
+</div>
+<div class="section" id="snakemake-report">
+<h2>33.5. Snakemake Report<a class="headerlink" href="#snakemake-report" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Snakemake can automatically generate detailed self-contained HTML reports that encompass runtime statistics, provenance information, workflow topology and results.</div></blockquote>
+<ul class="simple">
+<li>To create the report simply run</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake --report report.html
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="final-thoughts-writing-your-own-snakefile">
+<h1>34. Final thoughts - writing your own snakefile<a class="headerlink" href="#final-thoughts-writing-your-own-snakefile" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><strong>Just like scripting, or writing an R script, writing a snakefile is a kind of programming. So you’ll have to do a lot of debugging :) :(.</strong></div></blockquote>
+<ul class="simple">
+<li>A few thoughts for you on how to do this:</li>
+</ul>
+<ul class="simple">
+<li>start small, grow your snakefile!</li>
+<li>DO copy and paste from this tutorial and others you find online!</li>
+<li>it rarely hurts to just re-run snakemake!</li>
+</ul>
+<div class="section" id="dealing-with-complexity">
+<h2>34.1. Dealing with complexity<a class="headerlink" href="#dealing-with-complexity" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Workflows can get really complicated; <a class="reference external" href="https://github.com/spacegraphcats/2018-paper-spacegraphcats/blob/master/pipeline-base/Snakefile">here</a>, for example, is one for our most recent paper. But it’s all just using the building blocks that I showed you above!</li>
+<li>If you want to see some good examples of how to build nice, clean, simple looking workflows, check out <a class="reference external" href="https://github.com/snakemake-workflows/rna-seq-star-deseq2">this RNAseq example</a>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="thinking-about-workflows-a-strong-er-argument">
+<h1>35. Thinking about workflows - a strong(er) argument<a class="headerlink" href="#thinking-about-workflows-a-strong-er-argument" title="Permalink to this headline">¶</a></h1>
+<p>what do (snakemake) workflows do for me?</p>
+<ul class="simple">
+<li>declarative vs procedural specification<ul>
+<li>allows analysis of workflow graph, parallelization</li>
+<li>allows declaration of specific software needed, for later tracking</li>
+<li>can compare workflows more easily, in theory (=&gt; reproducibility)</li>
+<li>can rerun failed steps</li>
+</ul>
+</li>
+<li>tracks dependencies on files<ul>
+<li>allows rerunning just the bits that need to rerun</li>
+</ul>
+</li>
+<li>re-usability, in theory</li>
+<li>different conda environments for each step<ul>
+<li>allows pinning of software versions</li>
+<li>allows use of potentially incompatible software</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><strong>The main reason to use snakemake is that it lets be sure that my workflow completed properly. snakemake tracks which commands fails, and will stop the workflow in its tracks! This is not something that you usually do in shell scripts.</strong></div></blockquote>
+</div>
+<div class="section" id="go-forth-and-workflow">
+<h1>36. Go forth and Workflow!<a class="headerlink" href="#go-forth-and-workflow" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2.pe.qc_fastqc.html&quot;</span><span class="p">]</span>
+
+<span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">fastqc_output</span><span class="p">,</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.bwt&quot;</span>
+
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">fastqc_output</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
+    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+
+<span class="n">rule</span> <span class="n">trim_reads</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.fastq.gz&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.se.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.se.qc.fastq.gz&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;trimmomatic PE </span><span class="si">{input}</span><span class="s2"> </span><span class="si">{output}</span><span class="s2"> </span><span class="se">\</span>
+<span class="s2">     SLIDINGWINDOW:4:20 MINLEN:25 </span><span class="se">\</span>
+<span class="s2">     ILLUMINACLIP:NexteraPE-PE.fa:2:40:15&quot;</span>
+
+<span class="n">rule</span> <span class="n">bwa_index</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta&quot;</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.amb&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.ann&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.bwt&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.fai&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.pac&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.sa&quot;</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;bwa index </span><span class="si">{input}</span><span class="s2">&quot;</span>
+
+<span class="n">rule</span> <span class="n">clean</span><span class="p">:</span>
+  <span class="n">shell</span><span class="p">:</span>
+    <span class="s2">&quot;rm -fr multiqc_report.html multiqc_data/&quot;</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="automation.html" title="previous chapter (use the left arrow)">22. Automating a Variant Calling Workflow</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="advanced_atmosphere.html" title="next chapter (use the right arrow)">37. Advanced Topics</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="advanced_atmosphere.html" title="37. Advanced Topics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="automation.html" title="22. Automating a Variant Calling Workflow"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="toc.html">2019-04-11-gwu 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, Sateesh Peri. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

@@ -135,20 +135,32 @@
   <div class="section" id="variant-calling-workflow">
 <h1>19. Variant Calling Workflow<a class="headerlink" href="#variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
 <blockquote>
+<div><p>Questions:</p>
+<blockquote>
+<div><ul class="simple">
+<li>How do I find sequence variants between my sample and a reference genome?</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
 <div><p>Objectives:</p>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li>“Understand the steps involved in variant calling.”</li>
 <li>“Describe the types of data formats encountered during variant calling.”</li>
 <li>“Use command line tools to perform variant calling.”</li>
 </ul>
 </div></blockquote>
+</div></blockquote>
 <blockquote>
 <div><p>Keypoints:</p>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li>“Bioinformatics command line tools are collections of commands that can be used to carry out bioinformatics analyses.”</li>
 <li>“To use most powerful bioinformatics tools, you’ll need to use the command line.”</li>
 <li>“There are many different file formats for storing genomics data. It’s important to understand what type of information is contained in each file, and how it was derived.”</li>
 </ul>
+</div></blockquote>
 </div></blockquote>
 <hr class="docutils" />
 <p>We mentioned before that we are working with files from a long-term evolution study of an <em>E. coli</em> population (designated Ara-3). Now that we have looked at our data to make sure that it is high quality, and removed low-quality base calls, we can perform variant calling to see how the population changed over time. We care how this population changed relative to the original population, <em>E. coli</em> strain REL606. Therefore, we will align each of our samples to the <em>E. coli</em> REL606 reference genome, and see what differences exist in our reads versus the genome.</p>
@@ -460,19 +472,7 @@ $ rm sub.tar.gz
 </div>
 <p>The first line of output shows the genome coordinates in our reference genome. The second line shows the reference genome sequence. The third lines shows the consensus sequence determined from the sequence reads. A <code class="docutils literal notranslate"><span class="pre">.</span></code> indicates a match to the reference sequence, so we can see that the consensus from our sample matches the reference in most locations. That is good! If that wasn’t the case, we should probably reconsider our choice of reference.</p>
 <p>Below the horizontal line, we can see all of the reads in our sample aligned with the reference genome. Only positions where the called base differs from the reference are shown. You can use the arrow keys on your keyboard to scroll or type <code class="docutils literal notranslate"><span class="pre">?</span></code> for a help menu. To navigate to a specific position, type <code class="docutils literal notranslate"><span class="pre">g</span></code>. A dialogue box will appear. In this box, type the name of the “chromosome” followed by a colon and the position of the variant you would like to view (e.g. for this sample, type <code class="docutils literal notranslate"><span class="pre">CP000819.1:50</span></code> to view the 50th base. Type <code class="docutils literal notranslate"><span class="pre">Ctrl^C</span></code> or <code class="docutils literal notranslate"><span class="pre">q</span></code> to exit <code class="docutils literal notranslate"><span class="pre">tview</span></code>.</p>
-<blockquote>
-<div><p><strong>Exercise</strong></p>
-<p>Visualize the alignment of the reads for our <code class="docutils literal notranslate"><span class="pre">SRR2584866</span></code> sample. What variant is present at position 4377265? What is the canonical nucleotide in that position?</p>
-<blockquote>
-<div><p><em>Solution</em></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ samtools tview ~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/dc_workshop/data/ref_genome/ecoli_rel606.fasta
-</pre></div>
 </div>
-<p>Then type <code class="docutils literal notranslate"><span class="pre">g</span></code>. In the dialogue box, type <code class="docutils literal notranslate"><span class="pre">CP000819.1:4377265</span></code>. <code class="docutils literal notranslate"><span class="pre">G</span></code> is the variant. <code class="docutils literal notranslate"><span class="pre">A</span></code> is canonical. This variant possibly changes the phenotype of this sample to hypermutable. It occurs in the gene <em>mutL</em>, which controls DNA mismatch repair.</p>
-</div></blockquote>
-</div></blockquote>
-</div>
-<hr class="docutils" />
 <div class="section" id="viewing-with-igv">
 <h3>21.6.2. Viewing with IGV<a class="headerlink" href="#viewing-with-igv" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://www.broadinstitute.org/igv/">IGV</a> is a stand-alone browser, which has the advantage of being installed locally and providing fast access. Web-based genome browsers, like <a class="reference external" href="http://www.ensembl.org/index.html">Ensembl</a> or the <a class="reference external" href="https://genome.ucsc.edu/">UCSC browser</a>, are slower, but provide more functionality. They not only allow for more polished and flexible visualisation, but also provide easy access to a wealth of annotations and external data sources. This makes it straightforward to relate your data with information about repeat regions, known genes, epigenetic features or areas of cross-species conservation, to name just a few.</p>
@@ -482,10 +482,10 @@ $ cd ~/Desktop/files_for_igv
 </pre></div>
 </div>
 <p>Now we will transfer our files to that new directory. Remember to replace the text between the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> and the <code class="docutils literal notranslate"><span class="pre">:</span></code> with your instance. The commands to <code class="docutils literal notranslate"><span class="pre">scp</span></code> always go in the terminal window that is connected to your local computer (not your AWS instance).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/Desktop/files_for_igv
-$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam.bai ~/Desktop/files_for_igv
-$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/data/ref_genome/ecoli_rel606.fasta ~/Desktop/files_for_igv
-$ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/vcf/SRR2584866_final_variants.vcf ~/Desktop/files_for_igv
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp sateeshp@128.196.142.26:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam ~/Desktop/files_for_igv
+$ scp sateeshp@128.196.142.26:~/dc_workshop/results/bam/SRR2584866.aligned.sorted.bam.bai ~/Desktop/files_for_igv
+$ scp sateeshp@128.196.142.26:~/dc_workshop/data/ref_genome/ecoli_rel606.fasta ~/Desktop/files_for_igv
+$ scp sateeshp@128.196.142.26:~/dc_workshop/results/vcf/SRR2584866_final_variants.vcf ~/Desktop/files_for_igv
 </pre></div>
 </div>
 <p>You will need to type the password for your AWS instance each time you call <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
@@ -497,7 +497,7 @@ $ scp dcuser@ec2-34-203-203-131.compute-1.amazonaws.com:~/dc_workshop/results/vc
 <li>Do the same with our VCF file (<code class="docutils literal notranslate"><span class="pre">SRR2584866_final_variants.vcf</span></code>).</li>
 </ol>
 <p>Your IGV browser should look like the screenshot below:</p>
-<p><img alt="img/igv-screenshot.png" src="img/igv-screenshot.png" /></p>
+<p><img alt="_images/igv-screenshot.png" src="_images/igv-screenshot.png" /></p>
 <p>There should be two tracks: one corresponding to our BAM file and the other for our VCF file.</p>
 <p>In the <strong>VCF track</strong>, each bar across the top of the plot shows the allele fraction for a single locus. The second bar shows the genotypes for each locus in each <em>sample</em>. We only have one sample called here so we only see a single line. Dark blue = heterozygous, Cyan = homozygous variant, Grey = reference.  Filtered entries are transparent.</p>
 <p>Zoom in to inspect variants you see in your filtered VCF file to become more familiar with IGV. See how quality information

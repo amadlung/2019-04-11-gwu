@@ -141,22 +141,37 @@
   <div class="section" id="bash-lesson-2">
 <h1>10. Bash lesson 2<a class="headerlink" href="#bash-lesson-2" title="Permalink to this headline">¶</a></h1>
 <blockquote>
+<div><p>Questions:</p>
+<blockquote>
+<div><ul class="simple">
+<li>How can I view and search file contents?</li>
+<li>How can I create, copy and delete files and directories?</li>
+<li>How can I control who has permission to modify a file?</li>
+<li>How can I repeat recently used commands?</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
 <div><p>Objectives:</p>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li>View, search within, copy, move, and rename files. Create new directories.</li>
 <li>Use wild cards (<code class="docutils literal notranslate"><span class="pre">*</span></code>) to perform operations on multiple files.</li>
 <li>Make a file read only</li>
 <li>Use the <code class="docutils literal notranslate"><span class="pre">history</span></code> command to view and repeat recently used commands.</li>
 </ul>
 </div></blockquote>
+</div></blockquote>
 <blockquote>
 <div><p>Keypoints:</p>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li>“You can view file contents using <code class="docutils literal notranslate"><span class="pre">less</span></code>, <code class="docutils literal notranslate"><span class="pre">cat</span></code>, <code class="docutils literal notranslate"><span class="pre">head</span></code> or <code class="docutils literal notranslate"><span class="pre">tail</span></code>.”</li>
 <li>“The commands <code class="docutils literal notranslate"><span class="pre">cp</span></code>, <code class="docutils literal notranslate"><span class="pre">mv</span></code>, and <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> are useful for manipulating existing files and creating new directories.”</li>
 <li>“You can view file permissions using <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span></code> and change permissions using <code class="docutils literal notranslate"><span class="pre">chmod</span></code>.”</li>
 <li>“The <code class="docutils literal notranslate"><span class="pre">history</span></code> command and the up arrow on your keyboard can be used to repeat recently used commands.”</li>
 </ul>
+</div></blockquote>
 </div></blockquote>
 <div class="section" id="working-with-files">
 <h2>10.1. Working with Files<a class="headerlink" href="#working-with-files" title="Permalink to this headline">¶</a></h2>
@@ -204,17 +219,9 @@
 <p>Lists every file in <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> that ends in the characters <code class="docutils literal notranslate"><span class="pre">.sh</span></code>.</p>
 <blockquote>
 <div><p><strong>Home vs. Root</strong></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> character is another navigational shortcut and refers to your root directory.
-The root directory is the highest level directory in your file system and contains
-files that are important for your computer to perform its daily work, but which you usually won’t
-have to interact with directly. In our case,
-the root directory is two levels above our home directory, so <code class="docutils literal notranslate"><span class="pre">cd</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code> will take you to <code class="docutils literal notranslate"><span class="pre">/home/dcuser</span></code>
-and <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/</span></code> will take you to <code class="docutils literal notranslate"><span class="pre">/</span></code>, which is equivalent to <code class="docutils literal notranslate"><span class="pre">~/../../</span></code>. Try not to worry if this is confusing,
-it will all become clearer with practice.</p>
-<p>While you will be using the root at the beginning of your absolute paths, it is important that you avoid
-working with data in these higher-level directories, as your commands can permanently alter files that the
-operating system needs to function. In many cases, trying to run commands in root directories will require
-special permissions which are not discussed here, so it’s best to avoid it and work within your home directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">/</span></code> character is another navigational shortcut and refers to your root directory. The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work, but which you usually won’t
+have to interact with directly. In our case, the root directory is two levels above our home directory, so <code class="docutils literal notranslate"><span class="pre">cd</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">~</span></code> will take you to <code class="docutils literal notranslate"><span class="pre">/home/dcuser</span></code> and <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/</span></code> will take you to <code class="docutils literal notranslate"><span class="pre">/</span></code>, which is equivalent to <code class="docutils literal notranslate"><span class="pre">~/../../</span></code>. Try not to worry if this is confusing, it will all become clearer with practice.</p>
+<p>While you will be using the root at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in root directories will require special permissions which are not discussed here, so it’s best to avoid it and work within your home directory.</p>
 </div></blockquote>
 <blockquote>
 <div><p><strong>Exercise</strong>
@@ -225,11 +232,9 @@ Do each of the following tasks from your current directory using a single
 <li>List all of the files in <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> that contain the letter ‘a’.</li>
 <li>List all of the files in <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> that end with the letter ‘o’.</li>
 </ol>
-<p>Bonus: List all of the files in <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> that contain the letter ‘a’ or the
+<p><em>Bonus:</em> List all of the files in <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> that contain the letter ‘a’ or the
 letter ‘c’.</p>
-<p>Hint: The bonus question requires a Unix wildcard that we haven’t talked about
-yet. Trying searching the internet for information about Unix wildcards to find
-what you need to solve the bonus problem.</p>
+<p><em>Hint:</em> The bonus question requires a Unix wildcard that we haven’t talked about yet. Trying searching the internet for information about Unix wildcards to find what you need to solve the bonus problem.</p>
 <blockquote>
 <div><p><em>Solution</em></p>
 <ol class="simple">
@@ -542,11 +547,8 @@ Keypoints:</li>
 <p>Let’s give it a try!</p>
 <blockquote>
 <div><p><strong>Nucleotide abbreviations</strong></p>
-<p>The four nucleotides that appear in DNA are abbreviated <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">G</span></code>.
-Unknown nucleotides are represented with the letter <code class="docutils literal notranslate"><span class="pre">N</span></code>. An <code class="docutils literal notranslate"><span class="pre">N</span></code> appearing
-in a sequencing file represents a position where the sequencing machine was not able to
-confidently determine the nucleotide in that position. You can think of an <code class="docutils literal notranslate"><span class="pre">N</span></code> as a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value
-within a DNA sequence.</p>
+<p>The four nucleotides that appear in DNA are abbreviated <code class="docutils literal notranslate"><span class="pre">A</span></code>, <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">T</span></code> and <code class="docutils literal notranslate"><span class="pre">G</span></code>. Unknown nucleotides are represented with the letter <code class="docutils literal notranslate"><span class="pre">N</span></code>. An <code class="docutils literal notranslate"><span class="pre">N</span></code> appearing
+in a sequencing file represents a position where the sequencing machine was not able to confidently determine the nucleotide in that position. You can think of an <code class="docutils literal notranslate"><span class="pre">N</span></code> as a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value within a DNA sequence.</p>
 </div></blockquote>
 <p>We’ll search for strings inside of our fastq files. Let’s first make sure we are in the correct directory.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/shell_data/untrimmed_fastq
@@ -555,11 +557,7 @@ within a DNA sequence.</p>
 <p>Suppose we want to see how many reads in our file have really bad segments containing 10 consecutive unknown nucleoties (Ns). Let’s search for the string NNNNNNNNNN in the SRR098026 file.</p>
 <blockquote>
 <div><p><strong>Determining quality</strong></p>
-<p>In this lesson, we’re going to be manually searching for strings of <code class="docutils literal notranslate"><span class="pre">N</span></code>s within our sequence
-results to illustrate some principles of file searching. It can be really useful to do this
-type of searching to get a feel for the quality of your sequencing results, however, in you
-research you will most likely use a bioinformatics tool that has a built-in program for
-filtering out low-quality reads. You’ll learn how to use one such tool in
+<p>In this lesson, we’re going to be manually searching for strings of <code class="docutils literal notranslate"><span class="pre">N</span></code>s within our sequence results to illustrate some principles of file searching. It can be really useful to do this type of searching to get a feel for the quality of your sequencing results, however, in you research you will most likely use a bioinformatics tool that has a built-in program for filtering out low-quality reads. You’ll learn how to use one such tool in
 <a class="reference external" href="http://www.datacarpentry.org/wrangling-genomics/00-readQC/">a later lesson</a>.</p>
 </div></blockquote>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep NNNNNNNNNN SRR098026.fastq

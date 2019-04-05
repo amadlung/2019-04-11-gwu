@@ -178,20 +178,57 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="automation.html">22. Automating a Variant Calling Workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="automation.html#what-is-a-shell-script">22.1. What is a shell script?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="automation.html#creating-variables">22.2. Creating Variables</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="automation.html#analyzing-quality-with-fastqc">23. Analyzing Quality with FastQC</a></li>
 <li class="toctree-l1"><a class="reference internal" href="automation.html#automating-the-rest-of-our-variant-calling-workflow">24. Automating the Rest of our Variant Calling Workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html">25. Advanced Topics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#transferring-data-to-and-from-an-instance">26. Transferring Data to and from an Instance</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="advanced_atmosphere.html#transferring-data-using-icommands">26.1. <strong>Transferring Data using iCommands</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html">25. Snakemake Basic Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#open-rstudio">26. Open Rstudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#getting-started-your-first-snakefile">27. Getting started - your first Snakefile</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#updating-the-snakefile-to-track-inputs-and-outputs">27.1. Updating the Snakefile to track inputs and outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#forcibly-re-running-things">27.2. Forcibly re-running things</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#creating-custom-atmosphere-images">27. Creating custom Atmosphere Images</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#ssh-rsa-key-for-password-less-login">28. ssh-rsa-key for password-less login</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#tmux-screen">29. Tmux &amp; Screen</a></li>
-<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#ssh-remote-host-id-changed-error">30. SSH Remote host ID Changed Error</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#multiple-rules">28. Multiple rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#a-first-refactoring-adding-a-better-default-rule">29. A first refactoring: adding a better default rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#a-second-refactoring-doing-a-bit-of-templating">30. A second refactoring: doing a bit of templating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#refactoring-3-templating-output-files-too">31. Refactoring 3: templating output files, too</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#adding-some-more-files">31.1. Adding some more files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#rerunning-snakemake">31.2. Rerunning snakemake</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#building-out-the-workflow">32. Building out the workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#providing-input-files-explicitly-to-the-multiqc-rule">32.1. Providing input files explicitly to the multiqc rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#refactoring-this-to-make-it-slightly-more-concise">32.2. Refactoring this to make it slightly more concise –</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#digression-what-files-does-snakemake-check-in-order-to-decide-about-rerunning">32.3. Digression: what files does snakemake check in order to decide about rerunning?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#making-a-clean-rule">32.4. Making a <code class="docutils literal notranslate"><span class="pre">clean</span></code> rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#digression-running-things-in-parallel">32.5. Digression: running things in parallel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#doing-more-things-in-our-workflow">32.6. Doing more things in our workflow.</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#more-advanced-snakemake">33. More advanced snakemake</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#dry-run">33.1. Dry run</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#running-things-in-parallel-revisited">33.2. Running things in parallel, revisited</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#specifying-software-required-for-a-rule">33.3. Specifying software required for a rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#outputting-the-entire-workflow-diagram">33.4. Outputting the entire workflow diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#snakemake-report">33.5. Snakemake Report</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#final-thoughts-writing-your-own-snakefile">34. Final thoughts - writing your own snakefile</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="snakemake_basic.html#dealing-with-complexity">34.1. Dealing with complexity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#thinking-about-workflows-a-strong-er-argument">35. Thinking about workflows - a strong(er) argument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="snakemake_basic.html#go-forth-and-workflow">36. Go forth and Workflow!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html">37. Advanced Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#transferring-data-to-and-from-an-instance">38. Transferring Data to and from an Instance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced_atmosphere.html#transferring-data-using-icommands">38.1. Transferring Data using iCommands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#creating-custom-atmosphere-images">39. Creating custom Atmosphere Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#ssh-rsa-key-for-password-less-login">40. ssh-rsa-key for password-less login</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#tmux-screen">41. Tmux &amp; Screen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_atmosphere.html#ssh-remote-host-id-changed-error">42. SSH Remote host ID Changed Error</a></li>
 </ul>
 </div>
 

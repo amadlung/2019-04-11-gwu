@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="25. Advanced Topics" href="advanced_atmosphere.html" />
+    <link rel="next" title="25. Snakemake Basic Tutorial" href="snakemake_basic.html" />
     <link rel="prev" title="19. Variant Calling Workflow" href="variant_calling.html" />
   
    
@@ -38,7 +38,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="advanced_atmosphere.html" title="25. Advanced Topics"
+          <a href="snakemake_basic.html" title="25. Snakemake Basic Tutorial"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="variant_calling.html" title="19. Variant Calling Workflow"
@@ -60,7 +60,6 @@
       <ul>
 <li><a class="reference internal" href="#">22. Automating a Variant Calling Workflow</a><ul>
 <li><a class="reference internal" href="#what-is-a-shell-script">22.1. What is a shell script?</a></li>
-<li><a class="reference internal" href="#creating-variables">22.2. Creating Variables</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#analyzing-quality-with-fastqc">23. Analyzing Quality with FastQC</a></li>
@@ -74,8 +73,8 @@
   <p class="topless"><a href="variant_calling.html"
                         title="previous chapter">19. Variant Calling Workflow</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="advanced_atmosphere.html"
-                        title="next chapter">25. Advanced Topics</a></p>
+  <p class="topless"><a href="snakemake_basic.html"
+                        title="next chapter">25. Snakemake Basic Tutorial</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -114,11 +113,21 @@
   <div class="section" id="automating-a-variant-calling-workflow">
 <h1>22. Automating a Variant Calling Workflow<a class="headerlink" href="#automating-a-variant-calling-workflow" title="Permalink to this headline">¶</a></h1>
 <blockquote>
+<div><p>Questions:</p>
+<blockquote>
+<div><ul class="simple">
+<li>How can I make my workflow more efficient and less error-prone?</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+<blockquote>
 <div><p>Keypoints:</p>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li>“We can combine multiple commands into a shell script to automate a workflow.”</li>
 <li>“Use <code class="docutils literal notranslate"><span class="pre">echo</span></code> statements within your scripts to get an automated progress update.”</li>
 </ul>
+</div></blockquote>
 </div></blockquote>
 <hr class="docutils" />
 <div class="section" id="what-is-a-shell-script">
@@ -150,12 +159,11 @@
 </pre></div>
 </div>
 <p>Notice that in this <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we used two variables, <code class="docutils literal notranslate"><span class="pre">infile</span></code>, which was defined in the <code class="docutils literal notranslate"><span class="pre">for</span></code> statement, and <code class="docutils literal notranslate"><span class="pre">base</span></code>, which was created from the filename during each iteration of the loop.</p>
-</div>
-<div class="section" id="creating-variables">
-<h2>22.2. Creating Variables<a class="headerlink" href="#creating-variables" title="Permalink to this headline">¶</a></h2>
-<p>Within the Bash shell you can create variables at any time (as we did above, and during the ‘for’ loop lesson). Assign any name and the value using the assignment operator: ‘=’. You can check the current definition of your variable by typing into your script: echo $variable_name.</p>
-</div>
+<blockquote>
+<div><strong>Creating Variables</strong>
+Within the Bash shell you can create variables at any time (as we did above, and during the ‘for’ loop lesson). Assign any name and the value using the assignment operator: ‘=’. You can check the current definition of your variable by typing into your script: echo $variable_name.</div></blockquote>
 <p>In this lesson, we’ll use two shell scripts to automate the variant calling analysis: one for FastQC analysis (including creating our summary file), and a second for the remaining variant calling. To write a script to run our FastQC analysis, we’ll take each of the commands we entered to run FastQC and process the output files and put them into a single file with a <code class="docutils literal notranslate"><span class="pre">.sh</span></code> extension. The <code class="docutils literal notranslate"><span class="pre">.sh</span></code> is not essential, but serves as a reminder to ourselves and to the computer that this is a shell script.</p>
+</div>
 </div>
 <div class="section" id="analyzing-quality-with-fastqc">
 <h1>23. Analyzing Quality with FastQC<a class="headerlink" href="#analyzing-quality-with-fastqc" title="Permalink to this headline">¶</a></h1>
@@ -435,7 +443,7 @@ a <code class="docutils literal notranslate"><span class="pre">#</span></code> c
       </div>
     
       <div class="pull-right">
-        <a class="btn btn-default" href="advanced_atmosphere.html" title="next chapter (use the right arrow)">25. Advanced Topics</a>
+        <a class="btn btn-default" href="snakemake_basic.html" title="next chapter (use the right arrow)">25. Snakemake Basic Tutorial</a>
       </div>
     </div>
     <div class="clearer"></div>
@@ -450,7 +458,7 @@ a <code class="docutils literal notranslate"><span class="pre">#</span></code> c
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="advanced_atmosphere.html" title="25. Advanced Topics"
+          <a href="snakemake_basic.html" title="25. Snakemake Basic Tutorial"
              >next</a> |</li>
         <li class="right" >
           <a href="variant_calling.html" title="19. Variant Calling Workflow"

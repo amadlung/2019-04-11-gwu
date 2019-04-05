@@ -467,11 +467,8 @@ Let's give it a try!
 
 > **Nucleotide abbreviations**
 >
-> The four nucleotides that appear in DNA are abbreviated `A`, `C`, `T` and `G`.
-> Unknown nucleotides are represented with the letter `N`. An `N` appearing
-> in a sequencing file represents a position where the sequencing machine was not able to
-> confidently determine the nucleotide in that position. You can think of an `N` as a `NULL` value
-> within a DNA sequence.
+> The four nucleotides that appear in DNA are abbreviated `A`, `C`, `T` and `G`. Unknown nucleotides are represented with the letter `N`. An `N` appearing
+> in a sequencing file represents a position where the sequencing machine was not able to confidently determine the nucleotide in that position. You can think of an `N` as a `NULL` value within a DNA sequence.
 
 We'll search for strings inside of our fastq files. Let's first make sure we are in the correct directory.
 
@@ -483,11 +480,7 @@ Suppose we want to see how many reads in our file have really bad segments conta
 
 > **Determining quality**
 >
-> In this lesson, we're going to be manually searching for strings of `N`s within our sequence
-> results to illustrate some principles of file searching. It can be really useful to do this
-> type of searching to get a feel for the quality of your sequencing results, however, in you
-> research you will most likely use a bioinformatics tool that has a built-in program for
-> filtering out low-quality reads. You'll learn how to use one such tool in
+> In this lesson, we're going to be manually searching for strings of `N`s within our sequence results to illustrate some principles of file searching. It can be really useful to do this type of searching to get a feel for the quality of your sequencing results, however, in you research you will most likely use a bioinformatics tool that has a built-in program for filtering out low-quality reads. You'll learn how to use one such tool in
 > [a later lesson](http://www.datacarpentry.org/wrangling-genomics/00-readQC/).
 
 ```
