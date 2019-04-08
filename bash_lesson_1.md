@@ -47,10 +47,16 @@ $ pwd
 
 Here, the computer's response is `/home/sateeshp`, which is the top level directory within our cloud system:
 
+Lets import data required for this tutorial.
+
+```
+cp /opt/dc_workshop .
+```
+
 Let's look at how our file system is organized. At the top is our home directory, which holds all the sub-directories and files. Inside that directory there is currently one other directory:
 
 ```
-shell_data
+dc_workshop
 ```
 
 We'll be working with this sub-directory, and creating new sub-directories, throughout this workshop.
@@ -60,7 +66,7 @@ The command to change locations in our file system is `cd` followed by a directo
 Let's say we want to navigate to the `shell_data` directory we saw above.  We can use the following command to get there:
 
 ```
-$ cd shell_data
+$ cd dc_workshop
 ```
 
 We can see files and sub-directories are in this directory by running `ls`, which stands for "**listing**":
