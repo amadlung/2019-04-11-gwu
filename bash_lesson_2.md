@@ -30,7 +30,7 @@ Now that we know how to navigate around our directory structure, lets start work
 Navigate to your `untrimmed_fastq` directory.
 
 ```
-$ cd ~/shell_data/untrimmed_fastq
+$ cd ~/dc_workshop/untrimmed_fastq
 ```
 
 We are interested in looking at the FASTQ files in this directory. We can list all files with the .fastq extension using the command:
@@ -166,14 +166,14 @@ This will print out all of the contents of the `SRR098026.fastq` to the screen.
 
 > **Exercise**
 >
-> 1. Print out the contents of the `~/shell_data/untrimmed_fastq/SRR097977.fastq` file. What is the last line of the file?
+> 1. Print out the contents of the `~/dc_workshop/untrimmed_fastq/SRR097977.fastq` file. What is the last line of the file?
 > 2.  From your home directory, and without changing directories,
 > use one short command to print the contents of all of the files in
-> the `~/shell_data/untrimmed_fastq` directory.
+> the `~/dc_workshop/untrimmed_fastq` directory.
 >
 > > *Solution*
 > > 1. The last line of the file is `TC:CCC::CCCCCCCC<8?6A:C28C<608'&&&,'$`.
-> > 2. `cat ~/shell_data/untrimmed_fastq/*`
+> > 2. `cat ~/dc_workshop/untrimmed_fastq/*`
 
 
 `cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. `less` opens the file as read only, and lets you navigate through it. The navigation commands are identical to the `man` program.
@@ -314,7 +314,7 @@ When working with computational data, it's important to keep a safe copy of that
 
 First, let's make a copy of one of our FASTQ files using the `cp` command.
 
-Navigate to the `shell_data/untrimmed_fastq` directory and enter:
+Navigate to the `dc_workshop/untrimmed_fastq` directory and enter:
 
 ```
 $ cp SRR098026.fastq SRR098026-copy.fastq
@@ -423,7 +423,7 @@ This will delete not only the directory, but all files within the directory. If 
 
 > **Exercise**
 >
-> Starting in the `shell_data/untrimmed_fastq/` directory, do the following:
+> Starting in the `dc_workshop/untrimmed_fastq/` directory, do the following:
 > 1. Make sure that you have deleted your backup directory and all files it contains.
 > 2. Create a copy of each of your FASTQ files. (Note: You'll need to do this individually for each of the two FASTQ files. We haven't
 > learned yet how to do this
@@ -473,7 +473,7 @@ Let's give it a try!
 We'll search for strings inside of our fastq files. Let's first make sure we are in the correct directory.
 
 ```
-$ cd ~/shell_data/untrimmed_fastq
+$ cd ~/dc_workshop/untrimmed_fastq
 ```
 
 Suppose we want to see how many reads in our file have really bad segments containing 10 consecutive unknown nucleoties (Ns). Let's search for the string NNNNNNNNNN in the SRR098026 file.
@@ -698,7 +698,7 @@ Let's use the tools we've added to our tool kit so far, along with a few new one
 
 ```
 $ cd
-$ cd shell_data/sra_metadata
+$ cd dc_workshop/sra_metadata
 ```
 
 This file contains a lot of information about the samples that we submitted for sequencing. We took a look at this file in an earlier lesson. Here we're going to use the information in this file to answer some questions about our samples.

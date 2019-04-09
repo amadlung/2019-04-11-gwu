@@ -158,13 +158,13 @@ If we navigate back to our `untrimmed_fastq` directory and try to access one of 
 $ cd
 $ cd dc_workshop
 $ cd untrimmed_fastq
-$ ls SR<kbd>Tab</kbd>
+$ ls SR<Tab>
 ```
 
 The shell auto-completes your command to `SRR09`, because all file names in the directory begin with this prefix. When you hit <kbd>Tab</kbd> again, the shell will list the possible choices.
 
 ```
-$ ls SRR09<kbd>Tab</kbd><kbd>Tab</kbd>
+$ ls SRR09<Tab><Tab>
 ```
 
 ```
@@ -174,7 +174,7 @@ SRR097977.fastq  SRR098026.fastq
 <kbd>Tab</kbd> completion can also fill in the names of programs, which can be useful if you remember the beginning of a program name.
 
 ```
-$ pw<kbd>Tab</kbd><kbd>Tab</kbd>
+$ pw<Tab><Tab>
 ```
 
 ```
@@ -354,7 +354,7 @@ $ pwd
 You will see:
 
 ```
-/home/dcuser
+/home/sateeshp
 ```
 
 This is the full name of your home directory. This tells you that you are in a directory called `dcuser`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `dcuser` is a directory in `home` which is a directory in `/`.
@@ -386,8 +386,7 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 > **Relative path resolution**
 >
-> Using the filesystem diagram below, if `pwd` displays `/Users/thing`,
-> what will `ls ../backup` display?
+> Using the filesystem diagram below, if `pwd` displays `/Users/thing`, what will `ls ../backup` display?
 >
 > 1.  `../backup: No such file or directory`
 > 2.  `2012-12-01 2013-01-08 2013-01-27`

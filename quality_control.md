@@ -68,10 +68,12 @@ We can view the first complete read in one of the files our dataset by using `he
 $ head -n 4 SRR2584863_1.fastq
 ~~~
 
-> @SRR2584863.1 HWI-ST957:244:H73TDADXX:1:1101:4712:2181/1
+```
+@SRR2584863.1 HWI-ST957:244:H73TDADXX:1:1101:4712:2181/1
 >TTCACATCCTGACCATTCAGTTGAGCAAAATAGTTCTTCAGTGCCTGTTTAACCGAGTCACGCAGGGGTTTTTGGGTTACCTGATCCTGAGAGTTAACGGTAGAAACGGTCAGTACGTCAGAATTTACGCGTTGTTCGAACATAGTTCTG
 >+
 >CCCFFFFFGHHHHJIJJJJIJJJIIJJJJIIIJJGFIIIJEDDFEGGJIFHHJIJJDECCGGEGIIJFHFFFACD:BBBDDACCCCAA@@CA@C>C3>@5(8&>C:9?8+89<4(:83825C(:A#########################
+```
 
 > **Exercise**
 >
@@ -110,7 +112,7 @@ source ~/.bashrc
 We will now assess the quality of the reads that we downloaded. First, make sure you're still in the `untrimmed_fastq` directory with the `pwd` command if not, change directory using:
 
 ~~~
-$ cd ~/dc_workshop/data/untrimmed_fastq/
+$ cd ~/dc_workshop/untrimmed_fastq/
 ~~~
 
 > **Exercise**
@@ -201,7 +203,7 @@ $ open SRR2584863_1_fastqc.html
 However, if you try this on your remote instance, you'll get an error:
 
 ~~~
-Couldn't get a file descriptor referring to the console
+Couldnt get a file descriptor referring to the console
 ~~~
 
 This is because the remote instance we're using doesn't have any web browsers installed on it, so the remote computer doesn't know how to
@@ -219,7 +221,7 @@ $ mkdir -p ~/Desktop/fastqc_html
 Now we can transfer our HTML files to our local computer using `scp`.
 
 ~~~
-$ scp sateeshp@128.196.142.26:/home/sateeshp/dcgenomics/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
+$ scp cyverseusername@ipaddress:/home/sateeshp/dc_workshop/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
 ~~~
 
 - The first part of the command `sateeshp@128.196.142.26` is the address for your remote computer.
