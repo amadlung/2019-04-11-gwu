@@ -36,7 +36,7 @@ Accessing The Atmosphere Cloud
 
 ![](/img/atmosphere/login6.png)
 
-- **To select an image click on "Show All" tab and Search for "Snakemake2019" and choose the "Snakemake2019" image created by 'sateeshp'.**
+- **To select an image click on "Show All" tab and Search for "dcgenomics_1.0" and choose the "dcgenomics_1.0" image created by 'sateeshp'.**
 
 ![](/img/atmosphere/login7.png)
 
