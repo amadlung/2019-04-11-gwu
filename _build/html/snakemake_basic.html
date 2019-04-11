@@ -184,7 +184,18 @@
 <ul class="simple">
 <li>and you should see-</li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Building</span> <span class="n">DAG</span> <span class="n">of</span> <span class="n">jobs</span><span class="o">...</span>
+<span class="n">Using</span> <span class="n">shell</span><span class="p">:</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
+<span class="n">Provided</span> <span class="n">cores</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">Rules</span> <span class="n">claiming</span> <span class="n">more</span> <span class="n">threads</span> <span class="n">will</span> <span class="n">be</span> <span class="n">scaled</span> <span class="n">down</span><span class="o">.</span>
+<span class="n">Job</span> <span class="n">counts</span><span class="p">:</span>
+	<span class="n">count</span>	<span class="n">jobs</span>
+	<span class="mi">1</span>	<span class="n">fastqc_a_file</span>
+	<span class="mi">1</span>
+
+<span class="p">[</span><span class="n">Wed</span> <span class="n">Apr</span> <span class="mi">10</span> <span class="mi">06</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">17</span> <span class="mi">2019</span><span class="p">]</span>
+<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
+    <span class="n">jobid</span><span class="p">:</span> <span class="mi">0</span>
 </pre></div>
 </div>
 <blockquote>
@@ -222,10 +233,6 @@
 <li>Now run:</li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ snakemake
-</pre></div>
-</div>
-<p>and you should see:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 <blockquote>
@@ -959,76 +966,6 @@ $ snakemake -n
 </div>
 <div class="section" id="go-forth-and-workflow">
 <h1>36. Go forth and Workflow!<a class="headerlink" href="#go-forth-and-workflow" title="Permalink to this headline">¶</a></h1>
-<hr class="docutils" />
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2.pe.qc_fastqc.html&quot;</span><span class="p">]</span>
-
-<span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="n">fastqc_output</span><span class="p">,</span>
-    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.bwt&quot;</span>
-
-<span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">.fastq.gz&quot;</span>
-  <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_fastqc.zip&quot;</span>
-  <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
-
-<span class="n">rule</span> <span class="n">run_multiqc</span><span class="p">:</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="n">fastqc_output</span>
-  <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
-    <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
-  <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
-
-<span class="n">rule</span> <span class="n">trim_reads</span><span class="p">:</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.fastq.gz&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.fastq.gz&quot;</span>
-  <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_1.se.qc.fastq.gz&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.pe.qc.fastq.gz&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;</span><span class="si">{filename}</span><span class="s2">_2.se.qc.fastq.gz&quot;</span>
-  <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;trimmomatic PE </span><span class="si">{input}</span><span class="s2"> </span><span class="si">{output}</span><span class="s2"> </span><span class="se">\</span>
-<span class="s2">     SLIDINGWINDOW:4:20 MINLEN:25 </span><span class="se">\</span>
-<span class="s2">     ILLUMINACLIP:NexteraPE-PE.fa:2:40:15&quot;</span>
-
-<span class="n">rule</span> <span class="n">bwa_index</span><span class="p">:</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta&quot;</span>
-  <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.amb&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.ann&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.bwt&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.fai&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.pac&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/data/ref_genome/ecoli_rel606.fasta.sa&quot;</span>
-  <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;bwa index </span><span class="si">{input}</span><span class="s2">&quot;</span>
-
-<span class="n">rule</span> <span class="n">clean</span><span class="p">:</span>
-  <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;rm -fr multiqc_report.html multiqc_data/&quot;</span>
-</pre></div>
-</div>
 </div>
 
 

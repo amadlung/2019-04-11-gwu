@@ -199,11 +199,12 @@ The data are paired-end, so we will download two files for each sample. We will 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ head -n 4 SRR2584863_1.fastq
 </pre></div>
 </div>
-<blockquote>
-<div>&#64;SRR2584863.1 HWI-ST957:244:H73TDADXX:1:1101:4712:2181/1
-TTCACATCCTGACCATTCAGTTGAGCAAAATAGTTCTTCAGTGCCTGTTTAACCGAGTCACGCAGGGGTTTTTGGGTTACCTGATCCTGAGAGTTAACGGTAGAAACGGTCAGTACGTCAGAATTTACGCGTTGTTCGAACATAGTTCTG
-+
-CCCFFFFFGHHHHJIJJJJIJJJIIJJJJIIIJJGFIIIJEDDFEGGJIFHHJIJJDECCGGEGIIJFHFFFACD:BBBDDACCCCAA&#64;&#64;CA&#64;C&gt;C3&gt;&#64;5(8&amp;&gt;C:9?8+89&lt;4(:83825C(:A#########################</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>@SRR2584863.1 HWI-ST957:244:H73TDADXX:1:1101:4712:2181/1
+&gt;TTCACATCCTGACCATTCAGTTGAGCAAAATAGTTCTTCAGTGCCTGTTTAACCGAGTCACGCAGGGGTTTTTGGGTTACCTGATCCTGAGAGTTAACGGTAGAAACGGTCAGTACGTCAGAATTTACGCGTTGTTCGAACATAGTTCTG
+&gt;+
+&gt;CCCFFFFFGHHHHJIJJJJIJJJIIJJJJIIIJJGFIIIJEDDFEGGJIFHHJIJJDECCGGEGIIJFHFFFACD:BBBDDACCCCAA@@CA@C&gt;C3&gt;@5(8&amp;&gt;C:9?8+89&lt;4(:83825C(:A#########################
+</pre></div>
+</div>
 <blockquote>
 <div><p><strong>Exercise</strong></p>
 <p>What is the last read in the <code class="docutils literal notranslate"><span class="pre">SRR2584863_1.fastq</span></code> file? How confident are you in this read?</p>
@@ -232,7 +233,7 @@ the distribution of quality scores for all reads at that position. The horizonta
 </pre></div>
 </div>
 <p>We will now assess the quality of the reads that we downloaded. First, make sure you’re still in the <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> directory with the <code class="docutils literal notranslate"><span class="pre">pwd</span></code> command if not, change directory using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/data/untrimmed_fastq/
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/untrimmed_fastq/
 </pre></div>
 </div>
 <blockquote>
@@ -306,7 +307,7 @@ $ mv *.html ~/dc_workshop/results/fastqc_untrimmed_reads/
 </pre></div>
 </div>
 <p>However, if you try this on your remote instance, you’ll get an error:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Couldn</span><span class="s1">&#39;t get a file descriptor referring to the console</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Couldnt</span> <span class="n">get</span> <span class="n">a</span> <span class="n">file</span> <span class="n">descriptor</span> <span class="n">referring</span> <span class="n">to</span> <span class="n">the</span> <span class="n">console</span>
 </pre></div>
 </div>
 <p>This is because the remote instance we’re using doesn’t have any web browsers installed on it, so the remote computer doesn’t know how to
@@ -318,7 +319,7 @@ tab in your terminal program (you can use the pull down menu at the top of your 
 </pre></div>
 </div>
 <p>Now we can transfer our HTML files to our local computer using <code class="docutils literal notranslate"><span class="pre">scp</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp sateeshp@128.196.142.26:/home/sateeshp/dcgenomics/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ scp cyverseusername@ipaddress:/home/sateeshp/dc_workshop/results/fastqc_untrimmed_reads/*.html ~/Desktop/fastqc_html/
 </pre></div>
 </div>
 <ul class="simple">

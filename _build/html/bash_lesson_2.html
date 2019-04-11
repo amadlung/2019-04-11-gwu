@@ -182,7 +182,7 @@
 <div class="section" id="wild-cards">
 <h3>10.1.2. Wild cards<a class="headerlink" href="#wild-cards" title="Permalink to this headline">¶</a></h3>
 <p>Navigate to your <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> directory.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/shell_data/untrimmed_fastq
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/untrimmed_fastq
 </pre></div>
 </div>
 <p>We are interested in looking at the FASTQ files in this directory. We can list all files with the .fastq extension using the command:</p>
@@ -295,16 +295,16 @@ First type <code class="docutils literal notranslate"><span class="pre">history<
 <blockquote>
 <div><p><strong>Exercise</strong></p>
 <ol class="simple">
-<li>Print out the contents of the <code class="docutils literal notranslate"><span class="pre">~/shell_data/untrimmed_fastq/SRR097977.fastq</span></code> file. What is the last line of the file?</li>
+<li>Print out the contents of the <code class="docutils literal notranslate"><span class="pre">~/dc_workshop/untrimmed_fastq/SRR097977.fastq</span></code> file. What is the last line of the file?</li>
 <li>From your home directory, and without changing directories,
 use one short command to print the contents of all of the files in
-the <code class="docutils literal notranslate"><span class="pre">~/shell_data/untrimmed_fastq</span></code> directory.</li>
+the <code class="docutils literal notranslate"><span class="pre">~/dc_workshop/untrimmed_fastq</span></code> directory.</li>
 </ol>
 <blockquote>
 <div><p><em>Solution</em></p>
 <ol class="simple">
 <li>The last line of the file is <code class="docutils literal notranslate"><span class="pre">TC:CCC::CCCCCCCC&lt;8?6A:C28C&lt;608'&amp;&amp;&amp;,'$</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">~/shell_data/untrimmed_fastq/*</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">cat</span> <span class="pre">~/dc_workshop/untrimmed_fastq/*</span></code></li>
 </ol>
 </div></blockquote>
 </div></blockquote>
@@ -416,7 +416,7 @@ NNNNNNNNNNNNNNNNCNNNNNNNNNNNNNNNNNN
 <h3>10.5.1. Copying Files<a class="headerlink" href="#copying-files" title="Permalink to this headline">¶</a></h3>
 <p>When working with computational data, it’s important to keep a safe copy of that data that can’t be accidentally overwritten or deleted. For this lesson, our raw data is our FASTQ files.  We don’t want to accidentally change the original files, so we’ll make a copy of them and change the file permissions so that we can read from, but not write to, the files.</p>
 <p>First, let’s make a copy of one of our FASTQ files using the <code class="docutils literal notranslate"><span class="pre">cp</span></code> command.</p>
-<p>Navigate to the <code class="docutils literal notranslate"><span class="pre">shell_data/untrimmed_fastq</span></code> directory and enter:</p>
+<p>Navigate to the <code class="docutils literal notranslate"><span class="pre">dc_workshop/untrimmed_fastq</span></code> directory and enter:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cp SRR098026.fastq SRR098026-copy.fastq
 $ ls -F
 </pre></div>
@@ -497,7 +497,7 @@ $ rm -r backup
 <p>This will delete not only the directory, but all files within the directory. If you have write-protected files in the directory, you will be asked whether you want to override your permission settings.</p>
 <blockquote>
 <div><p><strong>Exercise</strong></p>
-<p>Starting in the <code class="docutils literal notranslate"><span class="pre">shell_data/untrimmed_fastq/</span></code> directory, do the following:</p>
+<p>Starting in the <code class="docutils literal notranslate"><span class="pre">dc_workshop/untrimmed_fastq/</span></code> directory, do the following:</p>
 <ol class="simple">
 <li>Make sure that you have deleted your backup directory and all files it contains.</li>
 <li>Create a copy of each of your FASTQ files. (Note: You’ll need to do this individually for each of the two FASTQ files. We haven’t
@@ -551,7 +551,7 @@ Keypoints:</li>
 in a sequencing file represents a position where the sequencing machine was not able to confidently determine the nucleotide in that position. You can think of an <code class="docutils literal notranslate"><span class="pre">N</span></code> as a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> value within a DNA sequence.</p>
 </div></blockquote>
 <p>We’ll search for strings inside of our fastq files. Let’s first make sure we are in the correct directory.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/shell_data/untrimmed_fastq
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ~/dc_workshop/untrimmed_fastq
 </pre></div>
 </div>
 <p>Suppose we want to see how many reads in our file have really bad segments containing 10 consecutive unknown nucleoties (Ns). Let’s search for the string NNNNNNNNNN in the SRR098026 file.</p>
@@ -731,7 +731,7 @@ a new file.</p>
 <h2>10.8. File manipulation and more practice with pipes<a class="headerlink" href="#file-manipulation-and-more-practice-with-pipes" title="Permalink to this headline">¶</a></h2>
 <p>Let’s use the tools we’ve added to our tool kit so far, along with a few new ones, to example our SRA metadata file. First, let’s navigate to the correct directory.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
-$ cd shell_data/sra_metadata
+$ cd dc_workshop/sra_metadata
 </pre></div>
 </div>
 <p>This file contains a lot of information about the samples that we submitted for sequencing. We took a look at this file in an earlier lesson. Here we’re going to use the information in this file to answer some questions about our samples.</p>

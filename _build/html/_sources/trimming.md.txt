@@ -92,13 +92,13 @@ $ trimmomatic PE -threads 4 SRR_1056_1.fastq SRR_1056_2.fastq  \
 Now we will run Trimmomatic on our data. To begin, navigate to your `untrimmed_fastq` data directory:
 
 ~~~
-$ cd ~/dc_workshop/data/untrimmed_fastq
+$ cd ~/dc_workshop/untrimmed_fastq
 ~~~
 
 We are going to run Trimmomatic on one of our paired-end samples. We saw using FastQC that Nextera adapters were present in our samples. The adapter sequences came with the installation of trimmomatic, so we will first copy these sequences into our current directory.
 
 ~~~
-$ cp ~/miniconda3/pkgs/trimmomatic-0.38-0/share/trimmomatic-0.38-0/adapters/NexteraPE-PE.fa .
+$ cp /opt/miniconda3/pkgs/trimmomatic-0.38-1/share/trimmomatic-0.38-1/adapters/NexteraPE-PE.fa .
 ~~~
 
 We will also use a sliding window of size 4 that will remove bases if their phred score is below 20 (like in our example above). We will also
@@ -207,7 +207,7 @@ We've now completed the trimming and filtering steps of our quality control proc
 to a new subdirectory within our `data/` directory. We can also remove our extra, double-trimmed file for the `SRR098283` sample.
 
 ~~~
-$ cd ~/dc_workshop/data/untrimmed_fastq
+$ cd ~/dc_workshop/untrimmed_fastq
 $ mkdir ../trimmed_fastq
 $ mv *.trim* ../trimmed_fastq
 $ cd ../trimmed_fastq

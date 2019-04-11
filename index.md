@@ -37,7 +37,7 @@
 
 > Materials will be provided in advance of the workshop and large-print handouts are available if needed by notifying the organizers in advance. If we can help making learning easier for you (e.g. sign-language interpreters, lactation facilities) please get in touch (using contact details below) and we will attempt to provide them.
 
-**CONTACT:** Please email [Megan Potterbusch](mpotterbusch@email.gwu.edu) for more information.
+**CONTACT:** Please email **Megan Potterbusch** at (mpotterbusch@email.gwu.edu) for more information.
 
 **INSTRUCTORS**
 * [Niel Infante](https://twitter.com/Niel_Infante)

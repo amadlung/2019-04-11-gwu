@@ -56,21 +56,25 @@ $ gunzip data/ref_genome/ecoli_rel606.fasta.gz
 We will also download a set of trimmed FASTQ files to work with. These are small subsets of our real trimmed data, and will enable us to run our variant calling workflow quite quickly.
 
 ~~~
+$ cd ~/dc_workshop
 $ mkdir data/trimmed_fastq_small
+$ cd data/trimmed_fastq_small
 $ curl -L -o sub.tar.gz https://ndownloader.figshare.com/files/14418248
 $ tar xvf sub.tar.gz
-$ mv sub/ ~/dc_workshop/data/trimmed_fastq_small
+$ mv sub/* .
 $ rm sub.tar.gz
+$ rmdir sub/
 ~~~
 
 You will also need to create new directories for the results that will be generated as part of this workflow. We can do this in a single line of code because `mkdir` can accept multiple new directory names as input.
 
 ~~~
+$ cd ~/dc_workshop
 $ mkdir -p results/sam results/bam results/bcf results/vcf
 ~~~
 
 ### Index the reference genome
-Our first step is to index the reference genome for use by BWA. Indexing allows the aligner to quickly find potential alignment sites for query sequences in a genome, which saves time during alignment. Indexing the reference only has to be run once. The only reason you would want to create a new index is if you are working with a different reference genome or you are using a different tool for alignment.
+Our first step is to index the reference genome for use by BWA. Indexing allows the aligner to quickly find potential alignment sites for query sequences in a genome, which saves time during alignment. **Indexing the reference only has to be run once**. The only reason you would want to create a new index is if you are working with a different reference genome or you are using a different tool for alignment.
 
 ~~~
 $ bwa index data/ref_genome/ecoli_rel606.fasta

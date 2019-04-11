@@ -36,7 +36,18 @@ $ snakemake
 - and you should see-
 
 ```
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	fastqc_a_file
+	1
 
+[Wed Apr 10 06:29:17 2019]
+rule fastqc_a_file:
+    jobid: 0
 ```
 
 > Upon execution there will be two new files, '.html' & '.zip'
@@ -74,11 +85,6 @@ rule fastqc_a_file:
 
 ```
 $ snakemake
-```
-
-and you should see:
-```
-
 ```
 
 > **What happened??**
@@ -805,76 +811,4 @@ what do (snakemake) workflows do for me?
 
 > **The main reason to use snakemake is that it lets be sure that my workflow completed properly. snakemake tracks which commands fails, and will stop the workflow in its tracks! This is not something that you usually do in shell scripts.**
 
-# Go forth and Workflow!
-
----
-
-```
-fastqc_output = ["dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_1.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_2.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_1.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_2.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_1.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_2.pe.qc_fastqc.html"]
-
-rule all:
-  input:
-    fastqc_output,
-    "multiqc_report.html",
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta.bwt"
-
-rule fastqc_a_file:
-  input:
-    "{filename}.fastq.gz"
-  output:
-    "{filename}_fastqc.html",
-    "{filename}_fastqc.zip"
-  shell:
-    "fastqc {input}"
-
-rule run_multiqc:
-  input:
-    fastqc_output
-  output:
-    "multiqc_report.html",
-    directory("multiqc_data")
-  shell:
-    "multiqc dc_workshop/untrimmed_fastq/"
-
-rule trim_reads:
-  input:
-    "{filename}_1.fastq.gz",
-    "{filename}_2.fastq.gz"
-  output:
-    "{filename}_1.pe.qc.fastq.gz",
-    "{filename}_1.se.qc.fastq.gz",
-    "{filename}_2.pe.qc.fastq.gz",
-    "{filename}_2.se.qc.fastq.gz"
-  shell:
-    "trimmomatic PE {input} {output} \
-     SLIDINGWINDOW:4:20 MINLEN:25 \
-     ILLUMINACLIP:NexteraPE-PE.fa:2:40:15"
-
-rule bwa_index:
-  input:
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta"
-  output:
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta.amb",
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta.ann",
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta.bwt",
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta.fai",
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta.pac",
-    "dc_workshop/data/ref_genome/ecoli_rel606.fasta.sa"
-  shell:
-    "bwa index {input}"
-
-rule clean:
-  shell:
-    "rm -fr multiqc_report.html multiqc_data/"
-```    
+# Go forth and Workflow!    

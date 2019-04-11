@@ -36,13 +36,13 @@ Accessing The Atmosphere Cloud
 
 ![](/img/atmosphere/login6.png)
 
-- **To select an image click on "Show All" tab and Search for "Snakemake2019" and choose the "Snakemake2019" image created by 'sateeshp'.**
+- **To select an image click on "Show All" tab and Search for "dcgenomics_1.0" and choose the "dcgenomics_1.0" image created by 'sateeshp'.**
 
 ![](/img/atmosphere/login7.png)
 
 **You will be presented with options to choose and configure your virtual machine here:
 
-	+ Instance Name: e.x., "Smake-Tutorial" or you can leave it default which is the image name.
+	+ Instance Name: e.x., "DC_Workshop" or you can leave it default which is the image name.
 
 	+	Base Image Version: "1.0"
 
@@ -52,7 +52,7 @@ Accessing The Atmosphere Cloud
 
 	+	Provider: "CyVerse Cloud - Marana"
 
-	+ Instance size: We recommend ""tiny1" (CPU: 1, Mem: 4GB, Disk: 30GB)"for this tutorial; Though  depending on your allocations, choose most suitable one. [Click here](https://wiki.cyverse.org/wiki/display/atmman/Requesting+More+Atmosphere+Resources) to read more about allocations.**
+	+ Instance size: We recommend ""medium2" (CPU: 4, Mem: 16GB, Disk: 160GB)"for this tutorial; Though  depending on your allocations, choose most suitable one. [Click here](https://wiki.cyverse.org/wiki/display/atmman/Requesting+More+Atmosphere+Resources) to read more about allocations.**
 
 ![](/img/atmosphere/login8.png)
 
