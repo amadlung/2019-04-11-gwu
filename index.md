@@ -40,14 +40,18 @@
 **CONTACT:** Please email **Megan Potterbusch** at (mpotterbusch@email.gwu.edu) for more information.
 
 **INSTRUCTORS**
-* [Niel Infante](https://twitter.com/Niel_Infante)
-* [Sateesh Peri](https://twitter.com/perisateesh)
+* **Niel Infante**
+  + Twitter - (https://twitter.com/Niel_Infante)
+  + Email: (aminfante@hsc.wvu.edu)
+* **Sateesh Peri**
+  + Twitter - (https://twitter.com/perisateesh)
+  + Email: (perisateesh@nevada.unr.edu)
 
   **HELPERS**
-  * [Adam Wong](aklwong@gwu.edu)
-  * [Keylie Gibson](kmgibson@gwmail.gwu.edu)
-  * [Rebecca Clement](rebeccaclement@gwmail.gwu.edu)
-  * [William Bonnett](synchronous@email.gwu.edu)
+  * **Adam Wong** - (aklwong@gwu.edu)
+  * **Keylie Gibson** - (kmgibson@gwmail.gwu.edu)
+  * **Rebecca Clement** - (rebeccaclement@gwmail.gwu.edu)
+  * **William Bonnett** - (synchronous@email.gwu.edu)
 
 
 **SCHEDULE**
