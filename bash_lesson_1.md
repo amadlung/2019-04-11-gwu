@@ -47,26 +47,27 @@ $ pwd
 
 Here, the computer's response is `/home/sateeshp`, which is the top level directory within our cloud system:
 
-Lets import data required for this tutorial.
+Lets download data required for this tutorial. Copy and paste the following in your terminal to download the zipped file and unzip it.
 
 ```
-$ cp /opt/dc_workshop .
+$ curl -L https://osf.io/vuk5y/download -o shell_data.zip
+$ unzip shell_data.zip
 ```
 
 Let's look at how our file system is organized. At the top is our home directory, which holds all the sub-directories and files. Inside that directory there is currently one other directory:
 
 ```
-dc_workshop
+shell_data
 ```
 
 We'll be working with this sub-directory, and creating new sub-directories, throughout this workshop.
 
 The command to change locations in our file system is `cd` followed by a directory name to change our working directory. `cd` stands for "**change directory**".
 
-Let's say we want to navigate to the `dc_workshop` directory we saw above.  We can use the following command to get there:
+Let's say we want to navigate to the `shell_data` directory we saw above.  We can use the following command to get there:
 
 ```
-$ cd dc_workshop
+$ cd shell_data
 ```
 
 We can see files and sub-directories are in this directory by running `ls`, which stands for "**listing**":
@@ -141,12 +142,12 @@ $ cd
 
 then enter: cd dc<kbd>Tab</kbd>
 
-The shell will fill in the rest of the directory name for `dc_workshop`.
+The shell will fill in the rest of the directory name for `shell_data`.
 
-Now change directories to `untrimmed_fastq` in `dc_workshop`
+Now change directories to `untrimmed_fastq` in `shell_data`
 
 ```
-$ cd dc_workshop
+$ cd shell_data
 $ cd untrimmed_fastq
 ```
 
@@ -156,7 +157,7 @@ If we navigate back to our `untrimmed_fastq` directory and try to access one of 
 
 ```
 $ cd
-$ cd dc_workshop
+$ cd shell_data
 $ cd untrimmed_fastq
 $ ls SR<Tab>
 ```
@@ -196,25 +197,25 @@ We now know how to move around our file system using the command line. This give
 
 We've learned how to use `pwd` to find our current location within our file system. We've also learned how to use `cd` to change locations and `ls` to list the contents of a directory. Now we're going to learn some additional commands for moving around within our file system.
 
-Use the commands we've learned so far to navigate to the `dc_workshop/untrimmed_fastq` directory, if you're not already there.
+Use the commands we've learned so far to navigate to the `shell_data/untrimmed_fastq` directory, if you're not already there.
 
 ```
 $ cd
-$ cd dc_workshop
+$ cd shell_data
 $ cd untrimmed_fastq
 ```
 
-What if we want to move back up and out of this directory and to our top level directory? Can we type `cd dc_workshop`? Try it and see what happens.
+What if we want to move back up and out of this directory and to our top level directory? Can we type `cd shell_data`? Try it and see what happens.
 
 ```
-$ cd dc_workshop
+$ cd shell_data
 ```
 
 ```
--bash: cd: dc_workshop: No such file or directory
+-bash: cd: shell_data: No such file or directory
 ```
 
-Your computer looked for a directory or file called `dc_workshop` within the directory you were already in. It didn't know you wanted to look at a directory level above the one you were located in.
+Your computer looked for a directory or file called `shell_data` within the directory you were already in. It didn't know you wanted to look at a directory level above the one you were located in.
 
 We have a special command to tell the computer to move us back or up one directory level.
 
@@ -229,7 +230,7 @@ $ pwd
 ```
 
 ```
-/home/sateeshp/dc_workshop
+/home/sateeshp/shell_data
 ```
 
 ```
@@ -252,7 +253,7 @@ prints the contents of `/home`, which is one level up from your root directory.
 
 > **Finding hidden directories**
 >
-> First navigate to the `dc_workshop` directory. There is a hidden directory within this directory. Explore the options for `ls` to
+> First navigate to the `shell_data` directory. There is a hidden directory within this directory. Explore the options for `ls` to
 > find out how to see hidden directories. List the contents of the directory and
 > identify the name of the text file in that directory.
 >
@@ -306,14 +307,14 @@ $ cd
 Then enter the command:
 
 ```
-$ ls dc_workshop
+$ ls shell_data
 ```
 
 ```
 sra_metadata  untrimmed_fastq
 ```
 
-This will list the contents of the `dc_workshop` directory without you needing to navigate there.
+This will list the contents of the `shell_data` directory without you needing to navigate there.
 
 The `cd` command works in a similar way.
 
@@ -321,7 +322,7 @@ Try entering:
 
 ```
 $ cd
-$ cd dc_workshop/untrimmed_fastq
+$ cd shell_data/untrimmed_fastq
 ```
 
 This will take you to the `untrimmed_fastq` directory without having to go through the intermediate directory.
@@ -335,7 +336,7 @@ This will take you to the `untrimmed_fastq` directory without having to go throu
 > >
 > > ```
 > > $ cd
-> > $ ls dc_workshop/untrimmed_fastq/
+> > $ ls shell_data/untrimmed_fastq/
 > > ```
 > >
 > > ```
@@ -362,7 +363,7 @@ This is the full name of your home directory. This tells you that you are in a d
 Now enter the following command:
 
 ```
-$ cd /home/sateeshp/dc_workshop/.hidden
+$ cd /home/sateeshp/shell_data/.hidden
 ```
 
 This jumps forward multiple levels to the `.hidden` directory. Now go back to the home directory.
@@ -374,7 +375,7 @@ $ cd
 You can also navigate to the `.hidden` directory using:
 
 ```
-$ cd dc_workshop/.hidden
+$ cd shell_data/.hidden
 ```
 
 These two commands have the same effect, they both take us to the `.hidden` directory. The first uses the absolute path, giving the full address from the home directory. The second uses a relative path, giving only the address from the working directory. A full path always starts with a `/`. A relative path does not.
@@ -403,11 +404,11 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 ### Navigational Shortcuts
 
-There are some shortcuts which you should know about. Dealing with the home directory is very common. The tilde character, `~`, is a shortcut for your home directory. Navigate to the `dc_workshop` directory:
+There are some shortcuts which you should know about. Dealing with the home directory is very common. The tilde character, `~`, is a shortcut for your home directory. Navigate to the `shell_data` directory:
 
 ```
 $ cd
-$ cd dc_workshop
+$ cd shell_data
 ```
 
 Then enter the command:
@@ -417,7 +418,7 @@ $ ls ~
 ```
 
 ```
-dc_workshop
+shell_data
 ```
 
 This prints the contents of your home directory, without you needing to type the full path.
