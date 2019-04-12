@@ -170,7 +170,7 @@
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;fastqc dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
 </pre></div>
 </div>
 <p><em>(I suggest copy/pasting this into RStudio.)</em></p>
@@ -217,12 +217,12 @@
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.zip&quot;</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;fastqc dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
 </pre></div>
 </div>
 <blockquote>
@@ -261,7 +261,7 @@ $ snakemake
 <ul class="simple">
 <li>You can <em>also</em> update the timestamp on an <em>input</em> file, and snakemake will figure out that the output file is older than the input file, and rerun things.</li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ touch dc_workshop/untrimmed_fastq/*.fastq.gz
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ touch dc_workshop/data/*.fastq.gz
 $ snakemake
 </pre></div>
 </div>
@@ -276,21 +276,21 @@ $ snakemake
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.zip&quot;</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;fastqc dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file2</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2.fastq.gz&quot;</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.zip&quot;</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+    <span class="s2">&quot;fastqc dc_workshop/data/SRR2584863_2.fastq.gz&quot;</span>
 </pre></div>
 </div>
 <blockquote>
@@ -321,26 +321,26 @@ $ snakemake
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.zip&quot;</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;fastqc dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file2</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2.fastq.gz&quot;</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.zip&quot;</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;fastqc dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+    <span class="s2">&quot;fastqc dc_workshop/data/SRR2584863_2.fastq.gz&quot;</span>
 </pre></div>
 </div>
 <blockquote>
@@ -359,24 +359,24 @@ $ snakemake
 <p><strong>There’s a lot of repetition in each of these rules. Let’s collapse it down a little bit by replacing the filename in the fastqc command with a magic variable, <code class="docutils literal notranslate"><span class="pre">{input}</span></code>.</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1.fastq.gz&quot;</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.zip&quot;</span>
   <span class="n">shell</span><span class="p">:</span>
     <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file2</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2.fastq.gz&quot;</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.zip&quot;</span>
   <span class="n">shell</span><span class="p">:</span>
     <span class="s2">&quot;fastqc </span><span class="si">{input}</span><span class="s2">&quot;</span>
 </pre></div>
@@ -395,8 +395,8 @@ $ snakemake
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -434,8 +434,8 @@ $ snakemake
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -458,12 +458,12 @@ $ snakemake
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -501,12 +501,12 @@ $ snakemake
 <p><strong>you can see that it creates two outputs, <code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> and the directory <code class="docutils literal notranslate"><span class="pre">multiqc_data/</span></code> which contains a bunch of files. Let’s create a snakemake rule for this; add:</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -522,7 +522,7 @@ $ snakemake
     <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
     <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+    <span class="s2">&quot;multiqc dc_workshop/data/&quot;</span>
 </pre></div>
 </div>
 <blockquote>
@@ -550,12 +550,12 @@ $ snakemake
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -571,7 +571,7 @@ $ snakemake
     <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
     <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+    <span class="s2">&quot;multiqc dc_workshop/data/&quot;</span>
 </pre></div>
 </div>
 <blockquote>
@@ -590,12 +590,12 @@ $ snakemake
 <p>Basically we need to tell snakemake <em>all</em> of the files that we want. On the face of it, that’s easy – change the rule like so:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
     <span class="s2">&quot;multiqc_report.html&quot;</span>
 
 <span class="n">rule</span> <span class="n">fastqc_a_file</span><span class="p">:</span>
@@ -612,7 +612,7 @@ $ snakemake
     <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
     <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+    <span class="s2">&quot;multiqc dc_workshop/data/&quot;</span>
 </pre></div>
 </div>
 <p>This will work, but there are two reasons this is not great.</p>
@@ -620,21 +620,21 @@ $ snakemake
 <p><strong>Second, we’re explicitly listing out the files that we want produced. That’s not super great because it makes it annoying to add files.</strong></p>
 <p><strong>We can fix the first issue by using “variables”. The second issue requires a bit more advanced programming, and we’ll leave it to the very end.</strong></p>
 <p>To use variables, let’s make a Python list at the very top, containing all of our expected output files from fastqc:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>and modify the <code class="docutils literal notranslate"><span class="pre">all</span></code> and <code class="docutils literal notranslate"><span class="pre">multiqc</span></code> rules to contain this list. The final snakefile looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
 
 <span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -657,7 +657,7 @@ $ snakemake
     <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
     <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+    <span class="s2">&quot;multiqc dc_workshop/data/&quot;</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -675,12 +675,12 @@ $ snakemake
 <p>Well, <code class="docutils literal notranslate"><span class="pre">multiqc_report.html</span></code> is already in the all rule, and the multiqc rule depends on <code class="docutils literal notranslate"><span class="pre">fastqc_output</span></code>, so <code class="docutils literal notranslate"><span class="pre">fastqc_output</span></code> already needs to be created to satisfy the all rule, so… specifying it in the all rule is redundant! And you can remove it!</p>
 <p>(It’s not a big deal and I usually leave it in. But I wanted to talk about dependencies!)</p>
 <p>The Snakefile now looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span><span class="p">]</span>
 
 <span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -702,7 +702,7 @@ $ snakemake
     <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
     <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+    <span class="s2">&quot;multiqc dc_workshop/data/&quot;</span>
 </pre></div>
 </div>
 <p>and we can rerun it from scratch by doing:</p>
@@ -783,18 +783,18 @@ $ snakemake -j <span class="m">4</span>
 </li>
 </ul>
 <p>Now add the appropriate files into the fastc output list too – change it to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584863_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2584866_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
-                 <span class="s2">&quot;dc_workshop/untrimmed_fastq/SRR2589044_2.pe.qc_fastqc.html&quot;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fastqc_output</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dc_workshop/data/SRR2584863_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584863_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_1_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_2_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584863_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584863_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2584866_2.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_1.pe.qc_fastqc.html&quot;</span><span class="p">,</span>
+                 <span class="s2">&quot;dc_workshop/data/SRR2589044_2.pe.qc_fastqc.html&quot;</span><span class="p">]</span>
 
 <span class="n">rule</span> <span class="nb">all</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -817,7 +817,7 @@ $ snakemake -j <span class="m">4</span>
     <span class="s2">&quot;multiqc_report.html&quot;</span><span class="p">,</span>
     <span class="n">directory</span><span class="p">(</span><span class="s2">&quot;multiqc_data&quot;</span><span class="p">)</span>
   <span class="n">shell</span><span class="p">:</span>
-    <span class="s2">&quot;multiqc dc_workshop/untrimmed_fastq/&quot;</span>
+    <span class="s2">&quot;multiqc dc_workshop/data/&quot;</span>
 
 <span class="n">rule</span> <span class="n">trim_reads</span><span class="p">:</span>
   <span class="nb">input</span><span class="p">:</span>

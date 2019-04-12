@@ -76,7 +76,7 @@ $ ls /usr/bin/*.sh
 ```
 
 ```
-/usr/bin/amuFormat.sh  /usr/bin/gettext.sh  /usr/bin/gvmap.sh
+/usr/bin/gettext.sh
 ```
 
 Lists every file in `/usr/bin` that ends in the characters `.sh`.

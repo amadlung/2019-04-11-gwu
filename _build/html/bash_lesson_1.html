@@ -179,18 +179,19 @@
 </pre></div>
 </div>
 <p>Here, the computer’s response is <code class="docutils literal notranslate"><span class="pre">/home/sateeshp</span></code>, which is the top level directory within our cloud system:</p>
-<p>Lets import data required for this tutorial.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cp /opt/dc_workshop .
+<p>Lets download data required for this tutorial. Copy and paste the following in your terminal to download the zipped file and unzip it.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ curl -L https://osf.io/vuk5y/download -o shell_data.zip
+$ unzip shell_data.zip
 </pre></div>
 </div>
 <p>Let’s look at how our file system is organized. At the top is our home directory, which holds all the sub-directories and files. Inside that directory there is currently one other directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dc_workshop</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shell_data</span>
 </pre></div>
 </div>
 <p>We’ll be working with this sub-directory, and creating new sub-directories, throughout this workshop.</p>
 <p>The command to change locations in our file system is <code class="docutils literal notranslate"><span class="pre">cd</span></code> followed by a directory name to change our working directory. <code class="docutils literal notranslate"><span class="pre">cd</span></code> stands for “<strong>change directory</strong>”.</p>
-<p>Let’s say we want to navigate to the <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> directory we saw above.  We can use the following command to get there:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd dc_workshop
+<p>Let’s say we want to navigate to the <code class="docutils literal notranslate"><span class="pre">shell_data</span></code> directory we saw above.  We can use the following command to get there:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd shell_data
 </pre></div>
 </div>
 <p>We can see files and sub-directories are in this directory by running <code class="docutils literal notranslate"><span class="pre">ls</span></code>, which stands for “<strong>listing</strong>”:</p>
@@ -248,16 +249,16 @@ $ ls -F
 </pre></div>
 </div>
 <p>then enter: cd dc<kbd>Tab</kbd></p>
-<p>The shell will fill in the rest of the directory name for <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code>.</p>
-<p>Now change directories to <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> in <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd dc_workshop
+<p>The shell will fill in the rest of the directory name for <code class="docutils literal notranslate"><span class="pre">shell_data</span></code>.</p>
+<p>Now change directories to <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> in <code class="docutils literal notranslate"><span class="pre">shell_data</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd shell_data
 $ cd untrimmed_fastq
 </pre></div>
 </div>
 <p>Using <kbd>Tab</kbd> complete can be very helpful. However, it will only auto-complete a file or directory name if you’ve typed enough characters to provide a unique identifier for the file or directory you are trying to access.</p>
 <p>If we navigate back to our <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> directory and try to access one of our sample files:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
-$ cd dc_workshop
+$ cd shell_data
 $ cd untrimmed_fastq
 $ ls SR&lt;Tab&gt;
 </pre></div>
@@ -294,20 +295,20 @@ $ ls SR&lt;Tab&gt;
 <div class="section" id="moving-around-the-file-system">
 <h2>9.4. Moving around the file system<a class="headerlink" href="#moving-around-the-file-system" title="Permalink to this headline">¶</a></h2>
 <p>We’ve learned how to use <code class="docutils literal notranslate"><span class="pre">pwd</span></code> to find our current location within our file system. We’ve also learned how to use <code class="docutils literal notranslate"><span class="pre">cd</span></code> to change locations and <code class="docutils literal notranslate"><span class="pre">ls</span></code> to list the contents of a directory. Now we’re going to learn some additional commands for moving around within our file system.</p>
-<p>Use the commands we’ve learned so far to navigate to the <code class="docutils literal notranslate"><span class="pre">dc_workshop/untrimmed_fastq</span></code> directory, if you’re not already there.</p>
+<p>Use the commands we’ve learned so far to navigate to the <code class="docutils literal notranslate"><span class="pre">shell_data/untrimmed_fastq</span></code> directory, if you’re not already there.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
-$ cd dc_workshop
+$ cd shell_data
 $ cd untrimmed_fastq
 </pre></div>
 </div>
-<p>What if we want to move back up and out of this directory and to our top level directory? Can we type <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">dc_workshop</span></code>? Try it and see what happens.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd dc_workshop
+<p>What if we want to move back up and out of this directory and to our top level directory? Can we type <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">shell_data</span></code>? Try it and see what happens.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd shell_data
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">bash</span><span class="p">:</span> <span class="n">cd</span><span class="p">:</span> <span class="n">dc_workshop</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">bash</span><span class="p">:</span> <span class="n">cd</span><span class="p">:</span> <span class="n">shell_data</span><span class="p">:</span> <span class="n">No</span> <span class="n">such</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span>
 </pre></div>
 </div>
-<p>Your computer looked for a directory or file called <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> within the directory you were already in. It didn’t know you wanted to look at a directory level above the one you were located in.</p>
+<p>Your computer looked for a directory or file called <code class="docutils literal notranslate"><span class="pre">shell_data</span></code> within the directory you were already in. It didn’t know you wanted to look at a directory level above the one you were located in.</p>
 <p>We have a special command to tell the computer to move us back or up one directory level.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ..
 </pre></div>
@@ -316,7 +317,7 @@ $ cd untrimmed_fastq
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pwd
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sateeshp</span><span class="o">/</span><span class="n">dc_workshop</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">sateeshp</span><span class="o">/</span><span class="n">shell_data</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls
@@ -333,7 +334,7 @@ $ cd untrimmed_fastq
 <p>prints the contents of <code class="docutils literal notranslate"><span class="pre">/home</span></code>, which is one level up from your root directory.</p>
 <blockquote>
 <div><p><strong>Finding hidden directories</strong></p>
-<p>First navigate to the <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> directory. There is a hidden directory within this directory. Explore the options for <code class="docutils literal notranslate"><span class="pre">ls</span></code> to
+<p>First navigate to the <code class="docutils literal notranslate"><span class="pre">shell_data</span></code> directory. There is a hidden directory within this directory. Explore the options for <code class="docutils literal notranslate"><span class="pre">ls</span></code> to
 find out how to see hidden directories. List the contents of the directory and
 identify the name of the text file in that directory.</p>
 <p>Hint: hidden files and folders in Unix start with <code class="docutils literal notranslate"><span class="pre">.</span></code>, for example <code class="docutils literal notranslate"><span class="pre">.my_hidden_directory</span></code></p>
@@ -374,17 +375,17 @@ using <code class="docutils literal notranslate"><span class="pre">cd</span></co
 </pre></div>
 </div>
 <p>Then enter the command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls dc_workshop
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls shell_data
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sra_metadata</span>  <span class="n">untrimmed_fastq</span>
 </pre></div>
 </div>
-<p>This will list the contents of the <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> directory without you needing to navigate there.</p>
+<p>This will list the contents of the <code class="docutils literal notranslate"><span class="pre">shell_data</span></code> directory without you needing to navigate there.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">cd</span></code> command works in a similar way.</p>
 <p>Try entering:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
-$ cd dc_workshop/untrimmed_fastq
+$ cd shell_data/untrimmed_fastq
 </pre></div>
 </div>
 <p>This will take you to the <code class="docutils literal notranslate"><span class="pre">untrimmed_fastq</span></code> directory without having to go through the intermediate directory.</p>
@@ -397,7 +398,7 @@ directory.</p>
 <div class="section" id="solution">
 <h2>9.6. Solution<a class="headerlink" href="#solution" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
-$ ls dc_workshop/untrimmed_fastq/
+$ ls shell_data/untrimmed_fastq/
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SRR097977</span><span class="o">.</span><span class="n">fastq</span>  <span class="n">SRR098026</span><span class="o">.</span><span class="n">fastq</span>
@@ -417,7 +418,7 @@ $ pwd
 </div>
 <p>This is the full name of your home directory. This tells you that you are in a directory called <code class="docutils literal notranslate"><span class="pre">dcuser</span></code>, which sits inside a directory called <code class="docutils literal notranslate"><span class="pre">home</span></code> which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called <code class="docutils literal notranslate"><span class="pre">/</span></code> which is usually referred to as the <em>root directory</em>. So, to summarize: <code class="docutils literal notranslate"><span class="pre">dcuser</span></code> is a directory in <code class="docutils literal notranslate"><span class="pre">home</span></code> which is a directory in <code class="docutils literal notranslate"><span class="pre">/</span></code>.</p>
 <p>Now enter the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /home/sateeshp/dc_workshop/.hidden
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /home/sateeshp/shell_data/.hidden
 </pre></div>
 </div>
 <p>This jumps forward multiple levels to the <code class="docutils literal notranslate"><span class="pre">.hidden</span></code> directory. Now go back to the home directory.</p>
@@ -425,7 +426,7 @@ $ pwd
 </pre></div>
 </div>
 <p>You can also navigate to the <code class="docutils literal notranslate"><span class="pre">.hidden</span></code> directory using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd dc_workshop/.hidden
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd shell_data/.hidden
 </pre></div>
 </div>
 <p>These two commands have the same effect, they both take us to the <code class="docutils literal notranslate"><span class="pre">.hidden</span></code> directory. The first uses the absolute path, giving the full address from the home directory. The second uses a relative path, giving only the address from the working directory. A full path always starts with a <code class="docutils literal notranslate"><span class="pre">/</span></code>. A relative path does not.</p>
@@ -456,16 +457,16 @@ Also, we did not specify <code class="docutils literal notranslate"><span class=
 </div></blockquote>
 <div class="section" id="navigational-shortcuts">
 <h3>9.7.1. Navigational Shortcuts<a class="headerlink" href="#navigational-shortcuts" title="Permalink to this headline">¶</a></h3>
-<p>There are some shortcuts which you should know about. Dealing with the home directory is very common. The tilde character, <code class="docutils literal notranslate"><span class="pre">~</span></code>, is a shortcut for your home directory. Navigate to the <code class="docutils literal notranslate"><span class="pre">dc_workshop</span></code> directory:</p>
+<p>There are some shortcuts which you should know about. Dealing with the home directory is very common. The tilde character, <code class="docutils literal notranslate"><span class="pre">~</span></code>, is a shortcut for your home directory. Navigate to the <code class="docutils literal notranslate"><span class="pre">shell_data</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd
-$ cd dc_workshop
+$ cd shell_data
 </pre></div>
 </div>
 <p>Then enter the command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls ~
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dc_workshop</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shell_data</span>
 </pre></div>
 </div>
 <p>This prints the contents of your home directory, without you needing to type the full path.</p>
