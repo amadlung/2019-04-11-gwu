@@ -21,7 +21,7 @@ $ PS1='$ '
 ```
 rule fastqc_a_file:
   shell:
-    "fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "fastqc dc_workshop/data/SRR2584863_1.fastq.gz"
 ```
 *(I suggest copy/pasting this into RStudio.)*
 
@@ -69,12 +69,12 @@ rule fastqc_a_file:
 ```
 rule fastqc_a_file:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "dc_workshop/data/SRR2584863_1.fastq.gz"
   output:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_1_fastqc.zip"
   shell:
-    "fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "fastqc dc_workshop/data/SRR2584863_1.fastq.gz"
 ```
 
 >here, we've annotated the rule with the required **input** file, as well as the expected **output** files.
@@ -109,7 +109,7 @@ $ snakemake
 - You can *also* update the timestamp on an *input* file, and snakemake will figure out that the output file is older than the input file, and rerun things.
 
 ```
-$ touch dc_workshop/untrimmed_fastq/*.fastq.gz
+$ touch dc_workshop/data/*.fastq.gz
 $ snakemake
 ```
 
@@ -122,21 +122,21 @@ $ snakemake
 ```
 rule fastqc_a_file:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "dc_workshop/data/SRR2584863_1.fastq.gz"
   output:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_1_fastqc.zip"
   shell:
-    "fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "fastqc dc_workshop/data/SRR2584863_1.fastq.gz"
 
 rule fastqc_a_file2:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz"
+    "dc_workshop/data/SRR2584863_2.fastq.gz"
   output:
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip"
+    "dc_workshop/data/SRR2584863_2_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.zip"
   shell:
-    "fastqc dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz"
+    "fastqc dc_workshop/data/SRR2584863_2.fastq.gz"
 ```
 
 > Now, if you run this, the Right Thing won't happen: snakemake will do nothing.  Why?
@@ -164,26 +164,26 @@ $ snakemake fastqc_a_file2
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html"
 
 rule fastqc_a_file:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "dc_workshop/data/SRR2584863_1.fastq.gz"
   output:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_1_fastqc.zip"
   shell:
-    "fastqc dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "fastqc dc_workshop/data/SRR2584863_1.fastq.gz"
 
 rule fastqc_a_file2:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz"
+    "dc_workshop/data/SRR2584863_2.fastq.gz"
   output:
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip"
+    "dc_workshop/data/SRR2584863_2_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.zip"
   shell:
-    "fastqc dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz"
+    "fastqc dc_workshop/data/SRR2584863_2.fastq.gz"
 ```
 
 > **this rule, by convention called `all`, is a default rule that produces all the output files. But it's a bit weird! It's all input, and no output!**
@@ -200,24 +200,24 @@ rule fastqc_a_file2:
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html"
 
 rule fastqc_a_file:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1.fastq.gz"
+    "dc_workshop/data/SRR2584863_1.fastq.gz"
   output:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.zip"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_1_fastqc.zip"
   shell:
     "fastqc {input}"
 
 rule fastqc_a_file2:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_2.fastq.gz"
+    "dc_workshop/data/SRR2584863_2.fastq.gz"
   output:
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.zip"
+    "dc_workshop/data/SRR2584863_2_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.zip"
   shell:
     "fastqc {input}"
 ```
@@ -235,8 +235,8 @@ rule fastqc_a_file2:
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html"
 
 rule fastqc_a_file:
   input:
@@ -273,8 +273,8 @@ $ snakemake
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html"
 
 rule fastqc_a_file:
   input:
@@ -297,12 +297,12 @@ rule fastqc_a_file:
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html",
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html",
+    "dc_workshop/data/SRR2584866_1_fastqc.html",
+    "dc_workshop/data/SRR2584866_2_fastqc.html",
+    "dc_workshop/data/SRR2589044_1_fastqc.html",
+    "dc_workshop/data/SRR2589044_2_fastqc.html",
 
 rule fastqc_a_file:
   input:
@@ -339,12 +339,12 @@ $ multiqc data
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html",
+    "dc_workshop/data/SRR2584866_1_fastqc.html",
+    "dc_workshop/data/SRR2584866_2_fastqc.html",
+    "dc_workshop/data/SRR2589044_1_fastqc.html",
+    "dc_workshop/data/SRR2589044_2_fastqc.html"
 
 rule fastqc_a_file:
   input:
@@ -360,7 +360,7 @@ rule run_multiqc:
     "multiqc_report.html",
     directory("multiqc_data")
   shell:
-    "multiqc dc_workshop/untrimmed_fastq/"
+    "multiqc dc_workshop/data/"
 ```
 > **to the bottom of the file. (Note, you need to tell snakemake if an output is a directory.)**
 
@@ -384,12 +384,12 @@ $ snakemake run_multiqc
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html"
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html",
+    "dc_workshop/data/SRR2584866_1_fastqc.html",
+    "dc_workshop/data/SRR2584866_2_fastqc.html",
+    "dc_workshop/data/SRR2589044_1_fastqc.html",
+    "dc_workshop/data/SRR2589044_2_fastqc.html"
 
 rule fastqc_a_file:
   input:
@@ -405,7 +405,7 @@ rule run_multiqc:
     "multiqc_report.html",
     directory("multiqc_data")
   shell:
-    "multiqc dc_workshop/untrimmed_fastq/"
+    "multiqc dc_workshop/data/"
 ```
 
 > Yay, that seems to work!
@@ -425,12 +425,12 @@ Basically we need to tell snakemake _all_ of the files that we want. On the face
 ```
 rule all:
   input:
-    "dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-    "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html",
+    "dc_workshop/data/SRR2584863_1_fastqc.html",
+    "dc_workshop/data/SRR2584863_2_fastqc.html",
+    "dc_workshop/data/SRR2584866_1_fastqc.html",
+    "dc_workshop/data/SRR2584866_2_fastqc.html",
+    "dc_workshop/data/SRR2589044_1_fastqc.html",
+    "dc_workshop/data/SRR2589044_2_fastqc.html",
     "multiqc_report.html"
 
 rule fastqc_a_file:
@@ -447,7 +447,7 @@ rule run_multiqc:
     "multiqc_report.html",
     directory("multiqc_data")
   shell:
-    "multiqc dc_workshop/untrimmed_fastq/"
+    "multiqc dc_workshop/data/"
 ```
 
 This will work, but there are two reasons this is not great.
@@ -461,23 +461,23 @@ This will work, but there are two reasons this is not great.
 To use variables, let's make a Python list at the very top, containing all of our expected output files from fastqc:
 
 ```
-fastqc_output = ["dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html"]
+fastqc_output = ["dc_workshop/data/SRR2584863_1_fastqc.html",
+                 "dc_workshop/data/SRR2584863_2_fastqc.html",
+                 "dc_workshop/data/SRR2584866_1_fastqc.html",
+                 "dc_workshop/data/SRR2584866_2_fastqc.html",
+                 "dc_workshop/data/SRR2589044_1_fastqc.html",
+                 "dc_workshop/data/SRR2589044_2_fastqc.html"]
 ```
 
 and modify the `all` and `multiqc` rules to contain this list. The final snakefile looks like this:
 
 ```
-fastqc_output = ["dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html"]
+fastqc_output = ["dc_workshop/data/SRR2584863_1_fastqc.html",
+                 "dc_workshop/data/SRR2584863_2_fastqc.html",
+                 "dc_workshop/data/SRR2584866_1_fastqc.html",
+                 "dc_workshop/data/SRR2584866_2_fastqc.html",
+                 "dc_workshop/data/SRR2589044_1_fastqc.html",
+                 "dc_workshop/data/SRR2589044_2_fastqc.html"]
 
 rule all:
   input:
@@ -500,7 +500,7 @@ rule run_multiqc:
     "multiqc_report.html",
     directory("multiqc_data")
   shell:
-    "multiqc dc_workshop/untrimmed_fastq/"
+    "multiqc dc_workshop/data/"
 ```
 
 - **Points to note:**
@@ -519,12 +519,12 @@ Well, `multiqc_report.html` is already in the all rule, and the multiqc rule dep
 The Snakefile now looks like this:
 
 ```
-fastqc_output = ["dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html"]
+fastqc_output = ["dc_workshop/data/SRR2584863_1_fastqc.html",
+                 "dc_workshop/data/SRR2584863_2_fastqc.html",
+                 "dc_workshop/data/SRR2584866_1_fastqc.html",
+                 "dc_workshop/data/SRR2584866_2_fastqc.html",
+                 "dc_workshop/data/SRR2589044_1_fastqc.html",
+                 "dc_workshop/data/SRR2589044_2_fastqc.html"]
 
 rule all:
   input:
@@ -546,7 +546,7 @@ rule run_multiqc:
     "multiqc_report.html",
     directory("multiqc_data")
   shell:
-    "multiqc dc_workshop/untrimmed_fastq/"
+    "multiqc dc_workshop/data/"
 ```
 
 and we can rerun it from scratch by doing:
@@ -635,18 +635,18 @@ rule trim_reads:
 Now add the appropriate files into the fastc output list too -- change it to:
 
 ```
-fastqc_output = ["dc_workshop/untrimmed_fastq/SRR2584863_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_1_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_2_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_1.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584863_2.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_1.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2584866_2.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_1.pe.qc_fastqc.html",
-                 "dc_workshop/untrimmed_fastq/SRR2589044_2.pe.qc_fastqc.html"]
+fastqc_output = ["dc_workshop/data/SRR2584863_1_fastqc.html",
+                 "dc_workshop/data/SRR2584863_2_fastqc.html",
+                 "dc_workshop/data/SRR2584866_1_fastqc.html",
+                 "dc_workshop/data/SRR2584866_2_fastqc.html",
+                 "dc_workshop/data/SRR2589044_1_fastqc.html",
+                 "dc_workshop/data/SRR2589044_2_fastqc.html",
+                 "dc_workshop/data/SRR2584863_1.pe.qc_fastqc.html",
+                 "dc_workshop/data/SRR2584863_2.pe.qc_fastqc.html",
+                 "dc_workshop/data/SRR2584866_1.pe.qc_fastqc.html",
+                 "dc_workshop/data/SRR2584866_2.pe.qc_fastqc.html",
+                 "dc_workshop/data/SRR2589044_1.pe.qc_fastqc.html",
+                 "dc_workshop/data/SRR2589044_2.pe.qc_fastqc.html"]
 
 rule all:
   input:
@@ -669,7 +669,7 @@ rule run_multiqc:
     "multiqc_report.html",
     directory("multiqc_data")
   shell:
-    "multiqc dc_workshop/untrimmed_fastq/"
+    "multiqc dc_workshop/data/"
 
 rule trim_reads:
   input:
