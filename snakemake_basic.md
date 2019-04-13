@@ -240,7 +240,7 @@ rule all:
 
 rule fastqc_a_file:
   input:
-    "{filename}.fastq"
+    "{filename}.fastq.gz"
   output:
     "{filename}_fastqc.html",
     "{filename}_fastqc.zip"
@@ -249,7 +249,7 @@ rule fastqc_a_file:
 
 rule fastqc_a_file2:
   input:
-    "{filename}.fastq"
+    "{filename}.fastq.gz"
   output:
     "{filename}_fastqc.html",
     "{filename}_fastqc.zip"
@@ -278,7 +278,7 @@ rule all:
 
 rule fastqc_a_file:
   input:
-    "{filename}.fastq"
+    "{filename}.fastq.gz"
   output:
     "{filename}_fastqc.html",
     "{filename}_fastqc.zip"
