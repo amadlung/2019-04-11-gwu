@@ -1,8 +1,7 @@
-Data Carpentry Genomics Workshop at George Washington University
+Bio332 statistics page
 ===
 
-This is the repository for Data Carpentry Genomics Workshop at George Washington University (11-12th April, 2019)
-
+This is the repository originally forked from Sateesh's page:
 
 - [Workshop Lessons](https://gwu-omics2019.readthedocs.io/en/latest/)
 
