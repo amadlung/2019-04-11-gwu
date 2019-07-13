@@ -4,6 +4,8 @@
 
    index.md
 
+   test2.md
+   
    code_of_conduct.md
 
    test.md
