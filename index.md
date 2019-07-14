@@ -1,4 +1,4 @@
-![](/img/UofPS_stacked_maroonRGB PNG.png)
+![](/img/UofPS_stacked_maroonRGB_PNG.png)
 
 # **Bio332 Plant Physiology**
 
